@@ -8,12 +8,14 @@ interface Toaster {
 
 const useToaster = (): Toaster => {
   const showToast = (message: string, options?: ToastOptions) => {
-    toast(message,{ ...options,
+    const toastOptions: ToastOptions = {
       style: {
-        fontSize: '1.2rem', // Increase the font size to 1.2rem
-        ...options?.style,
+        fontSize: '1.2rem',
+        ...(options?.style || {}),
       },
-    });
+      ...options,
+    };
+    toast(message, toastOptions);
   };
 
   return {

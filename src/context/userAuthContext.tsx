@@ -9,15 +9,14 @@ import { auth } from "../firebase";
 
 function setUpRecaptcha(number: string) {
   try{
+    console.log("recapcha")
     const recaptchaVerifier = new RecaptchaVerifier(
       "recaptcha-container",
       {},
       auth
-    );
-    console.log("setup otp 1", number)
-    recaptchaVerifier.render();
-    
-    console.log("setup otp 2", number)
+      );
+      recaptchaVerifier.render();
+      console.log("recapcha render")
     return signInWithPhoneNumber(auth, number, recaptchaVerifier)
   }catch(error: any){
     throw new Error(error.message)

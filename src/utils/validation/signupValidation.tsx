@@ -8,6 +8,7 @@ export default yup.object({
       .min(6, "Username must be at least 6 characters long"),
     email: yup
       .string()
+      .trim()
       .required("Email is required.")
       .email("Invalid email format."),
     phoneNumber: yup

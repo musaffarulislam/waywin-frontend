@@ -44,9 +44,13 @@ const FormSignup = () => {
       ]);
       if(formData.phoneNumber){
         try {
+          dispatch(loading(true));
           const response = await setUpRecaptcha("+91" + formData.phoneNumber);
-          console.log("Signup Form: ",response)
+          console.log(response);
           dispatch(otpConfirmObj(response))
+          toaster.showToast('Otp send successsful', { type: 'success' })
+          dispatch(loading(false));
+          navigate("/otp");
         } catch (err: any) {
           if (err.code === "auth/credential-already-in-use") {
             toaster.showToast('Phone number already in use', { type: 'error' })
@@ -55,12 +59,12 @@ const FormSignup = () => {
           } else {
             toaster.showToast('Failed to send OTP code', { type: 'error' })
           }
+        } finally{
+          dispatch(loading(false));
         }
       }else{
         toaster.showToast('phone number not available', { type: 'error' })
       }
-      toaster.showToast('Otp send successsful', { type: 'success' })
-      navigate("/otp");
     } catch (error: any) {
       dispatch(loading(false))
       toaster.showToast(error.message, { type: 'error' })

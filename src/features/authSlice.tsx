@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, Dispatch, AnyAction } from "@reduxjs/toolkit";
 import {RootState} from '../app/store'
-import axios from "../utils/axios";
+import axios from "../config/axios";
 import { ILogin, IAuthState } from "../utils/entity/AuthEntity";
 
 
@@ -59,26 +59,18 @@ export const checkPhoneNumber = createAsyncThunk<any, string, { dispatch?: Dispa
 export const createUser = createAsyncThunk<any, void, { state: RootState }>(
   "auth/createUser",
   async (_, { getState }) => {
-    try{
       const { auth } = getState().auth; // Accessing the 'auth' value from the state
       const response = await axios.post("/api/auth/signup", auth, { headers: { 'Content-Type': 'application/json' } });
       return response.data;
-    }catch (error: any){
-      throw Error(error.response.data.message);
-    }
   }
 );
 
 export const getAuthByEmail = createAsyncThunk<{ accessToken: string; refreshToken: string; role: string }, ILogin , { dispatch?: Dispatch<AnyAction> }>(
   "auth/getAuthByEmail",
   async (data: ILogin) => {
-    try{
       const response = await axios.post("/api/auth/login", data, {headers: { 'Content-Type': 'application/json' } });
       const { accessToken, refreshToken, role } = response.data
       return { accessToken, refreshToken, role };
-    }catch (error: any){
-      throw Error(error.response.data.message);
-    }
   }
 );
 
@@ -86,13 +78,9 @@ export const getAuthByEmail = createAsyncThunk<{ accessToken: string; refreshTok
 export const getAuthById = createAsyncThunk<any, ILogin, { dispatch?: Dispatch<AnyAction> }>(
   "auth/getAuthByEmail",
   async (data: ILogin) => {
-    try{
       const response = await axios.post("/api/auth/login", data, {headers: { 'Content-Type': 'application/json' } });
       const { accessToken, refreshToken } = response.data
       return { accessToken, refreshToken };
-    }catch (error: any){
-      throw Error(error.response.data.message);
-    }
   }
 );
 
@@ -161,7 +149,7 @@ export const authSlice = createSlice({
       })
       .addCase(createUser.rejected, (state, action) => {
         state.isLoading = false;
-        throw Error("Email already used");
+        throw new Error("Bad request");
       })
       .addCase(getAuthByEmail.pending, (state) => {
         state.isLoading = true;
@@ -182,7 +170,6 @@ export const authSlice = createSlice({
         state.accessToken = null;
         state.refreshToken = null;
         state.role = null;
-        window.localStorage.setItem("accessToken", JSON.stringify(state.accessToken))
         throw Error("Invalid Credetial");
       });
   },

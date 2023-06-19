@@ -17,18 +17,22 @@ export default function PrivateRoute({ children }: PrivateRouteProps): any | nul
   const role: string | null = useSelector((state: any) => state.auth.role);
   
   if (!accessToken) {
+    console.log("Login page navigate1")
+    console.log(location.pathname)
     if(location.pathname === '/'){
       return <>{children}</>;
     }
     if (location.pathname !== "/signup" && location.pathname !== "/otp" && location.pathname !== "/login") {
       return <Navigate to="/login" />
     }
+    console.log("Login page navigate2")
     console.log(location.pathname)
     if (location.pathname === "/otp") {
       if (confirmObj == null) {
         return <Navigate to="/signup" />
       }
     }
+    console.log("Login page navigate3")
     console.log(location.pathname,"2")
     return <>{children}</>;
   }else if(accessToken && role){

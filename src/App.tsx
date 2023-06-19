@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import { ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 import User from "./routers/User";
 import Admin from "./routers/Admin";
@@ -21,7 +21,7 @@ const App: FC = () => {
           <Route path="/admin/*" element={<Admin />}></Route>
         </Routes>
       </Router>
-      {/* <ToastContainer /> */}
+      <ToastContainer />
     </div>
   );
 };
