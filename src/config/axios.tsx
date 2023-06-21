@@ -16,8 +16,19 @@ export const axiosPrivate = axios.create({
 
 
 async function refresh() {
-  const refreshedAccessToken = "your-refreshed-access-token";
-  return { accessToken: refreshedAccessToken };
+  try{
+    console.log("refresh 1")
+    const refreshToken = window.localStorage.getItem('refreshToken') as string;
+    console.log(refreshToken)
+    const response = await axiosPublic.post("/auth/token", {refreshToken: JSON.parse(refreshToken)})
+    console.log("refresh 2")
+    const {accessToken} = response.data
+    window.localStorage.setItem('accessToken',JSON.stringify(accessToken))
+    return { accessToken };
+  }catch(error){
+    console.error("Error during logout:", error);
+    throw error;
+  }
 }
 
 
@@ -25,7 +36,7 @@ axiosPublic.interceptors.request.use(
   async (config) => {
     if (!config.headers.Authorization) {
       const accessToken = window.localStorage.getItem('accessToken') as string;
-      config.headers.Authorization = JSON.parse(accessToken);
+      config.headers.Authorization = `Bearer ${JSON.parse(accessToken)}`;
     }
     return config;
   },
@@ -39,9 +50,14 @@ axiosPublic.interceptors.response.use(
     const prvsRequest = err?.config;
     if (err?.response?.status === 401 && !prvsRequest?.sent) {
       prvsRequest.sent = true;
-      const { accessToken } = await refresh();
-      prvsRequest.headers.Authorization = `Bearer ${accessToken}`;
-      return axiosPublic(prvsRequest);
+      try{
+        const { accessToken } = await refresh();
+        prvsRequest.headers.Authorization = `Bearer ${accessToken}`;
+        return axiosPublic(prvsRequest);
+      }catch(error){
+        console.log("Error refreshing token:", error)
+        throw error
+      }
     }
     return Promise.reject(err);
   }

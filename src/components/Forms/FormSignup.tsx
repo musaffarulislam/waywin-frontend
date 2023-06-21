@@ -14,7 +14,7 @@ import { Puff } from 'react-loading-icons'
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "../../firebase";
 
-// import setUpRecaptcha from "../../context/userAuthContext";
+import setUpRecaptcha from "../../context/userAuthContext";
 
 const schema = signupSchema;
 
@@ -33,22 +33,24 @@ const FormSignup = () => {
     dispatch(otpConfirmObj(null))
   },[dispatch])
 
-  function setUpRecaptcha(number: string) {
-    try{
-      console.log("recapcha")
-      const recaptchaVerifier = new RecaptchaVerifier(
-        "recaptcha-container",
-        {},
-        auth
-        );
-        recaptchaVerifier.render();
-        console.log("recapcha render")
-      return signInWithPhoneNumber(auth, number, recaptchaVerifier)
-    }catch(error: any){
-      throw new Error(error.message)
-    }
-  }
+  // function setUpRecaptcha(number: string) {
+  //   try{
+  //     console.log("recapcha")
+  //     const recaptchaVerifier = new RecaptchaVerifier(
+  //       "recaptcha-container",
+  //       {},
+  //       auth
+  //       );
+  //       recaptchaVerifier.render();
+  //       console.log("recapcha render")
+  //     return signInWithPhoneNumber(auth, number, recaptchaVerifier)
+  //   }catch(error: any){
+  //     throw new Error(error.message)
+  //   }
+  // }
   
+  const [recaptchaError, setRecaptchaError] = useState(false); // Add state for recaptcha error
+
   const onSubmit = async (data: IAuth) => {
     const { ...formData } = data;
     formData.role = selectedOption;
@@ -60,7 +62,7 @@ const FormSignup = () => {
         dispatch(checkEmail(formData.email)),
         // dispatch(checkPhoneNumber(formData.phoneNumber))
       ]);
-      if(formData.phoneNumber){
+      if (formData.phoneNumber) {
         try {
           dispatch(loading(true));
           const response = await setUpRecaptcha("+91" + formData.phoneNumber);
@@ -71,16 +73,19 @@ const FormSignup = () => {
           navigate("/otp");
         } catch (err: any) {
           if (err.code === "auth/credential-already-in-use") {
-            toaster.showToast('Phone number already in use', { type: 'error' })
+            toaster.showToast('Phone number already in use', { type: 'error' });
           } else if (err.code === "auth/invalid-phone-number") {
-            toaster.showToast('Invalid phone number', { type: 'error' })
+            toaster.showToast('Invalid phone number', { type: 'error' });
+          } else if (err.code === "auth/too-many-requests") {
+            toaster.showToast('Too many requests. Please try again later.', { type: 'error' });
           } else {
-            toaster.showToast('Failed to send OTP code', { type: 'error' })
+            toaster.showToast('Failed to send OTP code', { type: 'error' });
           }
-        } finally{
+          setRecaptchaError(true); // Set recaptcha error to true
+        } finally {
           dispatch(loading(false));
         }
-      }else{
+      } else {
         toaster.showToast('phone number not available', { type: 'error' })
       }
     } catch (error: any) {
@@ -88,12 +93,11 @@ const FormSignup = () => {
       toaster.showToast(error.message, { type: 'error' })
     }
   };
-  
+
   const theme: string = useSelector((state: any) => state.theme.theme);
-  const isLoading: boolean = useSelector((state: any)=> state.auth.isLoading) 
+  const isLoading: boolean = useSelector((state: any) => state.auth.isLoading)
 
   const [selectedOption, setSelectedOption] = useState("User");
-
 
   const handleRole = (option: string) => {
     setSelectedOption(option);
@@ -106,11 +110,21 @@ const FormSignup = () => {
       <InputText label="Email" name="email" type="text" register={register} required error={errors.email?.message} />
       <InputText label="Phone Number" name="phoneNumber" type="text" register={register} required error={errors.phoneNumber?.message} />
       <InputText label="Password" name="password" type="password" register={register} required error={errors.password?.message} />
-      <div className="flex justify-center mt-5">
-        <div id="recaptcha-container" ></div>
-      </div>
+
+      {!recaptchaError && ( // Render the recaptcha container only if there is no recaptcha error
+        <div className="flex justify-center mt-5">
+          <div id="recaptcha-container"></div>
+        </div>
+      )}
+
       <div className="flex justify-center">
-        <button type={!isLoading ? "submit" : "button"} className={` ${theme === "dark" ? "bg-blue-800" : "bg-red-600 text-white"} w-5/12 p-3 mt-8 rounded-xl text-2xl flex items-center justify-center` }> {isLoading && <Puff height="25" width="25" className="me-3"/>}Submit</button>
+        <button
+          type={!isLoading ? "submit" : "button"}
+          className={` ${theme === "dark" ? "bg-blue-800" : "bg-red-600 text-white"} w-5/12 p-3 mt-8 rounded-xl text-2xl flex items-center justify-center`}
+        >
+          {isLoading && <Puff height="25" width="25" className="me-3" />}
+          Submit
+        </button>
       </div>
 
       <div className="flex justify-center my-8">

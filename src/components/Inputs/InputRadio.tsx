@@ -48,7 +48,7 @@ const InputRadio = ({ onOptionChange }: optionProps) => {
           />
           <label
             htmlFor="Trainer"
-            className="block cursor-pointer select-none rounded-xl p-2 text-center text-white peer-checked:bg-red-600 rark:peer-checked:bg-gray-900 peer-checked:font-bold peer-checked:text-white"
+            className="block cursor-pointer select-none rounded-xl p-2 text-center text-white peer-checked:bg-red-600 dark:peer-checked:bg-gray-900 peer-checked:font-bold peer-checked:text-white"
           >
             Trainer
           </label>

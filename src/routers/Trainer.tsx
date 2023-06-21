@@ -2,18 +2,19 @@ import React from 'react'
 import { Routes, Route } from "react-router-dom";
 
 import Home from "../pages/trainer/Home";
-import PrivateRoute from './PrivateRoute';
+import Profile from "../pages/trainer/Profile";
+import AuthProtectRoute from './ProtectRoutes/AuthProtectRoute';
 import BackgroundTrainer from '../components/Theme/BackgroundTrainer';
 
 import "../App.scss";
 
 const Trainer = () => {
   return (
-    <div>
+    <div className='text-primary_dark dark:text-primary_light'>
         <BackgroundTrainer />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          {/* <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>}></Route> */}
+          <Route path="/" element={<AuthProtectRoute> <Home /> </AuthProtectRoute>}></Route>
+          <Route path="/profile" element={<AuthProtectRoute> <Profile /></AuthProtectRoute> }></Route>
         </Routes>
     </div>
   )

@@ -14,7 +14,7 @@ import { auth } from "../../firebase";
 const FormLogin = () => {
 
   const [timer, setTimer] = useState(60);
-  const phoneNumber: string | null = useSelector((state: any) => state.auth.auth.phoneNumber);
+  const phoneNumber: string | null  = useSelector((state: any) => state.auth.auth.phoneNumber);
 
   function setUpRecaptcha(number: string) {
     try{

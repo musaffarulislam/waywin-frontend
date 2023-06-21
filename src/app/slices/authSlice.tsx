@@ -1,18 +1,18 @@
 import { createSlice, createAsyncThunk, Dispatch, AnyAction } from "@reduxjs/toolkit";
-import {RootState} from '../store'
+import {RootState} from '../store';
 import axios from "../../config/axios";
 // import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { ILogin, IAuthState } from "../../utils/entity/AuthEntity";
 
 
 
-const getInitialConfirmObj = (): string | null => {
-  const confirmObj = window.localStorage.getItem("confirmObj");
-  if (confirmObj) {
-    return JSON.parse(confirmObj);
-  }
-  return null;
-};
+// const getInitialConfirmObj = (): string | null => {
+//   const confirmObj = window.localStorage.getItem("confirmObj");
+//   if (confirmObj) {
+//     return JSON.parse(confirmObj);
+//   }
+//   return null;
+// };
 
 
 const getInitialAccessToken = (): string | null=> {
@@ -38,33 +38,8 @@ const initialValue: IAuthState = {
   role: null,
   accessToken: getInitialAccessToken(),
   refreshToken: getInitialRefreshToken(),
-  confirmObj: getInitialConfirmObj(),
+  confirmObj: null,
 };
-
-export const checkUsername = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
-  "auth/checkUsername",
-  async (username: any) => {
-      const response = await axios.get(`/auth/checkUsername/${username}`);
-      return response.data;
-  }
-);
-
-export const checkEmail = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
-  "auth/checkEmail",
-  async (email: string) => {
-      const response = await axios.get(`/auth/checkEmail/${email}`);
-      return response.data;
-  }
-);
-
-export const checkPhoneNumber = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
-  "auth/checkPhoneNumber",
-  async (phoneNumber: string) => {
-    const response = await axios.get(`/auth/checkPhoneNumber/${phoneNumber}`);
-    return response.data;
-  }
-);
-
 
 export const createUser = createAsyncThunk<any, void, { state: RootState }>(
   "auth/createUser",
@@ -84,15 +59,43 @@ export const getAuthByEmail = createAsyncThunk<{ accessToken: string; refreshTok
   }
 );
 
-
-export const getAuthById = createAsyncThunk<any, ILogin, { dispatch?: Dispatch<AnyAction> }>(
-  "auth/getAuthByEmail",
-  async (data: ILogin) => {
-      const response = await axios.post("/auth/login", data, {headers: { 'Content-Type': 'application/json' } });
-      const { accessToken, refreshToken } = response.data
-      return { accessToken, refreshToken };
+export const checkUsername = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
+  "auth/checkUsername",
+  async (username: any) => {
+    try{
+      const response = await axios.get(`/auth/checkUsername/${username}`);
+      return response.data;
+    }catch(err: any){
+      console.log(err.response.data)
+      throw Error(err.response.data.error)
+    }
   }
 );
+
+export const checkEmail = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
+  "auth/checkEmail",
+  async (email: string) => {
+      const response = await axios.get(`/auth/checkEmail/${email}`);
+      return response.data;
+  }
+);
+
+export const checkPhoneNumber = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
+  "auth/checkPhoneNumber",
+  async (phoneNumber: string) => {
+    const response = await axios.get(`/auth/checkPhoneNumber/${phoneNumber}`);
+    return response.data;
+  }
+);
+
+export const generateAccessToken = createAsyncThunk<{ accessToken: string}, string, { dispatch?: Dispatch<AnyAction> }>(
+  "auth/generateAccessToken",
+  async (refreshToken: string) =>{
+    const response = await axios.post("/auth/token", refreshToken);
+    const { accessToken } = response.data;
+    return accessToken;
+  }
+)
 
 export const authSlice = createSlice({
   name: "auth",
@@ -106,7 +109,6 @@ export const authSlice = createSlice({
     },
     otpConfirmObj: (state, action) => {
       state.confirmObj = action.payload;
-      window.localStorage.setItem("confirmObj", JSON.stringify(state.confirmObj))
     },
     loading: (state,action) => {
       state.isLoading = action.payload
@@ -173,10 +175,10 @@ export const authSlice = createSlice({
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
         state.role = action.payload.role;
-        window.localStorage.setItem("accessToken", JSON.stringify(`Bearer ${state.accessToken}`))
+        window.localStorage.setItem("accessToken", JSON.stringify(state.accessToken))
         window.localStorage.setItem("refreshToken", JSON.stringify(state.refreshToken))
       })
-      .addCase(getAuthByEmail.rejected, (state, action) => {
+      .addCase(getAuthByEmail.rejected, (state) => {
         state.isLoading = false;
         state.accessToken = null;
         state.refreshToken = null;

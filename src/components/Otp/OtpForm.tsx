@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import OtpInput from "./OtpInput";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+// import { useHistory } from 'react-router-dom';
 import { addAuth, createUser, otpConfirmObj } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import useToaster from '../../hooks/useToast';
@@ -21,7 +22,8 @@ const OtpForm = () => {
   const phoneNumber: string | null = useSelector((state: any) => state.auth.auth.phoneNumber);
   const confirmObj: ConfirmObj = useSelector((state: any) => state.auth.confirmObj);
 
-  const navigate = useNavigate();
+  let navigate = useNavigate();
+  // let history = useHistory();
 
   const ref = useRef<HTMLFormElement>(null);
 
@@ -29,27 +31,26 @@ const OtpForm = () => {
     e.preventDefault();
     setError(false);
     try {
-      await confirmObj.confirm(otp);
+      // await confirmObj.confirm(otp);
       try {
         dispatch(createUser());
-        dispatch(addAuth(null))
-        dispatch(otpConfirmObj(null))
+        // dispatch(addAuth(null))
+        // dispatch(otpConfirmObj(null))
         console.log("Login page navigate")
         console.log("Login page navigate 1.0")
-        navigate("/login");
-
+        navigate('/login')
       } catch (error: any) {
         toaster.showToast(error.message, { type: 'error' })
         console.log("Otp form error")
-        return navigate('/otp')
+        return navigate('/otp'); 
       }
-      // navigate("/login");
     } catch (e: any) {
       toaster.showToast(e, {type: "error"})
       if (e instanceof Error) {
         setError(true);
       }
     } 
+    navigate('/login')
   };
 
 
@@ -71,7 +72,7 @@ const OtpForm = () => {
     );
   }
   return (
-    <form className="card bg-base-200" onSubmit={handleSubmit} ref={ref}>
+    <form className="card bg-base-200" onSubmit={handleSubmit}>
       <div className="card-body items-stretch text-center">
         <div className="my-8">
           <h2 className="text-xl mb-8"> An OTP has been sent to your entered mobile number +91-{phoneNumber}</h2>

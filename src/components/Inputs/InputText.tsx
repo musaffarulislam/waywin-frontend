@@ -35,7 +35,7 @@ const InputText = ({
         <div className="flex relative">
           <input
             type={type !== "password" ? type : password}
-            className="w-full text-gray-700 rounded-lg p-3 mt-2 border-transparent text-2xl" 
+            className="w-full text-gray-700 rounded-lg p-3 mt-2 border-transparent text-2xl dark:bg-slate-200" 
             {...register(name, { required })}
           />
           {type === "password" && (

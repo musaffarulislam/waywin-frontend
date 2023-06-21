@@ -8,11 +8,10 @@ import NavbarTheme from "../../components/Navbars/NavbarTheme";
 import "../../styles/modules/Scroll.scss";
 import { Link } from "react-router-dom";
 import { loading } from "../../app/slices/authSlice";
-import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const Login: FC = () => {
 
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
+  const dispatch = useDispatch()
 
   const theme: string = useSelector((state: any) => state.theme.theme);
   useEffect(()=>{
