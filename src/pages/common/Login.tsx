@@ -7,7 +7,7 @@ import redlogo from "../../assets/redlogo.png";
 import NavbarTheme from "../../components/Navbars/NavbarTheme";
 import "../../styles/modules/Scroll.scss";
 import { Link } from "react-router-dom";
-import { loading } from "../../features/authSlice";
+import { loading } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const Login: FC = () => {

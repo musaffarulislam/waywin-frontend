@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../../features/themeSlice";
+import { toggleTheme } from "../../app/slices/themeSlice";
 import { AiFillNotification } from 'react-icons/ai';
 import { RiDashboardFill } from 'react-icons/ri';
 import { HiOutlineMenuAlt2 } from 'react-icons/hi';
 import { BsCalendar3 } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
+import { logout } from "../../app/slices/authSlice";
 
 export const NavbarTrainer = () => {
 
@@ -26,6 +27,10 @@ const dispatch = useDispatch();
   const handleThemeToggle = () => {
     dispatch(toggleTheme());
   };
+
+  const handleLogout = () => {
+    dispatch(logout())
+  }
 
   return (
     <>
@@ -116,11 +121,11 @@ const dispatch = useDispatch();
                         </label>
                       </a>  
                     </li>
-                    <li>
+                    <li onClick={handleLogout}>
                       <a
-                        href="#"
                         className="block px-4 py-2 text-2xl text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                         role="menuitem"
+                        
                       >
                         Sign out
                       </a>

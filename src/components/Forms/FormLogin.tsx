@@ -5,11 +5,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import InputText from "../Inputs/InputText";
 import { Link, useNavigate } from "react-router-dom";
-import { addAuth, getAuthByEmail, loading } from "../../features/authSlice";
+import { addAuth, getAuthByEmail, loading } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { ILogin } from "../../utils/entity/AuthEntity";
 import { Puff } from "react-loading-icons";
-import useToaster from '../../hooks/toastHook';
+import useToaster from '../../hooks/useToast';
 
 const schema = yup.object({
     email: yup

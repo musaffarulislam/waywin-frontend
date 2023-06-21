@@ -17,7 +17,7 @@ const User = () => {
         <Routes>
           <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>}></Route>
           <Route path="/login" element={<PrivateRoute><Login /></PrivateRoute>}></Route>
-          <Route path="/signup" element={<PrivateRoute><Signup /></PrivateRoute>}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
           <Route path="/otp" element={<PrivateRoute><Otp /></PrivateRoute>}></Route>
         </Routes>
     </div>

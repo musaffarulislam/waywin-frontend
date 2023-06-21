@@ -7,12 +7,14 @@ import InputText from "../Inputs/InputText";
 import { Link, useNavigate } from "react-router-dom";
 import InputRadio from "../Inputs/InputRadio";
 import signupSchema from "../../utils/validation/signupValidation";
-import { addAuth, checkEmail, checkUsername, otpConfirmObj, loading, checkPhoneNumber } from "../../features/authSlice";
-import useToaster from '../../hooks/toastHook';
+import { addAuth, checkEmail, checkUsername, otpConfirmObj, loading, checkPhoneNumber } from "../../app/slices/authSlice";
+import useToaster from '../../hooks/useToast';
 import { IAuth } from "../../utils/entity/AuthEntity";
 import { Puff } from 'react-loading-icons'
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { auth } from "../../firebase";
 
-import setUpRecaptcha from "../../context/userAuthContext";
+// import setUpRecaptcha from "../../context/userAuthContext";
 
 const schema = signupSchema;
 
@@ -30,6 +32,22 @@ const FormSignup = () => {
     dispatch(addAuth(null))
     dispatch(otpConfirmObj(null))
   },[dispatch])
+
+  function setUpRecaptcha(number: string) {
+    try{
+      console.log("recapcha")
+      const recaptchaVerifier = new RecaptchaVerifier(
+        "recaptcha-container",
+        {},
+        auth
+        );
+        recaptchaVerifier.render();
+        console.log("recapcha render")
+      return signInWithPhoneNumber(auth, number, recaptchaVerifier)
+    }catch(error: any){
+      throw new Error(error.message)
+    }
+  }
   
   const onSubmit = async (data: IAuth) => {
     const { ...formData } = data;

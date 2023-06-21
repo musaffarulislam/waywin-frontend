@@ -7,7 +7,7 @@ import NavbarTheme from "../../components/Navbars/NavbarTheme";
 import FormOtp from "../../components/Forms/FormOtp";
 import "../../styles/modules/Scroll.scss";
 import { Link } from "react-router-dom";
-import { loading } from "../../features/authSlice";
+import { loading } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const Otp: FC = () => {

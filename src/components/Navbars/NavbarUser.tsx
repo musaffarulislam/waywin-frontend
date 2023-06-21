@@ -6,9 +6,9 @@ import redlight from "../../assets/redlogo.png";
 import whitelight from "../../assets/whitelogo.png";
 import bluelight from "../../assets/bluelogo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../../features/themeSlice";
+import { toggleTheme } from "../../app/slices/themeSlice";
 import { Link } from "react-router-dom";
-import { addAuth, logout } from "../../features/authSlice";
+import { addAuth, logout } from "../../app/slices/authSlice";
 
 const NavbarUser = () => {
   const dispatch = useDispatch();

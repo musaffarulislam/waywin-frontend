@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import OtpInput from "./OtpInput";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addAuth, createUser, otpConfirmObj } from "../../features/authSlice";
+import { addAuth, createUser, otpConfirmObj } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import useToaster from '../../hooks/toastHook';
+import useToaster from '../../hooks/useToast';
 
 interface ConfirmObj {
   confirm: (otp: string) => Promise<any>;
@@ -35,8 +35,8 @@ const OtpForm = () => {
         dispatch(addAuth(null))
         dispatch(otpConfirmObj(null))
         console.log("Login page navigate")
-        await navigate("/");
         console.log("Login page navigate 1.0")
+        navigate("/login");
 
       } catch (error: any) {
         toaster.showToast(error.message, { type: 'error' })

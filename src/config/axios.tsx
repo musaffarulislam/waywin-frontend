@@ -1,59 +1,50 @@
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import axios from "axios";
+
+const BASE_URL = "http://localhost:4000/api";
+
+const axiosPublic = axios.create({
+  baseURL: BASE_URL,
+});
+
+export const axiosPrivate = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+});
 
 
-const baseURL = "http://localhost:4000";
+async function refresh() {
+  const refreshedAccessToken = "your-refreshed-access-token";
+  return { accessToken: refreshedAccessToken };
+}
 
-const axiosInstance= axios.create({
-    baseURL
-})
 
-export default axiosInstance
-
-axiosInstance.interceptors.request.use(
-    config => {
-      const token = window.localStorage.getItem('accessToken')
-      if (token) {
-        config.headers['Authorization'] = 'Bearer ' + token
-      }
-      // config.headers['Content-Type'] = 'application/json';
-      return config
-    },
-    error => {
-      Promise.reject(error)
+axiosPublic.interceptors.request.use(
+  async (config) => {
+    if (!config.headers.Authorization) {
+      const accessToken = window.localStorage.getItem('accessToken') as string;
+      config.headers.Authorization = JSON.parse(accessToken);
     }
-  )
+    return config;
+  },
+  (err) => Promise.reject(err)
+);
 
 
-axiosInstance.interceptors.response.use(
-    response => {
-      return response
-    },
-    function (error) {
-      const originalRequest = error.config
-  
-      if ( error.response.status === 401 && originalRequest.url === baseURL+'/api/auth/token' ) {
-        <Navigate to="/login" />
-        return Promise.reject(error)
-      }
-  
-      if (error.response.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true
-        const refreshToken = useSelector((state:any) => state.auth.refreshToken)
-        return axios
-          .post('/auth/token', {
-            refresh_token: refreshToken
-          })
-          .then(res => {
-            if (res.status === 201) {
-                window.localStorage.setItem('accessToken',JSON.stringify(res.data.accessToken))
-              axios.defaults.headers.common['Authorization'] =
-                'Bearer ' + window.localStorage.getItem('accessToken')
-              return axios(originalRequest)
-            }
-          })
-      }
-      return Promise.reject(error)
+axiosPublic.interceptors.response.use(
+  (response) => response,
+  async (err) => {
+    const prvsRequest = err?.config;
+    if (err?.response?.status === 401 && !prvsRequest?.sent) {
+      prvsRequest.sent = true;
+      const { accessToken } = await refresh();
+      prvsRequest.headers.Authorization = `Bearer ${accessToken}`;
+      return axiosPublic(prvsRequest);
     }
-  )
+    return Promise.reject(err);
+  }
+);
+
+export default axiosPublic ;

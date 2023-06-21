@@ -1,6 +1,5 @@
 import { toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
 
 interface Toaster {
   showToast: (message: string, options?: ToastOptions) => void;

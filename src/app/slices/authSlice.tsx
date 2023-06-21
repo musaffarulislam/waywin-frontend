@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk, Dispatch, AnyAction } from "@reduxjs/toolkit";
-import {RootState} from '../app/store'
-import axios from "../config/axios";
-import { ILogin, IAuthState } from "../utils/entity/AuthEntity";
+import {RootState} from '../store'
+import axios from "../../config/axios";
+// import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { ILogin, IAuthState } from "../../utils/entity/AuthEntity";
+
 
 
 const getInitialConfirmObj = (): string | null => {
@@ -22,19 +24,27 @@ const getInitialAccessToken = (): string | null=> {
 };
 
 
+const getInitialRefreshToken = (): string | null=> {
+  const refreshToken = window.localStorage.getItem("refreshToken");
+  if (refreshToken) {
+    return JSON.parse(refreshToken);
+  }
+  return null;
+};
+
 const initialValue: IAuthState = {
   isLoading: false,
   auth: null,
   role: null,
   accessToken: getInitialAccessToken(),
-  refreshToken: null,
+  refreshToken: getInitialRefreshToken(),
   confirmObj: getInitialConfirmObj(),
 };
 
 export const checkUsername = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
   "auth/checkUsername",
   async (username: any) => {
-      const response = await axios.get(`/api/auth/checkUsername/${username}`);
+      const response = await axios.get(`/auth/checkUsername/${username}`);
       return response.data;
   }
 );
@@ -42,7 +52,7 @@ export const checkUsername = createAsyncThunk<any, string, { dispatch?: Dispatch
 export const checkEmail = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
   "auth/checkEmail",
   async (email: string) => {
-      const response = await axios.get(`/api/auth/checkEmail/${email}`);
+      const response = await axios.get(`/auth/checkEmail/${email}`);
       return response.data;
   }
 );
@@ -50,7 +60,7 @@ export const checkEmail = createAsyncThunk<any, string, { dispatch?: Dispatch<An
 export const checkPhoneNumber = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
   "auth/checkPhoneNumber",
   async (phoneNumber: string) => {
-    const response = await axios.get(`/api/auth/checkPhoneNumber/${phoneNumber}`);
+    const response = await axios.get(`/auth/checkPhoneNumber/${phoneNumber}`);
     return response.data;
   }
 );
@@ -60,7 +70,7 @@ export const createUser = createAsyncThunk<any, void, { state: RootState }>(
   "auth/createUser",
   async (_, { getState }) => {
       const { auth } = getState().auth; // Accessing the 'auth' value from the state
-      const response = await axios.post("/api/auth/signup", auth, { headers: { 'Content-Type': 'application/json' } });
+      const response = await axios.post("/auth/signup", auth, { headers: { 'Content-Type': 'application/json' } });
       return response.data;
   }
 );
@@ -68,7 +78,7 @@ export const createUser = createAsyncThunk<any, void, { state: RootState }>(
 export const getAuthByEmail = createAsyncThunk<{ accessToken: string; refreshToken: string; role: string }, ILogin , { dispatch?: Dispatch<AnyAction> }>(
   "auth/getAuthByEmail",
   async (data: ILogin) => {
-      const response = await axios.post("/api/auth/login", data, {headers: { 'Content-Type': 'application/json' } });
+      const response = await axios.post("/auth/login", data, {headers: { 'Content-Type': 'application/json' } });
       const { accessToken, refreshToken, role } = response.data
       return { accessToken, refreshToken, role };
   }
@@ -78,7 +88,7 @@ export const getAuthByEmail = createAsyncThunk<{ accessToken: string; refreshTok
 export const getAuthById = createAsyncThunk<any, ILogin, { dispatch?: Dispatch<AnyAction> }>(
   "auth/getAuthByEmail",
   async (data: ILogin) => {
-      const response = await axios.post("/api/auth/login", data, {headers: { 'Content-Type': 'application/json' } });
+      const response = await axios.post("/auth/login", data, {headers: { 'Content-Type': 'application/json' } });
       const { accessToken, refreshToken } = response.data
       return { accessToken, refreshToken };
   }
@@ -107,6 +117,7 @@ export const authSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
       window.localStorage.removeItem("accessToken")
+      window.localStorage.removeItem("refreshToken")
     }
   },
   extraReducers: (builder) => {
@@ -156,14 +167,14 @@ export const authSlice = createSlice({
         state.accessToken = null;
         state.refreshToken = null;
         state.role = null;
-        window.localStorage.setItem("accessToken", JSON.stringify(state.accessToken))
       })
       .addCase(getAuthByEmail.fulfilled, (state, action) => {
         state.isLoading = false;
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
         state.role = action.payload.role;
-        window.localStorage.setItem("accessToken", JSON.stringify(state.accessToken))
+        window.localStorage.setItem("accessToken", JSON.stringify(`Bearer ${state.accessToken}`))
+        window.localStorage.setItem("refreshToken", JSON.stringify(state.refreshToken))
       })
       .addCase(getAuthByEmail.rejected, (state, action) => {
         state.isLoading = false;

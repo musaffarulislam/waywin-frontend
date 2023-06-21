@@ -1,8 +1,8 @@
 import { combineReducers, configureStore, Middleware } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import themeReducer from '../features/themeSlice';
-import authReducer from '../features/authSlice';
+import themeReducer from './slices/themeSlice';
+import authReducer from './slices/authSlice';
 import thunk from 'redux-thunk';
 
 const persistConfig = {

@@ -1,7 +1,7 @@
 import React from "react";
 import { MdDarkMode, MdSunny } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../../features/themeSlice";
+import { toggleTheme } from "../../app/slices/themeSlice";
 
 const NavbarTheme = () => {
   const dispatch = useDispatch();

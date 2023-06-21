@@ -8,7 +8,7 @@ import "../../styles/modules/Scroll.scss";
 
 import { Link } from "react-router-dom";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { loading } from "../../features/authSlice";
+import { loading } from "../../app/slices/authSlice";
 
 const Signup: FC = () => {
 

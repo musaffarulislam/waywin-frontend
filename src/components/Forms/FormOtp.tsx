@@ -3,17 +3,34 @@ import OtpForm from "../Otp/OtpForm";
 import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { otpConfirmObj } from "../../features/authSlice";
+import { otpConfirmObj } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import useToaster from '../../hooks/toastHook';
+import useToaster from '../../hooks/useToast';
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { auth } from "../../firebase";
 
-import setUpRecaptcha from "../../context/userAuthContext";
+// import setUpRecaptcha from "../../context/userAuthContext";
 
 const FormLogin = () => {
 
   const [timer, setTimer] = useState(60);
   const phoneNumber: string | null = useSelector((state: any) => state.auth.auth.phoneNumber);
 
+  function setUpRecaptcha(number: string) {
+    try{
+      console.log("recapcha")
+      const recaptchaVerifier = new RecaptchaVerifier(
+        "recaptcha-container",
+        {},
+        auth
+        );
+        recaptchaVerifier.render();
+        console.log("recapcha render")
+      return signInWithPhoneNumber(auth, number, recaptchaVerifier)
+    }catch(error: any){
+      throw new Error(error.message)
+    }
+  }
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
   const toaster = useToaster();
