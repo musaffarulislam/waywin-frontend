@@ -7,6 +7,7 @@ type InputProps = {
   type: string;
   register: UseFormRegister<any>;
   required: boolean;
+  disabled?: boolean,
   error: string | undefined;
 };
 
@@ -15,7 +16,9 @@ const InputText = ({
   name,
   register,
   type,
+  disabled,
   required,
+
   error,
 }: InputProps) => {
   const [password, setPasswordValue] = React.useState("password");
@@ -37,6 +40,7 @@ const InputText = ({
             type={type !== "password" ? type : password}
             className="w-full text-gray-700 rounded-lg p-3 mt-2 border-transparent text-2xl dark:bg-slate-200" 
             {...register(name, { required })}
+            disabled={disabled} 
           />
           {type === "password" && (
             <button
