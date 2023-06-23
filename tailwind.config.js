@@ -13,7 +13,7 @@ module.exports = {
         secondary_light : "#C4CCEE",
         // secondary_light : "#ffc0c0",
         trainer_dark : "#120202",
-        secondaryTrainer_dark : "#1F0000",
+        secondaryTrainer_dark : "#4F0303",
       }
     },
   },

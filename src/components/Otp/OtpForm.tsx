@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import OtpInput from "./OtpInput";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 // import { useHistory } from 'react-router-dom';
-import { addAuth, createUser, otpConfirmObj } from "../../app/slices/authSlice";
+import { createUser } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import useToaster from '../../hooks/useToast';
 
@@ -23,7 +23,6 @@ const OtpForm = () => {
   const confirmObj: ConfirmObj = useSelector((state: any) => state.auth.confirmObj);
 
   let navigate = useNavigate();
-  // let history = useHistory();
 
   const ref = useRef<HTMLFormElement>(null);
 
@@ -31,13 +30,11 @@ const OtpForm = () => {
     e.preventDefault();
     setError(false);
     try {
-      // await confirmObj.confirm(otp);
+      await confirmObj.confirm(otp);
       try {
         dispatch(createUser());
         // dispatch(addAuth(null))
         // dispatch(otpConfirmObj(null))
-        console.log("Login page navigate")
-        console.log("Login page navigate 1.0")
         navigate('/login')
       } catch (error: any) {
         toaster.showToast(error.message, { type: 'error' })
@@ -71,31 +68,36 @@ const OtpForm = () => {
       </div>
     );
   }
-  return (
-    <form className="card bg-base-200" onSubmit={handleSubmit}>
-      <div className="card-body items-stretch text-center">
-        <div className="my-8">
-          <h2 className="text-xl mb-8"> An OTP has been sent to your entered mobile number +91-{phoneNumber}</h2>
-          <p className="text-sm ">Enter your Code here</p>
-        </div>
-        <OtpInput
-          value={otp}
-          onChange={(val) => {
-            setOtp(val);
-          }}
-        />
-        {error && <p className="text-lg text-red-500 mt-2">Please enter correct otp</p>}
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            className="bg-red-600 dark:bg-blue-800 text-white w-5/12 p-3 my-8 rounded-xl text-2xl"
-          >
-            Submit
-          </button>
-        </div>
-      </div>
-    </form>
-  );
+
+  if(phoneNumber){
+    return (
+        <form className="card bg-base-200" onSubmit={handleSubmit}>
+          <div className="card-body items-stretch text-center">
+            <div className="my-8">
+              <h2 className="text-xl mb-8"> An OTP has been sent to your entered mobile number +91-{phoneNumber}</h2>
+              <p className="text-sm">Enter your Code here</p>
+            </div>
+            <OtpInput
+              value={otp}
+              onChange={(val) => {
+                setOtp(val);
+              }}
+            />
+            {error && <p className="text-lg text-red-500 mt-2">Please enter correct otp</p>}
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-red-600 dark:bg-blue-800 text-white w-5/12 p-3 my-8 rounded-xl text-2xl"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+    );
+  }else{
+    return <Navigate to='/signup'/>
+  }
 };
 
 export default OtpForm;

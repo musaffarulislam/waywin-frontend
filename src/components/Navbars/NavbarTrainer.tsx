@@ -10,6 +10,9 @@ import { logout } from "../../app/slices/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { InputDropdown } from "../Inputs/InputDropdown";
 
+import whitelight from "../../assets/whitelogo.png";
+import bluelight from "../../assets/bluelogo.png";
+
 export const NavbarTrainer = () => {
 
 const dispatch = useDispatch();
@@ -54,16 +57,15 @@ const dispatch = useDispatch();
                 <span className="sr-only">Open sidebar</span>
                 < HiOutlineMenuAlt2 className="w-6 h-6" />
               </button>
-              <a href="https://flowbite.com" className="flex ml-2 md:mr-24">
-                <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="h-8 mr-3"
-                  alt="FlowBite Logo"
-                />
-                <span className="self-center text-2xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                  Flowbite
-                </span>
-              </a>
+              <div className="ms-6">
+                <Link to="/">
+                  <img
+                    src={theme === "dark" ? whitelight : bluelight}
+                    alt="logo"
+                    className="w-32 md:w-40"
+                  />
+                </Link>
+              </div>
             </div>
             <div className="relative">
               <button
@@ -109,7 +111,7 @@ const dispatch = useDispatch();
 
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-96 h-screen pt-20 transition-transform  ${isSidebar ? "translate-x-0" : "-translate-x-full" } bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
+        className={`fixed top-0 left-0 z-40 w-96 h-screen pt-28 transition-transform  ${isSidebar ? "translate-x-0" : "-translate-x-full" } bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
         aria-label="Sidebar"
       >
         <div className="h-full px-8 pb-4 text-2xl overflow-y-auto bg-white dark:bg-gray-800">
