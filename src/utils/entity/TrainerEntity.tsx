@@ -21,4 +21,5 @@ export interface ITrainerInfo {
     description: string | undefined;
     tags: string[];
     experience: number;
+    mode: string[];
   }

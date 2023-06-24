@@ -20,6 +20,14 @@ export const getTrainerInfo =  createAsyncThunk<any, void, {dispatch?: Dispatch<
     }
 )
 
+export const createProfile = createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
+    "trainer/createProfile",
+    async (profileData: any) =>{
+        const response = await axios.post("/trainer/create-profile", profileData )
+        return response.data;
+    }
+)
+
 export const getTrainerProfile =  createAsyncThunk<any, void, {dispatch?: Dispatch<AnyAction>}>(
     "trainer/getTrainerProfile",
     async () =>{
@@ -68,6 +76,15 @@ export const trainerSlice = createSlice({
                 state.trainerInfo = null;
                 state.isProfile = false;
                 state.profileImage = null;
+            })
+            .addCase(createProfile.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(createProfile.fulfilled, (state,action) => {
+                state.isLoading = false;
+            })
+            .addCase(createProfile.rejected, (state) => {
+                state.isLoading = false;
             })
             .addCase(getTrainerProfile.pending, (state) => {
                 state.isLoading = true;

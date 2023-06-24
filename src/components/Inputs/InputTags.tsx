@@ -62,16 +62,16 @@ const InputTags = ({ onTagsChange, error }: tagsProps) => {
               ) : (
                 <div className="text-xl">Option not here</div>
               )}
-              {selectedTags.length <= 0 && <div className="text-xl text-red-400 ms-5 mt-2">No Selected tags</div>}
+              {selectedTags.length <= 0 && <div className="text-lg text-red-400 ms-5 mt-2">No Selected tags</div>}
             </div>
           </div>
           <div className="m-2">
             <label className="text-xl">Unselected Tags</label>
-            <div  className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 ">
+            <div  className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-2">
               {tags ? (
                 tags.map((tag: string) => {
                   return !selectedTags.includes(tag) && (
-                      <div key={tag} className="p-1 m-2 ms-0 px-4 rounded-xl  bg-slate-200 dark:bg-slate-400 text-gray-900 flex justify-center items-center text-lg"
+                      <div key={tag} className="p-1 m-2 ms-0 px-4 rounded-xl  bg-slate-200 dark:bg-slate-400 text-gray-900 flex justify-center items-center text-lg cursor-pointer"
                         onClick={() => handleChange(tag)}>
                           <div>{tag}</div>
                         </div>
@@ -80,7 +80,7 @@ const InputTags = ({ onTagsChange, error }: tagsProps) => {
               ) : (
                 <div className="text-xl">Loading tags...</div>
               )}
-              {selectedTags.length === tags.length && <div className="text-xl text-red-400 ms-5 mt-2">No Unelected tags</div>}
+              {selectedTags.length === tags.length && <div className="text-lg text-red-400 ms-5 mt-2">No Unelected tags</div>}
             </div>
           </div>
         </div>
