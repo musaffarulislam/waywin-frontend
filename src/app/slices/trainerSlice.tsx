@@ -9,6 +9,7 @@ const initialValue: ITrainerState ={
     trainerInfo: null,
     profileInfo: null,
     profileImage: null,
+    tags: null,
 }
 
 export const getTrainerInfo =  createAsyncThunk<any, void, {dispatch?: Dispatch<AnyAction>}>(
@@ -27,11 +28,18 @@ export const getTrainerProfile =  createAsyncThunk<any, void, {dispatch?: Dispat
     }
 )
 
-
 export const uploadProfileImage =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
     "trainer/uploadProfileImage",
     async (image: any) =>{
         const response = await axios.post("/trainer/upload-profile-image", {image: image});
+        return response.data;
+    }
+)
+
+export const getTags =  createAsyncThunk<any, void, {dispatch?: Dispatch<AnyAction>}>(
+    "trainer/getTags",
+    async () =>{
+        const response = await axios.get("/trainer/getTags");
         return response.data;
     }
 )
@@ -53,7 +61,6 @@ export const trainerSlice = createSlice({
                 state.isLoading = false;
                 state.trainerInfo = action.payload.trainerInfo;
                 state.isProfile = action.payload.isProfile;
-                console.log("action.payload.profileImage : ",action.payload.profileImage)
                 state.profileImage = action.payload.profileImage;
             })
             .addCase(getTrainerInfo.rejected, (state) => {
@@ -85,6 +92,17 @@ export const trainerSlice = createSlice({
             .addCase(uploadProfileImage.rejected, (state) => {
                 state.isLoading = false;
                 state.profileImage = null;
+            })
+            .addCase(getTags.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getTags.fulfilled, (state,action) => {
+                state.isLoading = false;
+                state.tags = action.payload.tags;
+            })
+            .addCase(getTags.rejected, (state) => {
+                state.isLoading = false;
+                state.tags = null;
             })
     }
 })
