@@ -18,5 +18,7 @@ export interface IAuthState {
     role: string | null | undefined;
     accessToken: string | null | undefined;
     refreshToken: string | null | undefined;
+    accessTokenAdmin: string | null | undefined;
+    refreshTokenAdmin: string | null | undefined;
     confirmObj: string | null | undefined;
 }

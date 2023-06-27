@@ -34,8 +34,8 @@ export const ImageUploader = () => {
   }, [dispatch])
 
   return (
-    <div className="flex items-center justify-center w-full absolute -bottom-28">
-      <label htmlFor="dropzone-file" className="relative w-64 h-64">
+    <div className="flex items-center justify-center w-full absolute -bottom-16 sm:-bottom-20 md:-bottom-24 lg:-bottom-28">
+      <label htmlFor="dropzone-file" className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64">
         <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 rounded-full cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-slate-800 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
           { isLoading ? <Puff height="25" width="25" /> :
            profileImage ? 

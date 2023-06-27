@@ -3,7 +3,7 @@ import { NavbarTrainer } from "../../components/Navbars/NavbarTrainer";
 import { MainContent } from "../../components/Trainer/Profile/MainContent";
 
 
-const Home = () => {
+const Profile = () => {
 
   return (
     <div className="h-screen relative overflow-auto custom-scroll">
@@ -13,4 +13,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Profile;

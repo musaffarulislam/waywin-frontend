@@ -21,7 +21,7 @@ const InputTags = ({ onTagsChange, error }: tagsProps) => {
     dispatch(getTags())
   },[dispatch])
   
-  const tags: string[] = useSelector((state: any) => state.trainer.tags)
+  const tags: string[] | null = useSelector((state: any) => state.trainer.tags)
   
   const handleChange = (tag: string) => {
     const tagValue = tag;
@@ -68,7 +68,7 @@ const InputTags = ({ onTagsChange, error }: tagsProps) => {
           <div className="m-2">
             <label className="text-xl">Unselected Tags</label>
             <div  className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-2">
-              {tags ? (
+              {tags !== null ? (
                 tags.map((tag: string) => {
                   return !selectedTags.includes(tag) && (
                       <div key={tag} className="p-1 m-2 ms-0 px-4 rounded-xl  bg-slate-200 dark:bg-slate-400 text-gray-900 flex justify-center items-center text-lg cursor-pointer"
@@ -80,7 +80,7 @@ const InputTags = ({ onTagsChange, error }: tagsProps) => {
               ) : (
                 <div className="text-xl">Loading tags...</div>
               )}
-              {selectedTags.length === tags.length && <div className="text-lg text-red-400 ms-5 mt-2">No Unelected tags</div>}
+              {tags !== null && selectedTags.length === tags.length && <div className="text-lg text-red-400 ms-5 mt-2">No Unelected tags</div>}
             </div>
           </div>
         </div>

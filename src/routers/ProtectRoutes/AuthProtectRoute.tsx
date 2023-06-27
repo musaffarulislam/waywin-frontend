@@ -12,12 +12,12 @@ export default function AuthProtectRoute({ children }: AuthProtectRouteProps): a
   const location = useLocation();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
 
-  const accessToken: string | null = useSelector((state: any) => state.auth.accessToken);
+  const accessToken: string | null = window.localStorage.getItem("accessToken")
   const confirmObj: string | null = useSelector((state: any) => state.auth.confirmObj);
   const role: string | null = useSelector((state: any) => state.auth.role);
   
   if (!accessToken) {
-
+    console.log("accessToken" )
     if(location.pathname === '/'){
       return <>{children}</>;
     }
@@ -33,6 +33,7 @@ export default function AuthProtectRoute({ children }: AuthProtectRouteProps): a
 
     return <>{children}</>;
   }else if(accessToken && role){
+    console.log("accessToken & role")
     if (location.pathname === "/signup" || location.pathname === "/otp" || location.pathname === "/login") {
       return <Navigate to="/" />
     }

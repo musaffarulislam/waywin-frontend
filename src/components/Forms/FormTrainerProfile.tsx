@@ -63,7 +63,6 @@ const FormTrainerProfile = () => {
   };
 
   const experience = watch("experience");
-  console.log(experience)
 
   const handleMode = (option: string[]) => {
     setSelectedMode(option);
@@ -78,7 +77,6 @@ const FormTrainerProfile = () => {
       experience: 0,
       mode: []
     };
-    console.log(formData)
     formData.services = selectedServices;
     formData.description = profileDescription;
     formData.tags = selectedTags;
@@ -113,7 +111,6 @@ const FormTrainerProfile = () => {
     }else{
       setErrorsMode("")
     }
-    console.log(formData)
     dispatch(createProfile(formData))
     toaster.showToast('Profile Update Successfully', { type: 'success' })
   }

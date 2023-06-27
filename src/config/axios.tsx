@@ -17,16 +17,15 @@ export const axiosPrivate = axios.create({
 
 async function refresh() {
   try{
-    console.log("refresh 1")
     const refreshToken = window.localStorage.getItem('refreshToken') as string;
-    console.log(refreshToken)
     const response = await axiosPublic.post("/auth/token", {refreshToken: JSON.parse(refreshToken)})
-    console.log("refresh 2")
     const {accessToken} = response.data
     window.localStorage.setItem('accessToken',JSON.stringify(accessToken))
     return { accessToken };
   }catch(error){
     console.error("Error during logout:", error);
+    window.localStorage.removeItem("accessToken")
+    window.localStorage.removeItem("refreshToken")
     throw error;
   }
 }

@@ -40,7 +40,8 @@ const FormLogin = () => {
   const navigate = useNavigate()
   const toaster = useToaster();
 
-  const accessToken: string = useSelector((state: any) => state.auth.accessToken);
+  const accessToken: string | null | undefined = window.localStorage.getItem("accessToken");
+  const accessTokenAdmin: string | null | undefined = window.localStorage.getItem("accessTokenAdmin");
   const isLoading: boolean = useSelector((state: any)=> state.auth.isLoading);
   const role: string | null = useSelector((state: any) => state.auth.role);
   
@@ -55,16 +56,27 @@ const FormLogin = () => {
   };
   
   useEffect(()=>{
-    if(accessToken){
+    if(accessToken && accessToken !== null && accessToken !== undefined){
+      console.log("Role : ",role)
       if(role === "Trainer"){
         navigate('/trainer')
       }
-  
       if(role === "User"){
         navigate('/')
       }
+    }else if(accessToken !== null || accessToken !== undefined){
+      window.localStorage.removeItem("accessToken")
     }
-  },[role, navigate ,accessToken])
+    
+    if(accessTokenAdmin && accessTokenAdmin !== null && accessTokenAdmin !== undefined){
+      console.log("Role : ",role)
+      console.log("accessTokenAdmin : ",accessTokenAdmin)
+      navigate('/admin')
+    }else if(accessTokenAdmin !== null || accessTokenAdmin !== undefined){
+      window.localStorage.removeItem("accessTokenAdmin")
+    }
+    
+  },[role, navigate ,accessToken, accessTokenAdmin])
 
   useEffect(()=>{
     dispatch(loading(false));

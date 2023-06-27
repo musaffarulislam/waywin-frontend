@@ -7,10 +7,10 @@ export const MainContent = () => {
   return (
     <div className="p-4 sm:ml-96 pt-16">
       <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-        <div className="flex items-center relative justify-center h-64 mb-4 rounded bg-slate-500 dark:bg-gray-500">
+        <div className="flex items-center relative justify-center h-40 sm:h-48 md:h-56 lg:h-64 mb-4 rounded bg-slate-500 dark:bg-gray-500">
           <ImageUploader />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-36 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-20 md:mt-28 lg:mt-36 mb-4">
           <div className="h-fit flex items-center justify-center rounded bg-slate-500 dark:bg-gray-800 py-20">
             <FormTrainerDetails />
           </div>

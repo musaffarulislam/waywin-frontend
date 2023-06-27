@@ -15,7 +15,7 @@ import { ILogin, IAuthState } from "../../utils/entity/AuthEntity";
 // };
 
 
-const getInitialAccessToken = (): string | null=> {
+const getInitialAccessToken = (): string | null | undefined=> {
   const accessToken = window.localStorage.getItem("accessToken");
   if (accessToken) {
     return JSON.parse(accessToken);
@@ -24,10 +24,29 @@ const getInitialAccessToken = (): string | null=> {
 };
 
 
-const getInitialRefreshToken = (): string | null=> {
+const getInitialRefreshToken = (): string | null | undefined=> {
   const refreshToken = window.localStorage.getItem("refreshToken");
   if (refreshToken) {
     return JSON.parse(refreshToken);
+  }
+  return null;
+};
+
+
+const getInitialAccessTokenAdmin = (): string | null | undefined=> {
+  const accessTokenAdmin = window.localStorage.getItem("accessTokenAdmin");
+  if (accessTokenAdmin && accessTokenAdmin !== undefined) {
+    console.log(accessTokenAdmin)
+    return JSON.parse(accessTokenAdmin);
+  }
+  return null;
+};
+
+
+const getInitialRefreshTokenAdmin = (): string | null | undefined=> {
+  const refreshTokenAdmin = window.localStorage.getItem("refreshTokenAdmin");
+  if (refreshTokenAdmin) {
+    return JSON.parse(refreshTokenAdmin);
   }
   return null;
 };
@@ -38,6 +57,8 @@ const initialValue: IAuthState = {
   role: null,
   accessToken: getInitialAccessToken(),
   refreshToken: getInitialRefreshToken(),
+  accessTokenAdmin: getInitialAccessTokenAdmin(),
+  refreshTokenAdmin: getInitialRefreshTokenAdmin(),
   confirmObj: null,
 };
 
@@ -114,12 +135,9 @@ export const authSlice = createSlice({
       state.isLoading = action.payload
     },
     logout: (state) => {
-      state.auth = null;
-      state.role = null;
-      state.accessToken = null;
-      state.refreshToken = null;
       window.localStorage.removeItem("accessToken")
       window.localStorage.removeItem("refreshToken")
+      state = initialValue;
     }
   },
   extraReducers: (builder) => {
@@ -166,22 +184,27 @@ export const authSlice = createSlice({
       })
       .addCase(getAuthByEmail.pending, (state) => {
         state.isLoading = true;
-        state.accessToken = null;
-        state.refreshToken = null;
         state.role = null;
       })
       .addCase(getAuthByEmail.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-        state.role = action.payload.role;
-        window.localStorage.setItem("accessToken", JSON.stringify(state.accessToken))
-        window.localStorage.setItem("refreshToken", JSON.stringify(state.refreshToken))
+        if(action.payload.role === "Admin"){
+          console.log("Admin Access and refresh token : ", action.payload)
+          state.role = action.payload.role;
+          window.localStorage.setItem("accessTokenAdmin", JSON.stringify(action.payload.accessToken))
+          window.localStorage.setItem("refreshTokenAdmin", JSON.stringify(action.payload.refreshToken))
+        }else{
+          console.log("Trainer Auth")
+          console.log(action.payload)
+          state.role = action.payload.role;
+          window.localStorage.setItem("accessToken", JSON.stringify(action.payload.accessToken))
+          window.localStorage.setItem("refreshToken", JSON.stringify(action.payload.refreshToken))
+          const accessToken = window.localStorage.getItem("accessToken");
+          console.log("Access token : ", accessToken);
+        }
       })
       .addCase(getAuthByEmail.rejected, (state) => {
         state.isLoading = false;
-        state.accessToken = null;
-        state.refreshToken = null;
         state.role = null;
         throw Error("Invalid Credetial");
       });

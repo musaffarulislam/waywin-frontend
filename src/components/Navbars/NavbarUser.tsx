@@ -14,7 +14,7 @@ const NavbarUser = () => {
   const dispatch = useDispatch();
 
   const theme: string = useSelector((state: any) => state.theme.theme);
-  const accessToken: string | null = useSelector((state: any) => state.auth.accessToken);
+  const accessToken: string | null = window.localStorage.getItem("accessToken");
 
   const [isOpen, setIsOpen] = useState(false);
 

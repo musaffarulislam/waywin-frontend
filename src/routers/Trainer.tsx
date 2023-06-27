@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { Routes, Route } from "react-router-dom";
 
 import Home from "../pages/trainer/Home";
