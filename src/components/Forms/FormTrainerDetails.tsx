@@ -44,7 +44,6 @@ const FormTrainerDetails = () => {
   }, [username, trainerInfo]);
 
   const onSubmit = async (data: IAuth) => {
-    console.log(data);
     setIsEditing(false);
   };
   

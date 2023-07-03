@@ -1,23 +1,25 @@
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, Navigate } from "react-router-dom";
-import { addAuth, changeRole } from "../../app/slices/authSlice";
+import {  useLocation, Navigate } from "react-router-dom";
 
 interface AdminProtectRouteProps {
   children: React.ReactNode;
 }
 
 export default function AdminProtectRoute({ children }: AdminProtectRouteProps): any | null {
-  // const location = useLocation();
-  // const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
+
+  const location = useLocation();
 
   const accessToken: string | null = window.localStorage.getItem("accessTokenAdmin");
   // const confirmObj: string | null = useSelector((state: any) => state.auth.confirmObj);
   
   if (!accessToken) {
-    return <Navigate to="/login" />
+    if (location.pathname !== "/admin/login") {
+      return <Navigate to="/admin/login" />
+    }
+    return <>{children}</>
   }else{
+    if (location.pathname === "/admin/login") {
+      return <Navigate to="/admin" />
+    }
     return <>{children}</>;
   }
 }

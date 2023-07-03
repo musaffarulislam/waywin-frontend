@@ -1,9 +1,11 @@
 export interface ITrainerState {
     isLoading: boolean;
+    isLoadingBanner: boolean;
     isProfile: boolean,
     trainerInfo: any;
     profileInfo: any;
     profileImage: string | null | undefined;
+    bannerImage: string | null | undefined;
     tags: any
 }
 

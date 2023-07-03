@@ -36,7 +36,6 @@ const getInitialRefreshToken = (): string | null | undefined=> {
 const getInitialAccessTokenAdmin = (): string | null | undefined=> {
   const accessTokenAdmin = window.localStorage.getItem("accessTokenAdmin");
   if (accessTokenAdmin && accessTokenAdmin !== undefined) {
-    console.log(accessTokenAdmin)
     return JSON.parse(accessTokenAdmin);
   }
   return null;
@@ -87,7 +86,7 @@ export const checkUsername = createAsyncThunk<any, string, { dispatch?: Dispatch
       const response = await axios.get(`/auth/checkUsername/${username}`);
       return response.data;
     }catch(err: any){
-      console.log(err.response.data)
+      console.error(err.response.data)
       throw Error(err.response.data.error)
     }
   }
@@ -138,6 +137,10 @@ export const authSlice = createSlice({
       window.localStorage.removeItem("accessToken")
       window.localStorage.removeItem("refreshToken")
       state = initialValue;
+    },
+    logoutAdmin: (state) => {
+      window.localStorage.removeItem("accessTokenAdmin")
+      window.localStorage.removeItem("refreshTokenAdmin")
     }
   },
   extraReducers: (builder) => {
@@ -189,18 +192,12 @@ export const authSlice = createSlice({
       .addCase(getAuthByEmail.fulfilled, (state, action) => {
         state.isLoading = false;
         if(action.payload.role === "Admin"){
-          console.log("Admin Access and refresh token : ", action.payload)
-          state.role = action.payload.role;
           window.localStorage.setItem("accessTokenAdmin", JSON.stringify(action.payload.accessToken))
           window.localStorage.setItem("refreshTokenAdmin", JSON.stringify(action.payload.refreshToken))
         }else{
-          console.log("Trainer Auth")
-          console.log(action.payload)
           state.role = action.payload.role;
           window.localStorage.setItem("accessToken", JSON.stringify(action.payload.accessToken))
           window.localStorage.setItem("refreshToken", JSON.stringify(action.payload.refreshToken))
-          const accessToken = window.localStorage.getItem("accessToken");
-          console.log("Access token : ", accessToken);
         }
       })
       .addCase(getAuthByEmail.rejected, (state) => {
@@ -211,5 +208,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { addAuth, changeRole, otpConfirmObj, loading, logout } = authSlice.actions;
+export const { addAuth, changeRole, otpConfirmObj, loading, logout, logoutAdmin } = authSlice.actions;
 export default authSlice.reducer;

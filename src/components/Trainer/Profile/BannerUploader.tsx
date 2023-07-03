@@ -1,16 +1,17 @@
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loading, uploadProfileImage } from '../../../app/slices/trainerSlice';
+import { loading, uploadBannerImage } from '../../../app/slices/trainerSlice';
 import { Puff } from "react-loading-icons";
 
 
-export const ImageUploader = () => {
+export const BannerUploader = () => {
   const [image, setImage] = useState<string | null>(null);
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const profileImage: string | null = useSelector((state: any)=> state.trainer.profileImage)
-  const isLoading: boolean = useSelector((state: any)=> state.trainer.isLoading)
+  const bannerImage: string | null = useSelector((state: any)=> state.trainer.bannerImage)
+  // const profileImage: string | null = null
+  const isLoadingBanner: boolean = useSelector((state: any)=> state.trainer.isLoadingBanner)
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -26,7 +27,7 @@ export const ImageUploader = () => {
   };
 
   const uploadFile = (image: string | null) =>{
-    dispatch(uploadProfileImage(image))
+    dispatch(uploadBannerImage(image))
   }
 
   useEffect(()=>{
@@ -34,17 +35,17 @@ export const ImageUploader = () => {
   }, [dispatch])
 
   return (
-    <div className="flex items-center justify-center w-full absolute -bottom-16 sm:-bottom-20 md:-bottom-24 lg:-bottom-28">
-      <label htmlFor="dropzone-file" className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64">
-        <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 rounded-full cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-slate-800 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-          { isLoading ? <Puff height="25" width="25" /> :
-           profileImage ? 
+    <div className="flex items-center justify-center w-full absolute">
+      <label htmlFor="dropzone-file" className="relative w-full h-40 sm:h-48 md:h-56 lg:h-72">
+        <div className="absolute inset-0 flex flex-col items-center justify-start w-full h-full cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-slate-800 hover:bg-gray-100  dark:hover:bg-gray-600">
+          { isLoadingBanner ? <Puff height="25" width="25" /> :
+           bannerImage ? 
               <>
-                <img src={profileImage} alt="Preview" className="w-full h-full object-cover rounded-full opacity-100 hover:opacity-0 transition-opacity duration-300" />
-                <div className='absolute flex flex-col items-center justify-center w-full h-full opacity-0 hover:opacity-100 transition-opacity hover:bg-slate-500 hover:bg-opacity-70 rounded-full'>
+                <img src={bannerImage} alt="Preview" className="w-full h-full object-cover opacity-100 hover:opacity-0 transition-opacity duration-300" />
+                <div className=' absolute flex flex-col items-center justify-start w-full h-full opacity-0 hover:opacity-100 transition-opacity hover:bg-slate-500 hover:bg-opacity-70'>
                   <svg
                     aria-hidden="true"
-                    className="w-10 h-10 mb-3 text-gray-100 animate-bounce"
+                    className="w-full mt-16 h-10 mb-3 text-gray-100 animate-bounce"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -61,11 +62,11 @@ export const ImageUploader = () => {
               </>
             : image ? (
               <>
-                <img src={image} alt="Preview" className="w-full h-full object-cover rounded-full opacity-100 hover:opacity-0 transition-opacity duration-300" />
-                <div className='absolute flex flex-col items-center justify-center w-full h-full opacity-0 hover:opacity-100 transition-opacity hover:bg-slate-500 hover:bg-opacity-70 rounded-full'>
+                <img src={image} alt="Preview" className="w-full h-full object-cover opacity-100 hover:opacity-0 transition-opacity duration-300" />
+                <div className='absolute flex flex-col items-center justify-start w-full h-full opacity-0 hover:opacity-100 transition-opacity hover:bg-slate-500 hover:bg-opacity-70'>
                   <svg
                     aria-hidden="true"
-                    className="w-10 h-10 mb-3 text-gray-100 animate-bounce"
+                    className="w-full mt-16 h-10 mb-3 text-gray-100 animate-bounce"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -84,7 +85,7 @@ export const ImageUploader = () => {
               <>
                 <svg
                   aria-hidden="true"
-                  className="w-10 h-10 mb-3 text-gray-400 animate-bounce"
+                  className="w-full h-10 mb-3 text-gray-400 animate-bounce"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -98,7 +99,7 @@ export const ImageUploader = () => {
                   ></path>
                 </svg>
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-semibold">Click to upload</span> or drag and drop
+                  <span className="font-semibold">Click to upload Banner</span> or drag and drop
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
               </>

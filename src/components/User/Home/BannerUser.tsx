@@ -1,5 +1,5 @@
 import React from 'react';
-import bannerimage from "../../assets/bannerimage.jpg";
+import bannerimage from "../../../assets/bannerimage.jpg";
 import { useSelector } from 'react-redux';
 
 const BannerUser = () => {

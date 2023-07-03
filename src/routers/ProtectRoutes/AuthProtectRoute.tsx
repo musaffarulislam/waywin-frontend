@@ -1,5 +1,4 @@
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Navigate } from "react-router-dom";
 import { addAuth, changeRole } from "../../app/slices/authSlice";
@@ -17,7 +16,6 @@ export default function AuthProtectRoute({ children }: AuthProtectRouteProps): a
   const role: string | null = useSelector((state: any) => state.auth.role);
   
   if (!accessToken) {
-    console.log("accessToken" )
     if(location.pathname === '/'){
       return <>{children}</>;
     }
@@ -33,7 +31,6 @@ export default function AuthProtectRoute({ children }: AuthProtectRouteProps): a
 
     return <>{children}</>;
   }else if(accessToken && role){
-    console.log("accessToken & role")
     if (location.pathname === "/signup" || location.pathname === "/otp" || location.pathname === "/login") {
       return <Navigate to="/" />
     }

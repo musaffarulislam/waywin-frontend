@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import themeReducer from './slices/themeSlice';
 import authReducer from './slices/authSlice';
 import trainerReducer from './slices/trainerSlice';
+import adminReducer from './slices/adminSlice';
 import thunk from 'redux-thunk';
 
 const persistConfig = {
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   theme: themeReducer,
   auth: authReducer,
   trainer: trainerReducer,
+  admin: adminReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

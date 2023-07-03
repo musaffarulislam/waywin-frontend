@@ -5,10 +5,12 @@ import { ITrainerState } from "../../utils/entity/TrainerEntity";
 
 const initialValue: ITrainerState ={
     isLoading: false,
+    isLoadingBanner: false,
     isProfile: false,
     trainerInfo: null,
     profileInfo: null,
     profileImage: null,
+    bannerImage: null,
     tags: null,
 }
 
@@ -40,6 +42,14 @@ export const uploadProfileImage =  createAsyncThunk<any, any, {dispatch?: Dispat
     "trainer/uploadProfileImage",
     async (image: any) =>{
         const response = await axios.post("/trainer/upload-profile-image", {image: image});
+        return response.data;
+    }
+)
+
+export const uploadBannerImage =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
+    "trainer/uploadBannerImage",
+    async (image: any) =>{
+        const response = await axios.post("/trainer/upload-banner-image", {image: image});
         return response.data;
     }
 )
@@ -102,13 +112,22 @@ export const trainerSlice = createSlice({
             })
             .addCase(uploadProfileImage.fulfilled, (state,action) => {
                 state.isLoading = false;
-                console.log("upload profile :",action.payload.profileImage)
                 state.profileImage = action.payload.profileImage;
-                console.log(state.profileImage)
             })
             .addCase(uploadProfileImage.rejected, (state) => {
                 state.isLoading = false;
                 state.profileImage = null;
+            })
+            .addCase(uploadBannerImage.pending, (state) => {
+                state.isLoadingBanner = true;
+            })
+            .addCase(uploadBannerImage.fulfilled, (state,action) => {
+                state.isLoadingBanner = false;
+                state.bannerImage = action.payload.bannerImage;
+            })
+            .addCase(uploadBannerImage.rejected, (state) => {
+                state.isLoadingBanner = false;
+                state.bannerImage = null;
             })
             .addCase(getTags.pending, (state) => {
                 state.isLoading = true;

@@ -1,8 +1,8 @@
 import React from "react";
-import { MainContent } from "../../components/Admin/Home/MainContent";
 
 import "../../styles/modules/Scroll.scss";
 import { NavbarAdmin } from "../../components/Navbars/NavbarAdmin";
+import { MainContent } from "../../components/Admin/Home/MainContent";
 
 const Home = () => {
 

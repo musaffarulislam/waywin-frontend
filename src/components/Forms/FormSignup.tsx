@@ -54,7 +54,6 @@ const FormSignup = () => {
   const onSubmit = async (data: IAuth) => {
     const { ...formData } = data;
     formData.role = selectedOption;
-    console.log(formData)
     dispatch(addAuth(formData));
     try {
       await Promise.all([

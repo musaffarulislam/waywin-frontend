@@ -6,7 +6,7 @@ import { RiDashboardFill } from 'react-icons/ri';
 import { HiChatAlt, HiOutlineMenuAlt2, HiCollection, HiPhotograph, HiUserGroup } from 'react-icons/hi';
 import { BsCalendar3 } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
-import { logout } from "../../app/slices/authSlice";
+import { logoutAdmin } from "../../app/slices/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { InputDropdown } from "../Inputs/InputDropdown";
 
@@ -36,13 +36,13 @@ const dispatch = useDispatch();
   };
 
   const handleLogout = () => {
-    dispatch(logout())
-    navigate('/login')
+    dispatch(logoutAdmin())
+    navigate('/admin/login')
   }
 
   return (
     <>
-      <nav className="fixed p-3 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+      <nav className="fixed p-3 z-50 w-full bg-white border-b border-gray-200 dark:bg-slate-800 dark:border-gray-700">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
@@ -70,7 +70,7 @@ const dispatch = useDispatch();
             <div className="relative">
               <button
                 type="button"
-                className="flex text-2xl bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                className="flex text-2xl bg-slate-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                 aria-expanded={isOpen}
                 onClick={toggleDropdown}
               >
@@ -111,10 +111,10 @@ const dispatch = useDispatch();
 
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-96 h-screen pt-28 transition-transform  ${isSidebar ? "translate-x-0" : "-translate-x-full" } bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
+        className={`fixed top-0 left-0 z-40 w-96 h-screen pt-28 transition-transform  ${isSidebar ? "translate-x-0" : "-translate-x-full" } bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-slate-800 dark:border-gray-700`}
         aria-label="Sidebar"
       >
-        <div className="h-full px-8 pb-4 text-2xl overflow-y-auto bg-white dark:bg-gray-800">
+        <div className="h-full px-8 pb-4 text-2xl overflow-y-auto bg-white dark:bg-slate-800">
           <ul className="space-y-2 font-medium">
             <li>
               <Link to="/trainer">
@@ -125,7 +125,7 @@ const dispatch = useDispatch();
               </Link>
             </li>
             <li>
-              <Link to="/trainer/user-managment">
+              <Link to="/admin/user-managment">
                 <div className="flex items-center p-2 my-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" >
                   < CgProfile className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                   <span className="flex-1 ml-3 whitespace-nowrap">User Management</span>
@@ -133,7 +133,7 @@ const dispatch = useDispatch();
               </Link>
             </li>
             <li>
-              <Link to="/trainer/trainer-managment">
+              <Link to="/admin/trainer-managment">
                 <div className="flex items-center p-2 my-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" >
                   <BsCalendar3 className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"/>
                   <span className="flex-1 ml-3 whitespace-nowrap">Trainer Management</span>           

@@ -18,14 +18,12 @@ const FormLogin = () => {
 
   function setUpRecaptcha(number: string) {
     try{
-      console.log("recapcha")
       const recaptchaVerifier = new RecaptchaVerifier(
         "recaptcha-container",
         {},
         auth
         );
         recaptchaVerifier.render();
-        console.log("recapcha render")
       return signInWithPhoneNumber(auth, number, recaptchaVerifier)
     }catch(error: any){
       throw new Error(error.message)
@@ -53,7 +51,6 @@ const FormLogin = () => {
     if (phoneNumber) {
       try {
         const response = await setUpRecaptcha("+91" + phoneNumber);
-        console.log("Form Otp : ",response)
         dispatch(otpConfirmObj(response));
         navigate("/otp");
       } catch (err: any) {

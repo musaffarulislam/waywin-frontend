@@ -14,6 +14,8 @@ module.exports = {
         // secondary_light : "#ffc0c0",
         trainer_dark : "#120202",
         secondaryTrainer_dark : "#4F0303",
+        admin_dark : "#001019",
+        secondaryAdmin_dark : "#012232"
       }
     },
   },

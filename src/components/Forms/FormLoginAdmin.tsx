@@ -27,7 +27,7 @@ const schema = yup.object({
   }).required();
 
   
-const FormLogin = () => {
+const FormLoginAdmin = () => {
   const {
     register,
     handleSubmit,
@@ -40,7 +40,7 @@ const FormLogin = () => {
   const navigate = useNavigate()
   const toaster = useToaster();
 
-  const accessToken: string | null | undefined = window.localStorage.getItem("accessToken");
+  const accessTokenAdmin: string | null | undefined = window.localStorage.getItem("accessTokenAdmin");
   const isLoading: boolean = useSelector((state: any)=> state.auth.isLoading);
   const role: string | null = useSelector((state: any) => state.auth.role);
   
@@ -50,29 +50,23 @@ const FormLogin = () => {
     }catch(error: any){
       dispatch(loading(false))
       toaster.showToast(error.message, { type: 'error' });
-      console.error(error.message)
+      console.log(error.message)
     }
   };
   
   useEffect(()=>{
-    if(accessToken && accessToken !== null && accessToken !== undefined){
-      if(role === "Trainer"){
-        toaster.showToast("Login Success", { type: 'success' });
-        navigate('/trainer')
-      }
-      if(role === "User"){
-        toaster.showToast("Login Success", { type: 'success' });
-        navigate('/')
-      }
-    }else if(accessToken !== null || accessToken !== undefined){
-      window.localStorage.removeItem("accessToken")
+     console.log("Admin login")
+    if(accessTokenAdmin && accessTokenAdmin !== null && accessTokenAdmin !== undefined){
+      toaster.showToast("Admin Login Success", { type: 'success' });
+      navigate('/admin')
+    }else if(accessTokenAdmin !== null || accessTokenAdmin !== undefined){
+      window.localStorage.removeItem("accessTokenAdmin")
     }
-  },[role, navigate ,accessToken, toaster])
+    
+  },[role, navigate , accessTokenAdmin, toaster])
 
   useEffect(()=>{
     dispatch(loading(false));
-    dispatch(addAuth(null))
-    dispatch(otpConfirmObj(null))
   },[dispatch])
 
   return (
@@ -80,13 +74,10 @@ const FormLogin = () => {
         <InputText label="Email" name="email" type="text" register={register} required error={errors.email?.message} />
         <InputText label="Password" name="password" type="password" register={register} required error={errors.password?.message} />
         <div className="flex justify-center">
-        <button type="submit" className="bg-red-600 text-white dark:bg-blue-800 w-5/12 p-3 mt-8 rounded-xl text-2xl flex items-center justify-center"> {isLoading && <Puff height="25" width="25" className="me-3"/>}Submit</button>
-        </div>
-        <div className="flex justify-center my-8">
-          <Link to='/signup'>Create new account?</Link>
+          <button type="submit" className="bg-red-600 text-white dark:bg-blue-800 w-5/12 p-3 mt-8 rounded-xl text-2xl flex items-center justify-center"> {isLoading && <Puff height="25" width="25" className="me-3"/>}Submit</button>
         </div>
     </form>
   );
 };
 
-export default FormLogin;
+export default FormLoginAdmin;
