@@ -1,4 +1,4 @@
-import React, { ReactEventHandler, useEffect, useState } from "react";
+import React, { ReactEventHandler, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
@@ -28,25 +28,34 @@ const FormTrainerProfile = () => {
   const isLoading: boolean = useSelector((state: any) => state.auth.isLoading);
 
   const toaster = useToaster()
-
+  
+  const profileInfo = useSelector((state:any) => state.trainer.profileInfo)
+  
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [profileDescription, setProfileDescription] = useState<string>();
   const [selectedMode, setSelectedMode] = useState<string[]>([]);
-
+  
   const [errorsServices, setErrorsServices] = useState<string>();
   const [errorsDescription, setErrorsDescription] = useState<string>();
   const [errorsTags, setErrorsTags] = useState<string>();
   const [errorsExperience, setErrorsExperience] = useState<string>();
   const [errorsMode, setErrorsMode] = useState<string>();
 
-  const handleServices = (option: string[]) => {
+  useEffect(() => {
+    if (profileInfo) {
+      setValue("experience", profileInfo.experience);
+    }
+  }, [profileInfo, setValue]);
+
+  const handleServices = useCallback((option: string[]) => {
     setSelectedServices(option);
-  };
+  },[]);
   
-  const handleDescription = (text: string) => {
+  const handleDescription = useCallback((text: string) => {
     textareaSchema.validate(text).then(()=>{
       setErrorsDescription(""); // No validation error
+      console.log("Handle : ",text)
       setProfileDescription(text);
     })
     .catch((error) => {
@@ -56,17 +65,17 @@ const FormTrainerProfile = () => {
         setErrorsDescription(error.errors[0]);
       }
     });
-  };
+  },[]);
   
-  const handleTags = (tags: string[]) => {
+  const handleTags = useCallback((tags: string[]) => {
     setSelectedTags(tags);
-  };
+  },[]);
 
   const experience = watch("experience");
 
-  const handleMode = (option: string[]) => {
+  const handleMode = useCallback((option: string[]) => {
     setSelectedMode(option);
-  };
+  },[]);
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -82,6 +91,7 @@ const FormTrainerProfile = () => {
     formData.tags = selectedTags;
     formData.experience = experience;
     formData.mode = selectedMode;
+    console.log("profileDescription :",profileDescription)
     if(selectedServices.length <= 0){
       return setErrorsServices("Please select any services")
     }else{
@@ -115,11 +125,8 @@ const FormTrainerProfile = () => {
     toaster.showToast('Profile Update Successfully', { type: 'success' })
   }
 
-  const profileInfo = useSelector((state:any) => state.trainer.profileInfo)
+  
 
-  useEffect(()=>{
-    dispatch(getTrainerProfile())
-  },[dispatch])
 
   return (
     <form className="rounded flex flex-col justify-center w-3/4 md:w-full" onSubmit={handleSubmitForm}>

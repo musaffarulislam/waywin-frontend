@@ -133,8 +133,7 @@ export const trainerSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(getTags.fulfilled, (state,action) => {
-                state.isLoading = false;
-                console.log("Tagssss : ", action.payload.tags)
+                state.isLoading = false;    
                 state.tags = action.payload.tags;
             })
             .addCase(getTags.rejected, (state) => {

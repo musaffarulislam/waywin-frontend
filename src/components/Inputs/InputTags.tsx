@@ -13,9 +13,19 @@ const InputTags = ({ onTagsChange, error }: tagsProps) => {
   
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   
+  const profileInfo = useSelector((state:any) => state.trainer.profileInfo)
+
   useEffect(() => {
     onTagsChange(selectedTags);
   }, [selectedTags, onTagsChange]);
+
+  useEffect(()=>{
+    if (profileInfo) {
+      if (profileInfo.tags) {
+        setSelectedTags(profileInfo.tags);
+      }
+    }
+  },[profileInfo])
   
   useEffect(()=>{
     dispatch(getTags())

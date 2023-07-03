@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
@@ -8,11 +8,23 @@ type optionProps = {
 };
 
 const InputServices = ({ onOptionServices, error }: optionProps) => {
+  
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
 
+  const profileInfo = useSelector((state:any) => state.trainer.profileInfo)
+
   useEffect(() => {
-    onOptionServices(selectedCheckboxes);
+    onOptionServices(selectedCheckboxes)
+    console.log("selectedCheckboxes", selectedCheckboxes);
   }, [selectedCheckboxes, onOptionServices]);
+
+  useEffect(()=>{
+    if (profileInfo) {
+      if (profileInfo.services) {
+        setSelectedCheckboxes(profileInfo.services);
+      }
+    }
+  },[profileInfo])
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -24,18 +36,15 @@ const InputServices = ({ onOptionServices, error }: optionProps) => {
     setIsHovered(false);
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checkboxValue = event.target.value;
     setSelectedCheckboxes((prevSelectedCheckboxes: string[]) => {
       if (prevSelectedCheckboxes.includes(checkboxValue)) {
-        return prevSelectedCheckboxes.filter(
-          (checkbox: any) => checkbox !== checkboxValue
-        );
+        return prevSelectedCheckboxes.filter((checkbox) => checkbox !== checkboxValue);
       } else {
         return [...prevSelectedCheckboxes, checkboxValue];
       }
     });
-    onOptionServices(selectedCheckboxes)
   };
 
   return (
