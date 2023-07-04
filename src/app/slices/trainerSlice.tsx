@@ -5,6 +5,7 @@ import { ITrainerState } from "../../utils/entity/TrainerEntity";
 
 const initialValue: ITrainerState ={
     isLoading: false,
+    isLoadingImage: false,
     isLoadingBanner: false,
     isProfile: false,
     trainerInfo: null,
@@ -88,13 +89,13 @@ export const trainerSlice = createSlice({
                 state.profileImage = null;
             })
             .addCase(createProfile.pending, (state) => {
-                state.isLoading = true;
+                state.isLoadingImage = true;
             })
             .addCase(createProfile.fulfilled, (state,action) => {
-                state.isLoading = false;
+                state.isLoadingImage = false;
             })
             .addCase(createProfile.rejected, (state) => {
-                state.isLoading = false;
+                state.isLoadingImage = false;
             })
             .addCase(getTrainerProfile.pending, (state) => {
                 state.isLoading = true;
@@ -108,14 +109,14 @@ export const trainerSlice = createSlice({
                 state.profileInfo = null;
             })
             .addCase(uploadProfileImage.pending, (state) => {
-                state.isLoading = true;
+                state.isLoadingImage = true;
             })
             .addCase(uploadProfileImage.fulfilled, (state,action) => {
-                state.isLoading = false;
+                state.isLoadingImage = false;
                 state.profileImage = action.payload.profileImage;
             })
             .addCase(uploadProfileImage.rejected, (state) => {
-                state.isLoading = false;
+                state.isLoadingImage = false;
                 state.profileImage = null;
             })
             .addCase(uploadBannerImage.pending, (state) => {

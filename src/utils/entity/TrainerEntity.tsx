@@ -1,5 +1,6 @@
 export interface ITrainerState {
     isLoading: boolean;
+    isLoadingImage: boolean;
     isLoadingBanner: boolean;
     isProfile: boolean,
     trainerInfo: any;

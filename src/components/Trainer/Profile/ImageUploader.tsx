@@ -10,9 +10,10 @@ export const ImageUploader = () => {
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const profileImage: string | null = useSelector((state: any)=> state.trainer.profileImage)
-  const isLoading: boolean = useSelector((state: any)=> state.trainer.isLoading)
+  const isLoadingImage: boolean = useSelector((state: any)=> state.trainer.isLoadingImage)
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleProfileImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log("Profile image")
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -26,6 +27,7 @@ export const ImageUploader = () => {
   };
 
   const uploadFile = (image: string | null) =>{
+    console.log("Profile image")
     dispatch(uploadProfileImage(image))
   }
 
@@ -34,10 +36,10 @@ export const ImageUploader = () => {
   }, [dispatch])
 
   return (
-    <div className="flex items-center justify-center w-full absolute -bottom-16 sm:-bottom-20 md:-bottom-24 lg:-bottom-28">
-      <label htmlFor="dropzone-file" className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64">
+    <div className="flex items-center justify-center w-full absolute -bottom-16 sm:-bottom-20 md:-bottom-24 lg:-bottom-28 z-10">
+      <label htmlFor="dropzone-file-profile" className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64">
         <div className="absolute inset-0 flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 rounded-full cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-slate-800 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-          { isLoading ? <Puff height="25" width="25" /> :
+          { isLoadingImage ? <Puff height="25" width="25" /> :
            profileImage ? 
               <>
                 <img src={profileImage} alt="Preview" className="w-full h-full object-cover rounded-full opacity-100 hover:opacity-0 transition-opacity duration-300" />
@@ -106,10 +108,10 @@ export const ImageUploader = () => {
           }
         </div>
         <input
-          id="dropzone-file"
+          id="dropzone-file-profile"
           type="file"
           className="hidden"
-          onChange={handleFileChange}
+          onChange={handleProfileImageChange} // Assign the correct event handler
           accept="image/svg+xml,image/png,image/jpeg,image/gif"
         />
       </label>

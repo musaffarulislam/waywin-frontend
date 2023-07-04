@@ -1,27 +1,61 @@
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getAllTrainersInfo } from "../../../app/slices/adminSlice";
+import {changeAuthStatus, getActiveTrainersInfo, getAllTrainersInfo, getInactiveTrainersInfo } from "../../../app/slices/adminSlice";
+import useToaster from "../../../hooks/useToast";
 
 export const TrainerManagmentTable = () => {
 
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const toaster = useToaster();
 
     const trainers : string[] | null = useSelector((state:any) => state.admin.trainers);
 
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isFilter, setIsFilter] = useState<string>("All");
+
+    const toggleDropdown = () => {
+      setIsOpen(!isOpen);
+    };
+
+    const handleFilter = (event: any) =>{
+      setIsFilter(event.target.value)
+    }
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const rowsPerPage = 10;
+
     useEffect(()=>{
-        dispatch(getAllTrainersInfo())
-    },[dispatch])
+      if(isFilter === "Inactive"){
+        dispatch(getInactiveTrainersInfo());
+      }else if(isFilter === "Active"){
+        dispatch(getActiveTrainersInfo());
+      }else{
+        dispatch(getAllTrainersInfo());
+      }
+    },[dispatch, isFilter])
+
+    const handleStatus = async (authId: string) => {
+      await dispatch(changeAuthStatus(authId));
+      if(isFilter === "Inactive"){
+        dispatch(getInactiveTrainersInfo());
+      }else if(isFilter === "Active"){
+        dispatch(getActiveTrainersInfo());
+      }else{
+        dispatch(getAllTrainersInfo());
+      }
+      toaster.showToast("Trainer status change successful", { type: 'success' });
+    };
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div className="flex items-center justify-between pb-4">
-        <div>
+        <div className="relative">
           <button
             id="dropdownRadioButton"
-            data-dropdown-toggle="dropdownRadio"
-            className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-xl px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            className="inline-flex justify-between items-center w-48 text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-xl px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
             type="button"
+            onClick={toggleDropdown}
           >
             <svg
               className="w-4 h-4 mr-2 text-gray-400"
@@ -36,7 +70,7 @@ export const TrainerManagmentTable = () => {
                 clipRule="evenodd"
               ></path>
             </svg>
-            Last 30 days
+              {isFilter}
             <svg
               className="w-3 h-3 ml-2"
               aria-hidden="true"
@@ -47,116 +81,119 @@ export const TrainerManagmentTable = () => {
             >
               <path
                 strokeLinecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M19 9l-7 7-7-7"
               ></path>
             </svg>
           </button>
-          <div
-            id="dropdownRadio"
-            className="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-            data-popper-reference-hidden=""
-            data-popper-escaped=""
-            data-popper-placement="top"
-            style={{
-              position: "absolute",
-              inset: "auto auto 0px 0px",
-              margin: "0px",
-              transform: "translate3d(522.5px, 3847.5px, 0px)",
-            }}
-          >
-            <ul
-              className="p-3 space-y-1 text-xl text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdownRadioButton"
+          {isOpen && (
+            <div
+              id="dropdownRadio"
+              className="z-10 absolute right-0 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
             >
-              <li>
-                <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  <input
-                    id="filter-radio-example-1"
-                    type="radio"
-                    value=""
-                    name="filter-radio"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label
-                    htmlFor="filter-radio-example-1"
-                    className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
-                  >
-                    Last day
-                  </label>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  <input
-                    id="filter-radio-example-2"
-                    type="radio"
-                    value=""
-                    name="filter-radio"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label
-                    htmlFor="filter-radio-example-2"
-                    className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
-                  >
-                    Last 7 days
-                  </label>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  <input
-                    id="filter-radio-example-3"
-                    type="radio"
-                    value=""
-                    name="filter-radio"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label
-                    htmlFor="filter-radio-example-3"
-                    className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
-                  >
-                    Last 30 days
-                  </label>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  <input
-                    id="filter-radio-example-4"
-                    type="radio"
-                    value=""
-                    name="filter-radio"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label
-                    htmlFor="filter-radio-example-4"
-                    className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
-                  >
-                    Last month
-                  </label>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  <input
-                    id="filter-radio-example-5"
-                    type="radio"
-                    value=""
-                    name="filter-radio"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label
-                    htmlFor="filter-radio-example-5"
-                    className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
-                  >
-                    Last year
-                  </label>
-                </div>
-              </li>
-            </ul>
-          </div>
+              <ul
+                className="p-3 space-y-1 text-xl text-gray-700 dark:text-gray-200"
+                aria-labelledby="dropdownRadioButton"
+              >
+                <li>
+                  <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                    <input
+                      id="filter-radio-example-1"
+                      type="radio"
+                      value="All"
+                      name="filter-radio"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      checked={isFilter === "All"}
+                      onChange={handleFilter}
+                    />
+                    <label
+                      htmlFor="filter-radio-example-1"
+                      className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
+                    >
+                      All
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                    <input
+                      id="filter-radio-example-2"
+                      type="radio"
+                      value="Active"
+                      name="filter-radio"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      checked={isFilter === "Active"}
+                      onChange={handleFilter}
+                    />
+                    <label
+                      htmlFor="filter-radio-example-2"
+                      className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
+                    >
+                      Active
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                    <input
+                      id="filter-radio-example-3"
+                      type="radio"
+                      value="Inactive"
+                      name="filter-radio"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      checked={isFilter === "Inactive"}
+                      onChange={handleFilter}
+                    />
+                    <label
+                      htmlFor="filter-radio-example-3"
+                      className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
+                    >
+                      Inactive
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                    <input
+                      id="filter-radio-example-3"
+                      type="radio"
+                      value="Verified"
+                      name="filter-radio"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      checked={isFilter === "Verified"}
+                      onChange={handleFilter}
+                    />
+                    <label
+                      htmlFor="filter-radio-example-3"
+                      className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
+                    >
+                      Verified
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                    <input
+                      id="filter-radio-example-3"
+                      type="radio"
+                      value="Unverified"
+                      name="filter-radio"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      checked={isFilter === "Unverified"}
+                      onChange={handleFilter}
+                    />
+                    <label
+                      htmlFor="filter-radio-example-3"
+                      className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
+                    >
+                      Unverified
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
         <label htmlFor="table-search" className="sr-only">
           Search
@@ -208,14 +245,16 @@ export const TrainerManagmentTable = () => {
             </th>
           </tr>
         </thead>
-        {trainers ? (
-            <tbody>
-                {trainers.map((trainer)=>{
+        <tbody>
+              {trainers && trainers.length > 0 ? (
+                trainers
+                .slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
+                .map((trainer, index)=>{
                     const trainerObject = typeof trainer === 'string' ? JSON.parse(trainer) : trainer;
-                    const isStatusActive = Boolean(trainerObject?.status);
+                    const isStatusActive = Boolean(trainerObject?.authId?.isActive);
                     const isProfile = Boolean(trainerObject?.isProfile);
                     return(
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row" className="px-6 py-6 w-1/6 font-medium text-gray-900 whitespace-nowrap dark:text-white" >
                           {trainerObject?.authId?.email}
                         </th>
@@ -240,7 +279,8 @@ export const TrainerManagmentTable = () => {
                         </button>  
                         </td>
                         <td className="px-6 py-6 w-1/6">
-                          <div className="w-1/5 font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                          <div className="w-1/5 font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                          onClick={()=>handleStatus(trainerObject?.authId?._id)}>
                               {isStatusActive ? 
                                   ( <div> Active </div> ) : (<div> Unactive </div>)
                               }
@@ -248,17 +288,33 @@ export const TrainerManagmentTable = () => {
                         </td>
                     </tr>
                     )
-                })}
-            </tbody>
-        ):(
-            <tbody>
+                })
+              ) : (
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    No trainer Available
-                </tr>  
-            </tbody>
-        )}
+                  <td colSpan={4}>No User Available</td>
+                </tr>
+              )}
+        </tbody>
       </table>
-
+      <div className="flex justify-center py-4">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+          className="px-3 py-1 text-xl font-medium text-gray-900 rounded bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
+        >
+          Previous
+        </button>
+        <div className="mx-5 text-2xl flex items-center">
+          {currentPage}
+        </div>
+        <button
+          disabled={!trainers || trainers.length === 0 || trainers.length <= currentPage * rowsPerPage}
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          className=" px-3 py-1 text-xl font-medium text-gray-900 rounded bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
+        >
+          Next
+        </button>
+      </div>
       {/* <div id="editUserModal" tabIndex={-1} aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div className="relative w-full max-w-2xl max-h-full">
             <form action="#" className="relative bg-white rounded-lg shadow dark:bg-gray-700">
