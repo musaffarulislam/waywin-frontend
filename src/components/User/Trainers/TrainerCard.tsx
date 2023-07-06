@@ -1,7 +1,7 @@
-import React from 'react'
-import bannerimage4 from "../../../assets/bannerimage.jpg";
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import {useNavigate } from 'react-router-dom';
+import { addTrainerInfo } from '../../../app/slices/userSlice';
 
 type TrainerCardProps = {
     trainer: any
@@ -14,7 +14,7 @@ export const TrainerCard = ({trainer}: TrainerCardProps) => {
   const navigate = useNavigate()
 
   const handleView = () => {
-    dispatch(trainer)
+    dispatch(addTrainerInfo(trainer))
     navigate('/trainer-info');
   }
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import InputServicesModal from '../Inputs/InputServicesModal';
-import InputTextareaModal from '../Inputs/InputTextareaModal';
-import InputTagsModal from '../Inputs/InputTagsModal';
-import InputModeModal from '../Inputs/InputModeModal';
+import InputServices from '../Inputs/StaticInputs/InputServices';
+import InputTextarea from '../Inputs/StaticInputs/InputTextarea';
+import InputTags from '../Inputs/StaticInputs/InputTags';
+import InputMode from '../Inputs/StaticInputs/InputMode';
 import Swal from 'sweetalert2'
 import { MdVerified } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
@@ -96,15 +96,15 @@ export const FormModalTrainer = ({onModal, trainer}: optionProps) => {
   return (
     <form action="#">
         <div className="mb-12">
-            <InputServicesModal services={trainer?.profile?.services} />
-            <InputTextareaModal label="Description" name="description" description={trainer?.profile?.description}/>
-            <InputTagsModal tags={trainer?.profile?.tags} /> 
+            <InputServices services={trainer?.profile?.services} />
+            <InputTextarea label="Description" name="description" description={trainer?.profile?.description}/>
+            <InputTags tags={trainer?.profile?.tags} /> 
             <div className='mt-2'>
                 <label htmlFor="experience" className="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Experience</label>
                 <input type="number" value={trainer?.profile?.experience} name="experience" id="experience" className="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 cursor-not-allowed" placeholder="0" disabled  /
                 >
             </div>
-            <InputModeModal mode={trainer?.profile?.mode} />
+            <InputMode mode={trainer?.profile?.mode} />
         </div>
         <div className="flex items-center justify-center space-x-4">
             <button type="submit" className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

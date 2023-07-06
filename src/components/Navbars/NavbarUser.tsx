@@ -15,6 +15,7 @@ import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { InputDropdown } from "../Inputs/InputDropdown";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { IAuth } from "../../utils/entity/AuthEntity copy";
+import { MdDarkMode, MdSunny } from "react-icons/md";
 
 const NavbarUser = () => {
 
@@ -84,7 +85,14 @@ const NavbarUser = () => {
                 </Link>
               </div>
               <div>About Us</div>
-              {accessToken && <TbBellRingingFilled />}
+              {accessToken ? <TbBellRingingFilled /> :
+                <button className="px-3 py-1 rounded text-gray-800 dark:text-white"
+                  onClick={handleThemeToggle}
+                >
+                {theme === "dark" ? <MdSunny /> : <MdDarkMode />
+               }
+             </button>}
+              
               {accessToken ? 
                 // <div className="flex items-center cursor-pointer" onClick={handleSignout}>Signout <FiLogIn className="ms-1"/></div>
 

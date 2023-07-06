@@ -6,7 +6,7 @@ type optionProps = {
   name?: string;
 }
 
-const InputTextareaModal = ({description, label, name}: optionProps) => {
+const InputTextarea = ({description, label, name}: optionProps) => {
 
 
   return (
@@ -27,4 +27,4 @@ const InputTextareaModal = ({description, label, name}: optionProps) => {
   );
 };
 
-export default InputTextareaModal;
+export default InputTextarea;

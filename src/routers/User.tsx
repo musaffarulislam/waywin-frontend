@@ -10,6 +10,7 @@ import Trainers from '../pages/user/Trainers';
 import AuthProtectRoute from './ProtectRoutes/AuthProtectRoute';
 
 import "../App.scss";
+import TrainerInfo from '../pages/user/TrainerInfo';
 
 const User = () => {
 
@@ -22,7 +23,7 @@ const User = () => {
           <Route path="/signup" element={<AuthProtectRoute> <Signup /> </AuthProtectRoute>}></Route>
           <Route path="/otp" element={<AuthProtectRoute> <Otp /> </AuthProtectRoute>}></Route>
           <Route path="/trainers" element={ <Trainers /> }></Route>
-          <Route path="/trainer-info" element={<AuthProtectRoute> <TrainerInfo /> </AuthProtectRoute>}></Route>
+          <Route path="/trainer-info" element={ <TrainerInfo /> }></Route>
         </Routes>
     </div>
   ) 

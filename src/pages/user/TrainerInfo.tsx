@@ -3,7 +3,7 @@ import NavbarUser from '../../components/Navbars/NavbarUser'
 import Hero from '../../components/User/TrainerInfo/Hero';
 import "../../styles/modules/Scroll.scss";
 
-const Trainers: FC = () => {
+const TrainerInfo: FC = () => {
   return (
     <div className='h-screen overflow-auto custom-scroll'>
       <NavbarUser />
@@ -12,4 +12,4 @@ const Trainers: FC = () => {
   )
 }
 
-export default Trainers
+export default TrainerInfo
