@@ -1,6 +1,7 @@
 import React from 'react';
 import bannerimage from "../../../assets/bannerimage.jpg";
-import { useSelector } from 'react-redux';
+import bannerimage3 from "../../../assets/bannerimage3.png";
+import bannerimage4 from "../../../assets/bannerimage4.png";
 
 const BannerUser = () => {
 
@@ -18,10 +19,13 @@ const BannerUser = () => {
           </div>
         </div>
         <div className='col-span-2'>
-          <div
+          {/* <div
             className="min-h-[200px] md:min-h-[300px] xl:min-h-[500px] rounded-3xl bg-cover bg-center dark:shadow-2xl"
             style={{ backgroundImage: `url(${bannerimage})` }}
-          ></div>
+          ></div> */}
+          <div className="" >
+            <img src={bannerimage4} alt='banner' />
+          </div>
         </div>
       </div>
 

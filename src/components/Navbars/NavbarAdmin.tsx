@@ -75,7 +75,7 @@ const dispatch = useDispatch();
                 onClick={toggleDropdown}
               >
                 <span className="sr-only">Open user menu</span>
-                <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
+                <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="admin toggle" />
               </button>
               {isOpen && (
                 <div className="absolute right-0 mt-2 text-base bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
@@ -94,7 +94,7 @@ const dispatch = useDispatch();
                     <li>
                       <div className="block px-4 py-2 text-2xl text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" >
                         <label className="relative inline-flex items-center mr-5 cursor-pointer">
-                            <input type="checkbox" value="" className="sr-only peer" checked={theme === "dark"} onClick={handleThemeToggle} />
+                            <input type="checkbox" value="" className="sr-only peer" checked={theme === "dark"} onChange={handleThemeToggle} />
                             <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                             <span className="ml-3 text-2xl font-medium text-gray-900 dark:text-gray-300">Theme</span>
                         </label>

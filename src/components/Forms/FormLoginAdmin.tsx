@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import InputText from "../Inputs/InputText";
-import { Link, useNavigate } from "react-router-dom";
-import { addAuth, getAuthByEmail, loading, otpConfirmObj } from "../../app/slices/authSlice";
+import { useNavigate } from "react-router-dom";
+import {  getAuthByEmail, loading } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { ILogin } from "../../utils/entity/AuthEntity";
 import { Puff } from "react-loading-icons";
@@ -55,7 +55,6 @@ const FormLoginAdmin = () => {
   };
   
   useEffect(()=>{
-     console.log("Admin login")
     if(accessTokenAdmin && accessTokenAdmin !== null && accessTokenAdmin !== undefined){
       toaster.showToast("Admin Login Success", { type: 'success' });
       navigate('/admin')

@@ -5,6 +5,8 @@ import Home from "../pages/user/Home";
 import Login from "../pages/common/Login";
 import Signup from "../pages/common/Signup";
 import Otp from "../pages/common/Otp";
+import Trainers from '../pages/user/Trainers';
+
 import AuthProtectRoute from './ProtectRoutes/AuthProtectRoute';
 
 import "../App.scss";
@@ -19,6 +21,8 @@ const User = () => {
           <Route path="/login" element={ <AuthProtectRoute> <Login /> </AuthProtectRoute> }></Route>
           <Route path="/signup" element={<AuthProtectRoute> <Signup /> </AuthProtectRoute>}></Route>
           <Route path="/otp" element={<AuthProtectRoute> <Otp /> </AuthProtectRoute>}></Route>
+          <Route path="/trainers" element={ <Trainers /> }></Route>
+          <Route path="/trainer-info" element={<AuthProtectRoute> <TrainerInfo /> </AuthProtectRoute>}></Route>
         </Routes>
     </div>
   ) 

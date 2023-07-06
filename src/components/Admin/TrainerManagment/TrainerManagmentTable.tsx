@@ -1,26 +1,54 @@
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {changeAuthStatus, getActiveTrainersInfo, getAllTrainersInfo, getInactiveTrainersInfo } from "../../../app/slices/adminSlice";
+import {changeAuthStatus, getActiveTrainersInfo, getAllTrainersInfo, getInactiveTrainersInfo, getUnverifiedTrainersInfo, getVerifiedTrainersInfo } from "../../../app/slices/adminSlice";
 import useToaster from "../../../hooks/useToast";
+import { FormModalTrainer } from "../../Forms/FormModalTrainer";
 
 export const TrainerManagmentTable = () => {
 
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     const toaster = useToaster();
+    // let profileInfo;
 
     const trainers : string[] | null = useSelector((state:any) => state.admin.trainers);
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isModal, setIsModal] = useState<boolean>(false);
     const [isFilter, setIsFilter] = useState<string>("All");
+    const [isTrainer, setIsTrainer] = useState();
+    const [isVerified, setIsVerified] = useState();
 
     const toggleDropdown = () => {
       setIsOpen(!isOpen);
     };
 
     const handleFilter = (event: any) =>{
+      console.log(event.target.value)
       setIsFilter(event.target.value)
     }
+ 
+    const handleModal = (trainer: any) =>{
+      setIsTrainer(trainer);
+      setIsVerified(trainer?.isVerified);
+      setIsModal(!isModal)  
+    }
+
+    const handleModalForm = (option: boolean) => {
+      setIsModal(option)
+      if(isFilter === "Inactive"){
+        dispatch(getInactiveTrainersInfo());
+      }else if(isFilter === "Active"){
+        dispatch(getActiveTrainersInfo());
+      }else if(isFilter === "Verified"){
+        dispatch(getVerifiedTrainersInfo());
+      }else if(isFilter === "Unverified"){
+        dispatch(getUnverifiedTrainersInfo());
+      }else{
+        dispatch(getAllTrainersInfo());
+      }
+    }
+
 
     const [currentPage, setCurrentPage] = useState(1);
     const rowsPerPage = 10;
@@ -30,21 +58,34 @@ export const TrainerManagmentTable = () => {
         dispatch(getInactiveTrainersInfo());
       }else if(isFilter === "Active"){
         dispatch(getActiveTrainersInfo());
+      }else if(isFilter === "Verified"){
+        dispatch(getVerifiedTrainersInfo());
+      }else if(isFilter === "Unverified"){
+        dispatch(getUnverifiedTrainersInfo());
       }else{
         dispatch(getAllTrainersInfo());
       }
     },[dispatch, isFilter])
 
     const handleStatus = async (authId: string) => {
-      await dispatch(changeAuthStatus(authId));
-      if(isFilter === "Inactive"){
-        dispatch(getInactiveTrainersInfo());
-      }else if(isFilter === "Active"){
-        dispatch(getActiveTrainersInfo());
-      }else{
-        dispatch(getAllTrainersInfo());
+      try{
+        await dispatch(changeAuthStatus(authId));
+        if(isFilter === "Inactive"){
+          dispatch(getInactiveTrainersInfo());
+        }else if(isFilter === "Active"){
+          dispatch(getActiveTrainersInfo());
+        }else if(isFilter === "Verified"){
+          dispatch(getVerifiedTrainersInfo());
+        }else if(isFilter === "Unverified"){
+          dispatch(getUnverifiedTrainersInfo());
+        }else{
+          dispatch(getAllTrainersInfo());
+        }
+        toaster.showToast("Trainer status change successful", { type: 'success' });
+      }catch(error: unknown){
+        const errorMessage = (error as Error).message || "An error occurred";
+        toaster.showToast(errorMessage, { type: 'error' });
       }
-      toaster.showToast("Trainer status change successful", { type: 'success' });
     };
 
   return (
@@ -156,7 +197,7 @@ export const TrainerManagmentTable = () => {
                 <li>
                   <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                     <input
-                      id="filter-radio-example-3"
+                      id="filter-radio-example-4"
                       type="radio"
                       value="Verified"
                       name="filter-radio"
@@ -165,7 +206,7 @@ export const TrainerManagmentTable = () => {
                       onChange={handleFilter}
                     />
                     <label
-                      htmlFor="filter-radio-example-3"
+                      htmlFor="filter-radio-example-4"
                       className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
                     >
                       Verified
@@ -175,7 +216,7 @@ export const TrainerManagmentTable = () => {
                 <li>
                   <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                     <input
-                      id="filter-radio-example-3"
+                      id="filter-radio-example-5"
                       type="radio"
                       value="Unverified"
                       name="filter-radio"
@@ -184,7 +225,7 @@ export const TrainerManagmentTable = () => {
                       onChange={handleFilter}
                     />
                     <label
-                      htmlFor="filter-radio-example-3"
+                      htmlFor="filter-radio-example-5"
                       className="w-full ml-2 text-xl font-medium text-gray-900 rounded dark:text-gray-300"
                     >
                       Unverified
@@ -265,7 +306,7 @@ export const TrainerManagmentTable = () => {
                             (
                               <div className="w-full">
                                 <div className="w-20 h-20 flex items-center justify-center">
-                                  <img src={trainerObject?.profileImage?.url} alt="Profile Image" className="w-full h-full object-cover rounded-full opacity-100 hover:opacity-50 transition-opacity duration-300" />
+                                  <img src={trainerObject?.profileImage?.url} alt="Trainer Profile" className="w-full h-full object-cover rounded-full opacity-100 hover:opacity-50 transition-opacity duration-300" />
                                 </div>
                               </div>
                             ):(
@@ -274,7 +315,9 @@ export const TrainerManagmentTable = () => {
                           }
                         </td>
                         <td className="px-6 py-6 w-1/6">
-                        <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                        <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-xl px-5 py-2.5 text-center mr-2 mb-2"
+                          onClick={()=>handleModal(trainerObject)}
+                        >
                           Click Here  
                         </button>  
                         </td>
@@ -315,59 +358,26 @@ export const TrainerManagmentTable = () => {
           Next
         </button>
       </div>
-      {/* <div id="editUserModal" tabIndex={-1} aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div className="relative w-full max-w-2xl max-h-full">
-            <form action="#" className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                        Edit user
-                    </h3>
-                    <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="editUserModal">
-                        <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>  
-                    </button>
-                </div>
-                <div className="p-6 space-y-6">
-                    <div className="grid grid-cols-6 gap-6">
-                        <div className="col-span-6 sm:col-span-3">
-                            <label htmlFor="first-name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-                            <input type="text" name="first-name" id="first-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bonnie"/>
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                            <label htmlFor="last-name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-                            <input type="text" name="last-name" id="last-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Green" />
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input type="email" name="email" id="email" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="example@company.com" />
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                            <label htmlFor="phone-number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-                            <input type="number" name="phone-number" id="phone-number" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. +(12)3456 789" />
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                            <label htmlFor="department" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
-                            <input type="text" name="department" id="department" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Development" />
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                            <label htmlFor="company" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
-                            <input type="number" name="company" id="company" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123456" />
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                            <label htmlFor="current-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current Password</label>
-                            <input type="password" name="current-password" id="current-password" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••" />
-                        </div>
-                        <div className="col-span-6 sm:col-span-3">
-                            <label htmlFor="new-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
-                            <input type="password" name="new-password" id="new-password" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••" />
-                        </div>
-                    </div>
-                </div>
-                <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save all</button>
-                </div>
-            </form>
-        </div>
-      </div> */}
+      
+      {isModal &&
+      <div id="updateProductModal" tabIndex={-1} className="flex overflow-y-auto overflow-x-hidden fixed  z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full bg-black bg-opacity-50">
+          <div className="relative p-4 w-full max-w-4xl h-full md:h-auto">
+              <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                  <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                      <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                          {isTrainer && isVerified ? "Please verify" : "Please Unverify"}
+                      </h3>
+                      <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-xl p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="updateProductModal"
+                      onClick={()=>handleModal(null)}>
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                          <span className="sr-only">Close modal</span>
+                      </button>
+                  </div>
+                  <FormModalTrainer onModal={handleModalForm} trainer={isTrainer} />
+              </div>
+          </div>
+      </div>
+      }
     </div>
   );
 };

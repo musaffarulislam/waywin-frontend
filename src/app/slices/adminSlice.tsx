@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk, Dispatch, AnyAction } from "@reduxjs/toolkit";
 import {axiosPrivate} from "../../config/axios";
 import { IAdminState } from "../../utils/entity/AuthEntity copy";
+import { AxiosError } from "axios";
+
 
 const initialValue: IAdminState = {
     isLoading: false,
@@ -33,19 +35,6 @@ export const getInactiveUsersInfo = createAsyncThunk<any>(
     }
 );
 
-
-export const changeAuthStatus = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
-    "admin/changeAuthStatus",
-    async (authId) => {
-        try{
-            const response = await axiosPrivate.put("/change-auth-status", {authId});
-            return response.data;
-        }catch(error){
-            // throw new Error(error)
-        }
-    }
-);
-
 export const getAllTrainersInfo = createAsyncThunk<any>(
     "admin/getAllTrainersInfo",
     async () => {
@@ -70,6 +59,57 @@ export const getInactiveTrainersInfo = createAsyncThunk<any>(
     }
 );
 
+export const getVerifiedTrainersInfo = createAsyncThunk<any>(
+    "admin/getVerifiedTrainersInfo",
+    async () => {
+        const response = await axiosPrivate.get("/getVerify-trainer-info");
+        return response.data;
+    }
+);
+
+export const getUnverifiedTrainersInfo = createAsyncThunk<any>(
+    "admin/getUnverifiedTrainersInfo",
+    async () => {
+        const response = await axiosPrivate.get("/getUnverify-trainer-info");
+        return response.data;
+    }
+);
+
+export const changeAuthStatus = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
+    "admin/changeAuthStatus",
+    async (authId) => {
+        try{
+            const response = await axiosPrivate.put("/change-auth-status", {authId});
+            return response.data;
+        }catch (error: unknown) {
+            if (error instanceof AxiosError) {
+                console.log("error:", error?.response?.data.error);
+                throw new Error(error?.response?.data.error);
+            } else {
+                throw new Error(error as string);
+            }
+        }
+    }
+);
+
+export const trainerVerify = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
+    "admin/trainerVerify",
+    async (trainerId) => {
+        try{
+            const response = await axiosPrivate.put("/trainer-verify", {trainerId});
+            return response.data;
+        }catch (error: unknown) {
+            if (error instanceof AxiosError) {
+                console.log("error:", error?.response?.data.error);
+                throw new Error(error?.response?.data.error);
+            } else {
+                throw new Error(error as string);
+            }
+        }
+    }
+);
+
+
 export const adminSlice = createSlice({
     name: "admin",
     initialState: initialValue,
@@ -85,7 +125,6 @@ export const adminSlice = createSlice({
             })
             .addCase(getAllUsersInfo.rejected, (state) => {
                 state.isLoading = false;
-                throw Error("Something went wrong");
             })
             .addCase(getActiveUsersInfo.pending, (state) => {
                 state.isLoading = true;
@@ -96,7 +135,6 @@ export const adminSlice = createSlice({
             })
             .addCase(getActiveUsersInfo.rejected, (state) => {
                 state.isLoading = false;
-                throw Error("Something went wrong");
             })
             .addCase(getInactiveUsersInfo.pending, (state) => {
                 state.isLoading = true;
@@ -107,17 +145,6 @@ export const adminSlice = createSlice({
             })
             .addCase(getInactiveUsersInfo.rejected, (state) => {
                 state.isLoading = false;
-                throw Error("Something went wrong");
-            })
-            .addCase(changeAuthStatus.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(changeAuthStatus.fulfilled, (state, action) => {
-                state.isLoading = false;
-            })
-            .addCase(changeAuthStatus.rejected, (state) => {
-                state.isLoading = false;
-                throw Error("Status not change");
             })
             .addCase(getAllTrainersInfo.pending, (state) => {
                 state.isLoading = true;
@@ -128,7 +155,6 @@ export const adminSlice = createSlice({
             })
             .addCase(getAllTrainersInfo.rejected, (state) => {
                 state.isLoading = false;
-                throw Error("Something went wrong");
             })
             .addCase(getActiveTrainersInfo.pending, (state) => {
                 state.isLoading = true;
@@ -139,7 +165,6 @@ export const adminSlice = createSlice({
             })
             .addCase(getActiveTrainersInfo.rejected, (state) => {
                 state.isLoading = false;
-                throw Error("Something went wrong");
             })
             .addCase(getInactiveTrainersInfo.pending, (state) => {
                 state.isLoading = true;
@@ -150,10 +175,47 @@ export const adminSlice = createSlice({
             })
             .addCase(getInactiveTrainersInfo.rejected, (state) => {
                 state.isLoading = false;
-                throw Error("Something went wrong");
             })
-    }
-})
+            .addCase(getVerifiedTrainersInfo.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getVerifiedTrainersInfo.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.trainers = action.payload.trainers;
+            })
+            .addCase(getVerifiedTrainersInfo.rejected, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(getUnverifiedTrainersInfo.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getUnverifiedTrainersInfo.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.trainers = action.payload.trainers;
+            })
+            .addCase(getUnverifiedTrainersInfo.rejected, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(changeAuthStatus.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(changeAuthStatus.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(changeAuthStatus.rejected, (state, action) => {
+                state.isLoading = false;
+            })
+            .addCase(trainerVerify.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(trainerVerify.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(trainerVerify.rejected, (state, action) => {
+                state.isLoading = false;
+            })
+        }
+    })
 
 export const { } = adminSlice.actions;
 export default adminSlice.reducer;

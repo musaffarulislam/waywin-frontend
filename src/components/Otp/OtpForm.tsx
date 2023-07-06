@@ -33,8 +33,6 @@ const OtpForm = () => {
       await confirmObj.confirm(otp);
       try {
         dispatch(createUser());
-        // dispatch(addAuth(null))
-        // dispatch(otpConfirmObj(null))
         navigate('/login')
       } catch (error: any) {
         toaster.showToast(error.message, { type: 'error' })

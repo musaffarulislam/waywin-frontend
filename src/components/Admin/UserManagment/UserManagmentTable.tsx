@@ -38,15 +38,20 @@ export const UserManagmentTable = () => {
   },[dispatch, isFilter])
 
   const handleStatus = async (authId: string) => {
-    await dispatch(changeAuthStatus(authId));
-    if(isFilter === "Inactive"){
-      await dispatch(getInactiveUsersInfo());
-    }else if(isFilter === "Active"){
-      await dispatch(getActiveUsersInfo())
-    }else{
-      await dispatch(getAllUsersInfo());
+    try{
+      await dispatch(changeAuthStatus(authId));
+      if(isFilter === "Inactive"){
+        await dispatch(getInactiveUsersInfo());
+      }else if(isFilter === "Active"){
+        await dispatch(getActiveUsersInfo())
+      }else{
+        await dispatch(getAllUsersInfo());
+      }
+      toaster.showToast("User status change successful", { type: 'success' });
+    }catch(error: unknown){
+      const errorMessage = (error as Error).message || "An error occurred";
+      toaster.showToast(errorMessage, { type: 'error' });
     }
-    toaster.showToast("User status change successful", { type: 'success' });
   };
 
   return (

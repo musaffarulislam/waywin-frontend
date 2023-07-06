@@ -4,6 +4,7 @@ import FeactureTagsUSer from './FeactureTagsUser'
 import InfoWayWin from './InfoWayWin'
 
 const Hero = () => {
+  
   return (
     <>
         <BannerUser />

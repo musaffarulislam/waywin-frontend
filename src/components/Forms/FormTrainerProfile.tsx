@@ -21,7 +21,7 @@ const textareaSchema = textareaValidation;
 
 const FormTrainerProfile = () => {
   
-  const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm<IProfile>();
+  const { register, setValue, formState: { errors }, watch } = useForm<IProfile>();
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   

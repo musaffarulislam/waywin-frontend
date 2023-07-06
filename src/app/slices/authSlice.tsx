@@ -54,30 +54,12 @@ const initialValue: IAuthState = {
   isLoading: false,
   auth: null,
   role: null,
-  accessToken: getInitialAccessToken(),
-  refreshToken: getInitialRefreshToken(),
-  accessTokenAdmin: getInitialAccessTokenAdmin(),
-  refreshTokenAdmin: getInitialRefreshTokenAdmin(),
+  // accessToken: getInitialAccessToken(),
+  // refreshToken: getInitialRefreshToken(),
+  // accessTokenAdmin: getInitialAccessTokenAdmin(),
+  // refreshTokenAdmin: getInitialRefreshTokenAdmin(),
   confirmObj: null,
 };
-
-export const createUser = createAsyncThunk<any, void, { state: RootState }>(
-  "auth/createUser",
-  async (_, { getState }) => {
-      const { auth } = getState().auth; // Accessing the 'auth' value from the state
-      const response = await axios.post("/auth/signup", auth, { headers: { 'Content-Type': 'application/json' } });
-      return response.data;
-  }
-);
-
-export const getAuthByEmail = createAsyncThunk<{ accessToken: string; refreshToken: string; role: string }, ILogin , { dispatch?: Dispatch<AnyAction> }>(
-  "auth/getAuthByEmail",
-  async (data: ILogin) => {
-      const response = await axios.post("/auth/login", data, {headers: { 'Content-Type': 'application/json' } });
-      const { accessToken, refreshToken, role } = response.data
-      return { accessToken, refreshToken, role };
-  }
-);
 
 export const checkUsername = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
   "auth/checkUsername",
@@ -95,18 +77,64 @@ export const checkUsername = createAsyncThunk<any, string, { dispatch?: Dispatch
 export const checkEmail = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
   "auth/checkEmail",
   async (email: string) => {
+    try{
       const response = await axios.get(`/auth/checkEmail/${email}`);
       return response.data;
+    }catch(err: any){
+      console.error(err.response.data)
+      throw Error(err.response.data.error)
+    }
   }
 );
 
 export const checkPhoneNumber = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
   "auth/checkPhoneNumber",
   async (phoneNumber: string) => {
-    const response = await axios.get(`/auth/checkPhoneNumber/${phoneNumber}`);
-    return response.data;
+    try{
+      const response = await axios.get(`/auth/checkPhoneNumber/${phoneNumber}`);
+      return response.data;
+    }catch(err: any){
+      console.error(err.response.data)
+      throw Error(err.response.data.error)
+    }
   }
 );
+
+export const createUser = createAsyncThunk<any, void, { state: RootState }>(
+  "auth/createUser",
+  async (_, { getState }) => {
+    try{
+      const { auth } = getState().auth; // Accessing the 'auth' value from the state
+      const response = await axios.post("/auth/signup", auth, { headers: { 'Content-Type': 'application/json' } });
+      return response.data;
+    }catch(err: any){
+      console.error(err.response.data)
+      throw Error(err.response.data.error)
+    }
+  }
+);
+
+export const getAuthByEmail = createAsyncThunk<{ accessToken: string; refreshToken: string; role: string }, ILogin , { dispatch?: Dispatch<AnyAction> }>(
+  "auth/getAuthByEmail",
+  async (data: ILogin) => {
+    try{
+      const response = await axios.post("/auth/login", data, {headers: { 'Content-Type': 'application/json' } });
+      const { accessToken, refreshToken, role } = response.data
+      return { accessToken, refreshToken, role };
+    }catch(err: any){
+      console.error(err.response.data)
+      throw Error(err.response.data.error)
+    }
+  }
+);
+
+export const getAuthInfo =  createAsyncThunk<any, void, {dispatch?: Dispatch<AnyAction>}>(
+  "auth/getAuthInfo",
+  async () =>{
+      const response = await axios.get("/auth/getAuth-info");
+      return response.data;
+  }
+)
 
 export const generateAccessToken = createAsyncThunk<{ accessToken: string}, string, { dispatch?: Dispatch<AnyAction> }>(
   "auth/generateAccessToken",
@@ -136,7 +164,7 @@ export const authSlice = createSlice({
     logout: (state) => {
       window.localStorage.removeItem("accessToken")
       window.localStorage.removeItem("refreshToken")
-      state = initialValue;
+      return { ...initialValue };
     },
     logoutAdmin: (state) => {
       window.localStorage.removeItem("accessTokenAdmin")
@@ -151,9 +179,9 @@ export const authSlice = createSlice({
       .addCase(checkUsername.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(checkUsername.rejected, (state) => {
+      .addCase(checkUsername.rejected, (state, action) => {
         state.isLoading = false;
-        throw Error("Username already exist");
+        throw Error(action.error.message);
       })
       .addCase(checkEmail.pending, (state) => {
         state.isLoading = true;
@@ -161,9 +189,9 @@ export const authSlice = createSlice({
       .addCase(checkEmail.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(checkEmail.rejected, (state) => {
+      .addCase(checkEmail.rejected, (state, action) => {
         state.isLoading = false;
-        throw Error("Email already used");
+        throw Error(action.error.message);
       })
       .addCase(checkPhoneNumber.pending, (state) => {
         state.isLoading = true;
@@ -171,9 +199,9 @@ export const authSlice = createSlice({
       .addCase(checkPhoneNumber.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(checkPhoneNumber.rejected, (state) => {
+      .addCase(checkPhoneNumber.rejected, (state, action) => {
         state.isLoading = false;
-        throw Error("Phone number already used");
+        throw Error(action.error.message);
       })
       .addCase(createUser.pending, (state) => {
         state.isLoading = true;
@@ -183,7 +211,7 @@ export const authSlice = createSlice({
       })
       .addCase(createUser.rejected, (state, action) => {
         state.isLoading = false;
-        throw new Error("Bad request");
+        throw Error(action.error.message);
       })
       .addCase(getAuthByEmail.pending, (state) => {
         state.isLoading = true;
@@ -200,11 +228,22 @@ export const authSlice = createSlice({
           window.localStorage.setItem("refreshToken", JSON.stringify(action.payload.refreshToken))
         }
       })
-      .addCase(getAuthByEmail.rejected, (state) => {
+      .addCase(getAuthByEmail.rejected, (state, action) => {
         state.isLoading = false;
         state.role = null;
-        throw Error("Invalid Credetial");
-      });
+        throw Error(action.error.message);
+      })
+      .addCase(getAuthInfo.pending, (state) => {
+        state.isLoading = true;
+    })
+    .addCase(getAuthInfo.fulfilled, (state,action) => {
+        state.isLoading = false;
+        state.auth = action.payload.authInfo;
+    })
+    .addCase(getAuthInfo.rejected, (state) => {
+        state.isLoading = false;
+        state.auth = null;
+    })
   },
 });
 
