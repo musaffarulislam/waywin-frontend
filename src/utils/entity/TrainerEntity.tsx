@@ -7,7 +7,8 @@ export interface ITrainerState {
     profileInfo: any;
     profileImage: string | null | undefined;
     bannerImage: string | null | undefined;
-    tags: any
+    tags: any;
+    availabeDates: any;
 }
 
 

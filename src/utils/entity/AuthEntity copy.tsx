@@ -16,4 +16,5 @@ export interface IAdminState {
     isLoading: boolean;
     users: string[] | null | undefined;
     trainers: string[] | null | undefined;
+    tags: string[] | null | undefined;
 }

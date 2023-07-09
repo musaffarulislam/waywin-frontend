@@ -44,6 +44,7 @@ export default function AuthProtectRoute({ children }: AuthProtectRouteProps): a
       if(!location.pathname.startsWith("/trainer")){
         return <Navigate to="/trainer" />
       }
+      // return <Navigate to="/trainer" />
     }
     return <>{children}</>;
   }else {

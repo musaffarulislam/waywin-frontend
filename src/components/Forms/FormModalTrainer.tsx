@@ -55,7 +55,6 @@ export const FormModalTrainer = ({onModal, trainer}: optionProps) => {
                 onModal(true)
             }
         })
-        
     }
 
     const handleUnVerify = async () => {

@@ -13,6 +13,7 @@ const initialValue: ITrainerState ={
     profileImage: null,
     bannerImage: null,
     tags: null,
+    availabeDates: null
 }
 
 export const getTrainerInfo =  createAsyncThunk<any, void, {dispatch?: Dispatch<AnyAction>}>(
@@ -60,6 +61,30 @@ export const getTags =  createAsyncThunk<any, void, {dispatch?: Dispatch<AnyActi
     async () =>{
         const response = await axios.get("/trainer/getTags");
         return response.data;
+    }
+)
+
+export const getTrainerAvailableDates =  createAsyncThunk<any, void, {dispatch?: Dispatch<AnyAction>}>(
+    "trainer/getTrainerAvailableDates",
+    async () =>{
+        const response = await axios.get("/trainer/getTrainer-available-dates");
+        return response.data;
+    }
+)
+
+export const addAvailableDate =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
+    "trainer/addAvailableDate",
+    async ({selectedDay, selectedHours}) =>{
+        try{
+            console.log("selectedDay: ",selectedDay)
+            const formattedSelectedDay = new Date(selectedDay.getTime() - selectedDay.getTimezoneOffset() * 60000).toISOString();
+            console.log("Formatted selectedDay: ",formattedSelectedDay)
+            const response = await axios.post("/trainer/add-available-date", {date: formattedSelectedDay, time: selectedHours});
+            return response.data;
+        }catch(err: any){
+            console.error(err.response.data)
+            throw Error(err.response.data.error)
+        }
     }
 )
 
@@ -140,6 +165,27 @@ export const trainerSlice = createSlice({
             .addCase(getTags.rejected, (state) => {
                 state.isLoading = false;
                 state.tags = null;
+            })
+            .addCase(getTrainerAvailableDates.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getTrainerAvailableDates.fulfilled, (state,action) => {
+                state.isLoading = false;    
+                state.availabeDates = action.payload.availabeDates;
+            })
+            .addCase(getTrainerAvailableDates.rejected, (state) => {
+                state.isLoading = false;
+                state.availabeDates = null;
+            })
+            .addCase(addAvailableDate.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(addAvailableDate.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(addAvailableDate.rejected, (state, action) => {
+                state.isLoading = false;
+                throw Error(action.error.message);
             })
     }
 })

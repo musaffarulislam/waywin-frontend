@@ -9,6 +9,7 @@ import BackgroundTrainer from '../components/Theme/BackgroundTrainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { getTrainerInfo, getTrainerProfile } from '../app/slices/trainerSlice';
+import AvailableDate from '../pages/trainer/AvailableDate';
 
 import "../App.scss";
 
@@ -30,6 +31,8 @@ const Trainer = () => {
         <Routes>
           <Route path="/" element={<AuthProtectRoute> <Home /> </AuthProtectRoute>}></Route>
           <Route path="/profile" element={<AuthProtectRoute> <Profile /></AuthProtectRoute> }></Route>
+          <Route path="/dates" element={<AuthProtectRoute> <AvailableDate /></AuthProtectRoute> }></Route>
+          <Route path="*" element={<Home />} />
         </Routes>
     </div>
   )

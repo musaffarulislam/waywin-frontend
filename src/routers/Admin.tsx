@@ -10,6 +10,7 @@ import { TrainerManagment } from '../pages/admin/TrainerManagment';
 
 
 import "../App.scss";
+import { TagsManagment } from '../pages/admin/TagsManagment';
 
 const Admin = () => {
   return (
@@ -20,6 +21,7 @@ const Admin = () => {
           <Route path="/login" element={<AdminProtectRoute> <Login /> </AdminProtectRoute>}></Route>
           <Route path="/user-managment" element={<AdminProtectRoute> <UserManagment /> </AdminProtectRoute>}></Route>
           <Route path="/trainer-managment" element={<AdminProtectRoute> <TrainerManagment /> </AdminProtectRoute>}></Route>
+          <Route path="/tags-managment" element={<AdminProtectRoute> <TagsManagment /> </AdminProtectRoute>}></Route>
       </Routes>
     </div>
   )

@@ -1,20 +1,13 @@
 import React from "react";
-import { getAllTrainersInfo } from "../../../app/slices/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit"; 
+import { useSelector } from "react-redux";
 import { BannerImage } from "./BannerImage";
 import { ProfileImage } from "./ProfileImage";
-import FormTrainerDetails from "../../Forms/FormTrainerDetails";
-import FormTrainerProfile from "../../Forms/FormTrainerProfile";
 import FormUserTrainerInfo from "../../Forms/FormUserTrainerInfo";
 
 
 const Hero = () => {
 
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-
   const trainerInfo = useSelector((state: any)=> state.user.trainerInfo)
-
 
   return (
     <div className='px-6 pt-8 md:pt-16 sm:px-14 md:px-40 m-16 mb-60 mx-auto max-w-screen-xl'>

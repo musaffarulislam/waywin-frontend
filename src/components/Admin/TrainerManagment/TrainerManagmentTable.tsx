@@ -315,11 +315,11 @@ export const TrainerManagmentTable = () => {
                           }
                         </td>
                         <td className="px-6 py-6 w-1/6">
-                        <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-xl px-5 py-2.5 text-center mr-2 mb-2"
-                          onClick={()=>handleModal(trainerObject)}
-                        >
-                          Click Here  
-                        </button>  
+                          <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-xl px-5 py-2.5 text-center mr-2 mb-2"
+                            onClick={()=>handleModal(trainerObject)}
+                          >
+                            Click Here  
+                          </button>  
                         </td>
                         <td className="px-6 py-6 w-1/6">
                           <div className="w-1/5 font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"

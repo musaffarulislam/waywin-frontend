@@ -8,6 +8,7 @@ const initialValue: IAdminState = {
     isLoading: false,
     users: null,
     trainers: null,
+    tags: null,
 };
 
 
@@ -75,6 +76,14 @@ export const getUnverifiedTrainersInfo = createAsyncThunk<any>(
     }
 );
 
+export const getAllTags = createAsyncThunk<any>(
+    "admin/getAllTags",
+    async () => {
+        const response = await axiosPrivate.get("/getAll-tags");
+        return response.data;
+    }
+);
+
 export const changeAuthStatus = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
     "admin/changeAuthStatus",
     async (authId) => {
@@ -83,7 +92,6 @@ export const changeAuthStatus = createAsyncThunk<any, string, { dispatch?: Dispa
             return response.data;
         }catch (error: unknown) {
             if (error instanceof AxiosError) {
-                console.log("error:", error?.response?.data.error);
                 throw new Error(error?.response?.data.error);
             } else {
                 throw new Error(error as string);
@@ -100,7 +108,55 @@ export const trainerVerify = createAsyncThunk<any, string, { dispatch?: Dispatch
             return response.data;
         }catch (error: unknown) {
             if (error instanceof AxiosError) {
-                console.log("error:", error?.response?.data.error);
+                throw new Error(error?.response?.data.error);
+            } else {
+                throw new Error(error as string);
+            }
+        }
+    }
+);
+
+
+export const addTagValue = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
+    "admin/addTagValue",
+    async (addTag) => {
+        try{
+            const response = await axiosPrivate.put("/add-tag", {addTag});
+            return response.data;
+        }catch (error: unknown) {
+            if (error instanceof AxiosError) {
+                throw new Error(error?.response?.data.error);
+            } else {
+                throw new Error(error as string);
+            }
+        }
+    }
+);
+
+export const editTag = createAsyncThunk<any, any, { dispatch?: Dispatch<AnyAction> }>(
+    "admin/editTag",
+    async ({index, tag}) => {
+        try{
+            const response = await axiosPrivate.put("/edit-tag", {index, tag});
+            return response.data;
+        }catch (error: unknown) {
+            if (error instanceof AxiosError) {
+                throw new Error(error?.response?.data.error);
+            } else {
+                throw new Error(error as string);
+            }
+        }
+    }
+);
+
+export const deleteTag = createAsyncThunk<any, number, { dispatch?: Dispatch<AnyAction> }>(
+    "admin/deleteTag",
+    async (index) => {
+        try{
+            const response = await axiosPrivate.delete(`/delete-tag/${index}`);
+            return response.data;
+        }catch (error: unknown) {
+            if (error instanceof AxiosError) {
                 throw new Error(error?.response?.data.error);
             } else {
                 throw new Error(error as string);
@@ -196,6 +252,16 @@ export const adminSlice = createSlice({
             .addCase(getUnverifiedTrainersInfo.rejected, (state) => {
                 state.isLoading = false;
             })
+            .addCase(getAllTags.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getAllTags.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.tags = action.payload.tags;
+            })
+            .addCase(getAllTags.rejected, (state) => {
+                state.isLoading = false;
+            })
             .addCase(changeAuthStatus.pending, (state) => {
                 state.isLoading = true;
             })
@@ -204,6 +270,7 @@ export const adminSlice = createSlice({
             })
             .addCase(changeAuthStatus.rejected, (state, action) => {
                 state.isLoading = false;
+                throw Error(action.error.message)
             })
             .addCase(trainerVerify.pending, (state) => {
                 state.isLoading = true;
@@ -213,6 +280,36 @@ export const adminSlice = createSlice({
             })
             .addCase(trainerVerify.rejected, (state, action) => {
                 state.isLoading = false;
+            })
+            .addCase(addTagValue.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(addTagValue.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(addTagValue.rejected, (state, action) => {
+                state.isLoading = false;
+                throw Error(action.error.message)
+            })
+            .addCase(editTag.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(editTag.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(editTag.rejected, (state, action) => {
+                state.isLoading = false;
+                throw Error(action.error.message)
+            })
+            .addCase(deleteTag.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(deleteTag.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(deleteTag.rejected, (state, action) => {
+                state.isLoading = false;
+                throw Error(action.error.message)
             })
         }
     })
