@@ -3,6 +3,7 @@ import {ImageUploader} from './ImageUploader';
 import FormTrainerDetails from '../../Forms/FormTrainerDetails'; 
 import FormTrainerProfile from '../../Forms/FormTrainerProfile';
 import { BannerUploader } from './BannerUploader';
+import FormTrainerFee from '../../Forms/FormTrainerFee';
 
 export const MainContent = () => {
   return (
@@ -13,8 +14,13 @@ export const MainContent = () => {
             <ImageUploader />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-20 md:mt-28 lg:mt-36 mb-4">
-          <div className="h-fit flex items-center justify-center rounded bg-slate-500 dark:bg-gray-800 py-20">
-            <FormTrainerDetails />
+          <div>
+            <div className="h-fit flex items-center justify-center rounded bg-slate-500 dark:bg-gray-800 py-20">
+              <FormTrainerDetails />
+            </div>
+            <div className="h-fit flex items-center justify-center rounded bg-slate-500 dark:bg-gray-800 py-20 mt-6">
+              <FormTrainerFee />
+            </div>
           </div>
           <div className="flex items-center justify-center rounded bg-slate-500 dark:bg-gray-800 py-12">
             <FormTrainerProfile />

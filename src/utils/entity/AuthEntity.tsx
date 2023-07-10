@@ -6,6 +6,11 @@ export interface IAuth {
     password?: string;
   }
 
+  export interface IFee {
+    consultingFee: number;
+    trainingFee: number;
+  }
+
 
 export interface ILogin {
     email: string;

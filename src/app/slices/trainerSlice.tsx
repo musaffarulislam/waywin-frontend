@@ -9,6 +9,7 @@ const initialValue: ITrainerState ={
     isLoadingBanner: false,
     isProfile: false,
     trainerInfo: null,
+    fee: null,
     profileInfo: null,
     profileImage: null,
     bannerImage: null,
@@ -27,8 +28,24 @@ export const getTrainerInfo =  createAsyncThunk<any, void, {dispatch?: Dispatch<
 export const createProfile = createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
     "trainer/createProfile",
     async (profileData: any) =>{
-        const response = await axios.post("/trainer/create-profile", profileData )
-        return response.data;
+        try{
+            const response = await axios.post("/trainer/create-profile", profileData )
+            return response.data;
+        }catch(err: any){
+            throw Error(err.response.data.error)
+        }
+    }
+)
+
+export const addTrainerFee = createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
+    "trainer/addTrainerFee",
+    async (feeData: any) =>{
+        try{
+            const response = await axios.post("/trainer/add-trainer-fee", feeData )
+            return response.data;
+        }catch(err: any){
+            throw Error(err.response.data.error)
+        }
     }
 )
 
@@ -106,6 +123,7 @@ export const trainerSlice = createSlice({
                 state.trainerInfo = action.payload.trainerInfo;
                 state.isProfile = action.payload.isProfile;
                 state.profileImage = action.payload.profileImage;
+                state.fee = action.payload.fee;
             })
             .addCase(getTrainerInfo.rejected, (state) => {
                 state.isLoading = false;
@@ -119,8 +137,19 @@ export const trainerSlice = createSlice({
             .addCase(createProfile.fulfilled, (state,action) => {
                 state.isLoadingImage = false;
             })
-            .addCase(createProfile.rejected, (state) => {
+            .addCase(createProfile.rejected, (state, action) => {
                 state.isLoadingImage = false;
+                throw Error(action.error.message);
+            })
+            .addCase(addTrainerFee.pending, (state) => {
+                state.isLoadingImage = true;
+            })
+            .addCase(addTrainerFee.fulfilled, (state,action) => {
+                state.isLoadingImage = false;
+            })
+            .addCase(addTrainerFee.rejected, (state, action) => {
+                state.isLoadingImage = false;
+                throw Error(action.error.message);
             })
             .addCase(getTrainerProfile.pending, (state) => {
                 state.isLoading = true;

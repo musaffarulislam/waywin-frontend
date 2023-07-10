@@ -78,51 +78,55 @@ const FormTrainerProfile = () => {
   },[]);
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    let formData: IProfile = {
-      services: [],
-      description: profileDescription,
-      tags: [],
-      experience: 0,
-      mode: []
-    };
-    formData.services = selectedServices;
-    formData.description = profileDescription;
-    formData.tags = selectedTags;
-    formData.experience = experience;
-    formData.mode = selectedMode;
-    console.log("profileDescription :",profileDescription)
-    if(selectedServices.length <= 0){
-      return setErrorsServices("Please select any services")
-    }else{
-      setErrorsServices("")
-    }
-    
-    if(profileDescription === undefined){
-      return setErrorsDescription("Description required")
-    }else{
-      setErrorsDescription("")
-    }
-    
-    if(selectedTags.length <= 0){
-      return setErrorsTags("Please select any tag")
-    }else{
-      setErrorsTags("")
-    }
-    
-    if(experience < 0 || experience > 50){
-      return setErrorsExperience("Please enter correct experience in year")
-    }else{
-      setErrorsExperience("")
-    }
+    try{
+      e.preventDefault()
+      let formData: IProfile = {
+        services: [],
+        description: profileDescription,
+        tags: [],
+        experience: 0,
+        mode: []
+      };
+      formData.services = selectedServices;
+      formData.description = profileDescription;
+      formData.tags = selectedTags;
+      formData.experience = experience;
+      formData.mode = selectedMode;
+      console.log("profileDescription :",profileDescription)
+      if(selectedServices.length <= 0){
+        return setErrorsServices("Please select any services")
+      }else{
+        setErrorsServices("")
+      }
+      
+      if(profileDescription === undefined){
+        return setErrorsDescription("Description required")
+      }else{
+        setErrorsDescription("")
+      }
+      
+      if(selectedTags.length <= 0){
+        return setErrorsTags("Please select any tag")
+      }else{
+        setErrorsTags("")
+      }
+      
+      if(experience < 0 || experience > 50){
+        return setErrorsExperience("Please enter correct experience in year")
+      }else{
+        setErrorsExperience("")
+      }
 
-    if(selectedMode.length <= 0){
-      return setErrorsMode("Please select any mode")
-    }else{
-      setErrorsMode("")
+      if(selectedMode.length <= 0){
+        return setErrorsMode("Please select any mode")
+      }else{
+        setErrorsMode("")
+      }
+      dispatch(createProfile(formData))
+      toaster.showToast('Profile Update Successfully', { type: 'success' })
+    }catch(error : any){
+      toaster.showToast(error.message, { type: 'error' });
     }
-    dispatch(createProfile(formData))
-    toaster.showToast('Profile Update Successfully', { type: 'success' })
   }
 
   

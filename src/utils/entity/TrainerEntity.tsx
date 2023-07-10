@@ -4,6 +4,7 @@ export interface ITrainerState {
     isLoadingBanner: boolean;
     isProfile: boolean,
     trainerInfo: any;
+    fee: any;
     profileInfo: any;
     profileImage: string | null | undefined;
     bannerImage: string | null | undefined;
@@ -19,11 +20,21 @@ export interface ITrainerInfo {
     // Add any other properties you expect in the `trainerInfo` object
   }
 
+export interface ITrainerFee {
+    consultingFee: number;
+    trainingFee: number;
+  }
+
 
   export interface IProfile {
     services: string[];
     description: string | undefined;
     tags: string[];
     experience: number;
+    mode: string[];
+  }
+
+  export interface IBooking {
+    services: string[];
     mode: string[];
   }

@@ -1,6 +1,6 @@
 import { format, isSameMinute, isSameDay } from "date-fns";
 import { CheckCircle2 } from "lucide-react";
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "./utils";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
@@ -24,7 +24,6 @@ const AvailableHours = memo(({ onSelectedTime ,freeTimes, selectedDay }: hourPro
     dispatch(getTrainerAvailableDates())
   }, [dispatch]);
 
-
   useEffect(() => {
     console.log("selectedDay : ", selectedDay);
     const formattedSelectedDay = new Date(selectedDay.getTime() - selectedDay.getTimezoneOffset() * 60000);
@@ -38,13 +37,9 @@ const AvailableHours = memo(({ onSelectedTime ,freeTimes, selectedDay }: hourPro
     });
     console.log("matchingDate : ", formattedSelectedDay);
   
-    if (matchingDate) {
-      const matchingTimes = matchingDate.time.map((time: string) => new Date(time));
-      console.log("matchingTimes :", matchingTimes);
-      setSelectedTimes(matchingTimes);
-    } else {
-      setSelectedTimes([]);
-    }
+    const matchingTimes = matchingDate ? matchingDate.time.map((time: string) => new Date(time)) : [];
+    console.log("matchingTimes :", matchingTimes);
+    setSelectedTimes(matchingTimes);
   }, [availableDates, selectedDay]);
   
   useEffect(() => {
@@ -52,17 +47,21 @@ const AvailableHours = memo(({ onSelectedTime ,freeTimes, selectedDay }: hourPro
     console.log("selectedTimes", selectedTimes);
   }, [selectedTimes, onSelectedTime]);
   
-  useEffect(() => {
-    setSelectedTimes([]);
-  }, [freeTimes]);
+  // useEffect(() => {
+  //   setSelectedTimes([]);
+  // }, [freeTimes]);
 
   const handleTimeClick = (time: Date) => {
     setSelectedTimes((prevSelectedTimes) => {
-      const updatedTimes = prevSelectedTimes.includes(time)
-        ? prevSelectedTimes.filter((selectedTime: Date) => !isSameMinute(selectedTime, time))
-        : [...prevSelectedTimes, time];
+      const isTimeSelected = prevSelectedTimes.some((selectedTime) => isSameMinute(selectedTime, time));
   
-      return updatedTimes.sort((a, b) => a.getTime() - b.getTime());
+      if (isTimeSelected) {
+        const updatedTimes = prevSelectedTimes.filter((selectedTime) => !isSameMinute(selectedTime, time));
+        return updatedTimes;
+      } else {
+        const updatedTimes = [...prevSelectedTimes, time];
+        return updatedTimes.sort((a, b) => a.getTime() - b.getTime());
+      }
     });
   };
 
