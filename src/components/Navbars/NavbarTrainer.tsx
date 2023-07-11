@@ -12,6 +12,7 @@ import { InputDropdown } from "../Inputs/InputDropdown";
 
 import whitelight from "../../assets/whitelogo.png";
 import bluelight from "../../assets/bluelogo.png";
+import { IAuth } from "../../utils/entity/AuthEntity copy";
 
 export const NavbarTrainer = () => {
 
@@ -20,6 +21,7 @@ const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebar, setIsSidebar] = useState(false);
   const theme: string = useSelector((state: any) => state.theme.theme);
+  const auth: IAuth = useSelector((state: any)=> state.auth.auth)
 
   const navigate = useNavigate();
 
@@ -81,15 +83,14 @@ const dispatch = useDispatch();
                 <div className="absolute right-0 mt-2 text-base bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
                   <div className="px-4 py-3">
                     <p className="text-2xl text-gray-900 dark:text-white">
-                      Neil Sims
+                    {auth.username}
                     </p>
-                    <p className="text-2xl font-medium text-gray-900 truncate dark:text-gray-300">
-                      neil.sims@flowbite.com
+                    <p className="text-xl font-medium text-gray-900 truncate dark:text-gray-300">
+                      {auth.email}
                     </p>
                   </div>
                   <ul className="py-1">
                     <li> <InputDropdown>Dashboard</InputDropdown> </li>
-                    <li> <InputDropdown>Settings</InputDropdown> </li>
                     <li> <InputDropdown>Earnings</InputDropdown> </li>
                     <li>
                       <div className="block px-4 py-2 text-2xl text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" >

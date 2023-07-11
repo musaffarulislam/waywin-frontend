@@ -37,4 +37,5 @@ export interface ITrainerFee {
   export interface IBooking {
     services: string[];
     mode: string[];
+    fee: number | string;
   }

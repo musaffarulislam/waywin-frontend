@@ -360,7 +360,7 @@ export const TrainerManagmentTable = () => {
       </div>
       
       {isModal &&
-      <div id="updateProductModal" tabIndex={-1} className="flex overflow-y-auto overflow-x-hidden fixed  z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full bg-black bg-opacity-50">
+      <div id="trainerModal" tabIndex={-1} className="flex overflow-y-auto overflow-x-hidden fixed  z-50 justify-center items-center w-full inset-0 h-screen  bg-black bg-opacity-50">
           <div className="relative p-4 w-full max-w-4xl h-full md:h-auto">
               <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
                   <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
