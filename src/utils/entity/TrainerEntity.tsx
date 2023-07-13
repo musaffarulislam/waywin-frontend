@@ -35,7 +35,14 @@ export interface ITrainerFee {
   }
 
   export interface IBooking {
-    services: string[];
+    service: string[];
     mode: string[];
     fee: number | string;
+    date: Date | undefined;
+    time: Date | undefined;
+  }
+
+  export interface IDate {
+    date: Date;
+    time: Date;
   }

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, Dispatch, AnyAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, Dispatch, AnyAction, Slice } from "@reduxjs/toolkit";
 import {RootState} from '../store';
 import axios from "../../config/axios";
 import { ITrainerState } from "../../utils/entity/TrainerEntity";
@@ -89,21 +89,25 @@ export const getTrainerAvailableDates =  createAsyncThunk<any, void, {dispatch?:
     }
 )
 
-export const addAvailableDate =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
+export const addAvailableDate = createAsyncThunk<any, any, { dispatch?: Dispatch<AnyAction> }>(
     "trainer/addAvailableDate",
-    async ({selectedDay, selectedHours}) =>{
-        try{
-            console.log("selectedDay: ",selectedDay)
-            const formattedSelectedDay = new Date(selectedDay.getTime() - selectedDay.getTimezoneOffset() * 60000).toISOString();
-            console.log("Formatted selectedDay: ",formattedSelectedDay)
-            const response = await axios.post("/trainer/add-available-date", {date: formattedSelectedDay, time: selectedHours});
-            return response.data;
-        }catch(err: any){
-            console.error(err.response.data)
-            throw Error(err.response.data.error)
-        }
+    async ({ selectedDay, selectedHours }) => {
+      try {
+        const formattedSelectedDay = new Date(selectedDay.getTime() - selectedDay.getTimezoneOffset() * 60000).toISOString();
+        const formattedSelectedHours = selectedHours.map((hour: Date) => {
+          return new Date(hour.getTime() - hour.getTimezoneOffset() * 60000).toISOString();
+        });
+        const response = await axios.post("/trainer/add-available-date", {
+          date: formattedSelectedDay,
+          time: selectedHours,
+        });
+        return response.data;
+      } catch (err: any) {
+        console.error(err.response.data);
+        throw Error(err.response.data.error);
+      }
     }
-)
+  );
 
 export const trainerSlice = createSlice({
     name: "trainer",

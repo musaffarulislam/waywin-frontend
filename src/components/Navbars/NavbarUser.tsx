@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TbBellRingingFilled } from "react-icons/tb";
 import { FiLogIn } from "react-icons/fi";
-import redlight from "../../assets/redlogo.png";
 import whitelight from "../../assets/whitelogo.png";
 import bluelight from "../../assets/bluelogo.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -80,7 +79,7 @@ const NavbarUser = () => {
                 </Link>
               </div>
               <div>
-                <Link to="/trainers">
+                <Link to="/bookings">
                   <div className="flex items-center">Bookings </div>
                 </Link>
               </div>

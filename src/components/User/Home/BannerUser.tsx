@@ -1,7 +1,5 @@
 import React from 'react';
-import bannerimage from "../../../assets/bannerimage.jpg";
-import bannerimage3 from "../../../assets/bannerimage3.png";
-import bannerimage4 from "../../../assets/bannerimage4.png";
+import bannerimage from "../../../assets/bannerimage.png";
 
 const BannerUser = () => {
 
@@ -24,7 +22,7 @@ const BannerUser = () => {
             style={{ backgroundImage: `url(${bannerimage})` }}
           ></div> */}
           <div className="" >
-            <img src={bannerimage4} alt='banner' />
+            <img src={bannerimage} alt='banner' />
           </div>
         </div>
       </div>

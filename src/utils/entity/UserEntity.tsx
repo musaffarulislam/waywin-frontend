@@ -1,5 +1,6 @@
 export interface IUserState {
     isLoading: boolean;
     trainers: any;
-    trainerInfo: any
+    trainerInfo: any;
+    bookings: any;
 }

@@ -1,6 +1,4 @@
 import React from 'react';
-import FormTrainerDetails from '../../Forms/FormTrainerDetails'; 
-import FormTrainerProfile from '../../Forms/FormTrainerProfile';
 import Calander from './Calender';
 
 export const MainContent = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../app/slices/themeSlice";
 import { AiFillNotification } from 'react-icons/ai';
@@ -6,17 +6,18 @@ import { RiDashboardFill } from 'react-icons/ri';
 import { HiChatAlt, HiOutlineMenuAlt2, HiCollection, HiPhotograph, HiUserGroup } from 'react-icons/hi';
 import { BsCalendar3 } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
-import { logout } from "../../app/slices/authSlice";
+import { getAuthInfo, logout } from "../../app/slices/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { InputDropdown } from "../Inputs/InputDropdown";
+import { IAuth } from "../../utils/entity/AuthEntity copy";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 import whitelight from "../../assets/whitelogo.png";
 import bluelight from "../../assets/bluelogo.png";
-import { IAuth } from "../../utils/entity/AuthEntity copy";
 
 export const NavbarTrainer = () => {
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
 
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebar, setIsSidebar] = useState(false);
@@ -28,6 +29,10 @@ const dispatch = useDispatch();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    dispatch(getAuthInfo())
+  },[dispatch])
  
   const toggleSidebar = () => {
     setIsSidebar(!isSidebar);
@@ -77,7 +82,7 @@ const dispatch = useDispatch();
                 onClick={toggleDropdown}
               >
                 <span className="sr-only">Open user menu</span>
-                <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
+                <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user dropdown" />
               </button>
               {isOpen && (
                 <div className="absolute right-0 mt-2 text-base bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">

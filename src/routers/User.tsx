@@ -11,6 +11,8 @@ import AuthProtectRoute from './ProtectRoutes/AuthProtectRoute';
 
 import "../App.scss";
 import TrainerInfo from '../pages/user/TrainerInfo';
+import { Error404 } from '../pages/common/Error404';
+import Bookings from '../pages/user/Bookings';
 
 const User = () => {
 
@@ -24,6 +26,8 @@ const User = () => {
           <Route path="/otp" element={<AuthProtectRoute> <Otp /> </AuthProtectRoute>}></Route>
           <Route path="/trainers" element={ <Trainers /> }></Route>
           <Route path="/trainer-info" element={ <TrainerInfo /> }></Route>
+          <Route path="/Bookings" element={ <Bookings /> }></Route>
+          <Route path="*" element={ <Error404 /> }></Route>
         </Routes>
     </div>
   ) 

@@ -3,7 +3,7 @@ import { getAllTrainersInfo } from "../../../app/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 // import { TrainerCard } from './TrainerCard';
-const TrainerCard = React.lazy(() => import('./TrainerCard').then(module => ({ default: module.TrainerCard })));
+const BookingCard = React.lazy(() => import('./BookingCard').then(module => ({ default: module.BookingCard })));
 
 
 const Hero = () => {
@@ -12,7 +12,7 @@ const Hero = () => {
   const trainers = useSelector((state: any)=> state.user.trainers)
 
   useEffect(()=>{
-    dispatch(getAllTrainersInfo())
+    dispatch(getBookingsInfo())
   },[dispatch])
 
   return (
@@ -20,7 +20,7 @@ const Hero = () => {
       <div><Suspense fallback = { <div> Please Wait... </div> } >
       <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-14 justify-center'>
         {trainers && 
-          trainers.map((trainer: any, index: number)=><TrainerCard key={index} trainer={trainer} />
+          trainers.map((trainer: any, index: number)=><BookingCard key={index} trainer={trainer} />
         )}
       </div>
       </Suspense></div>

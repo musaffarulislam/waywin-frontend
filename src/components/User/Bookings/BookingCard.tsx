@@ -5,11 +5,11 @@ import { addTrainerInfo } from '../../../app/slices/userSlice';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { getAllTrainersInfo } from '../../../app/slices/adminSlice';
 
-type TrainerCardProps = {
+type BookingCardProps = {
     trainer: any
 }
 
-export const TrainerCard = ({trainer}: TrainerCardProps) => {
+export const BookingCard = ({trainer}: BookingCardProps) => {
 
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 

@@ -12,6 +12,7 @@ import { getTrainerInfo, getTrainerProfile } from '../app/slices/trainerSlice';
 import AvailableDate from '../pages/trainer/AvailableDate';
 
 import "../App.scss";
+import { Error404 } from '../pages/common/Error404';
 
 const Trainer = () => {
 
@@ -32,7 +33,7 @@ const Trainer = () => {
           <Route path="/" element={<AuthProtectRoute> <Home /> </AuthProtectRoute>}></Route>
           <Route path="/profile" element={<AuthProtectRoute> <Profile /></AuthProtectRoute> }></Route>
           <Route path="/dates" element={<AuthProtectRoute> <AvailableDate /></AuthProtectRoute> }></Route>
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
     </div>
   )

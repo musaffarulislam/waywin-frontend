@@ -118,11 +118,7 @@ export default function Calander() {
 
   useEffect(() => {
     dispatch(getTrainerAvailableDates())
-  }, [dispatch]);
-
-  useEffect(() => {
-    console.log("available Dates : ",availableDates)
-  }, [availableDates]);
+  }, [dispatch, selectedDay]);
 
   const handlehours = useCallback((hours: Date[]) => {
     setSelectedHours(hours);

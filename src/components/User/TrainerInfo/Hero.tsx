@@ -36,6 +36,10 @@ const Hero = () => {
     }
   }
 
+  const onModal = (option: boolean) =>{
+    setIsModal(option)
+  }
+
   return (
     <div className='px-6 pt-8 md:pt-16 sm:px-14 md:px-40 m-16 mb-60 mx-auto max-w-screen-xl'>
       <div className="flex items-center relative justify-center h-40 sm:h-48 md:h-56 lg:h-72 mb-4 bg-slate-500 dark:bg-gray-500 rounded-2xl">
@@ -101,7 +105,7 @@ const Hero = () => {
             <span className="sr-only">Close modal</span>
           </button>
         </div>
-        <FormBooking trainerInfo={trainerInfo} />
+        <FormBooking trainerInfo={trainerInfo} onOptionModal={onModal} />
         {/* <InputText label="Tag" name="tag" type="text" register={register} required error={errors.tag?.message} /> */}
       </div>
     </div>

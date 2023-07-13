@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillInfoCircle } from "react-icons/ai";
-import { useSelector } from "react-redux";
 
 type optionProps = {
   onOptionServices: (option: string) => void;
@@ -15,7 +14,6 @@ const InputServices = ({ onOptionServices, services, error }: optionProps) => {
   useEffect(() => {
     if(selectedCheckboxes){
       onOptionServices(selectedCheckboxes)
-      console.log(services)
     }
   }, [selectedCheckboxes, onOptionServices]);
 
