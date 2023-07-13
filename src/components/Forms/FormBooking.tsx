@@ -27,7 +27,6 @@ type formBookingProps ={
   onOptionModal: (option: boolean)=> void;
 }
 const FormBooking = ({trainerInfo, onOptionModal}: formBookingProps) => {
-  
   const { register, setValue, watch } = useForm<IBooking>();
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -153,8 +152,8 @@ const FormBooking = ({trainerInfo, onOptionModal}: formBookingProps) => {
 
       if (!res) {
         Swal.fire({
-          title: 'Edited!',
-          text: 'Tag edited.',
+          title: 'Something wrong!',
+          text: 'Please check internet connection',
           icon: 'error',
           timer: 1500, 
           timerProgressBar: true,
@@ -162,7 +161,7 @@ const FormBooking = ({trainerInfo, onOptionModal}: formBookingProps) => {
         return;
       }
 
-      const trainerId = trainerInfo._id
+      const trainerId = trainerInfo.authId._id
       const {payload} = await dispatch(booking(feeValue))
 
       const options: any = {
@@ -188,7 +187,7 @@ const FormBooking = ({trainerInfo, onOptionModal}: formBookingProps) => {
       const paymentObject: any = new window.Razorpay(options);
       (paymentObject as any).open();
 
-      navigate('/bookings')
+      // navigate('/bookings')
       // toaster.showToast('Bookimg Success', { type: 'success' })
     }catch(error: any){
       toaster.showToast(error.message, { type: 'error' })

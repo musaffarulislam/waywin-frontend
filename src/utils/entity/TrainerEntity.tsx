@@ -10,6 +10,7 @@ export interface ITrainerState {
     bannerImage: string | null | undefined;
     tags: any;
     availabeDates: any;
+    bookings: any;
 }
 
 

@@ -129,7 +129,7 @@ export default function Calander() {
     try{
       await Swal.fire({
         title: 'Are you sure?',
-        text: "You delete tag!",
+        text: "Adding new available date and times!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -141,8 +141,8 @@ export default function Calander() {
             await dispatch(addAvailableDate({selectedDay, selectedHours}));
             // await dispatch(getAllTags());
             Swal.fire({
-                title: 'deleted!',
-                text: 'Tag deleted.',
+                title: 'Added!',
+                text: 'Date and time added',
                 icon: 'success',
                 timer: 1000, 
                 timerProgressBar: true, 

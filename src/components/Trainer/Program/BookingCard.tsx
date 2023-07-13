@@ -16,6 +16,7 @@ type BookingCardProps = {
 export const BookingCard = ({booking}: BookingCardProps) => {
 
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    console.log("Booking : ",booking)
 
   const navigate = useNavigate()
 
@@ -40,11 +41,11 @@ export const BookingCard = ({booking}: BookingCardProps) => {
             )}
         </div>
         <div className="flex flex-col items-center pb-10 mt-20">
-            <h5 className="mb-1 mt-6 text-2xl font-medium text-gray-900 dark:text-white">{booking?.trainerId?.authId?.username}</h5>
-            <h6 className="p-2 my-2 px-6 text-xl font-semibold text-gray-900 dark:text-red-600 border rounded-xl">Bookin Id: {booking?.bookingId}</h6>
-            <span className="text-xl text-gray-500 dark:text-gray-400 px-4 text-center">Service : { booking?.service } </span>
-            <span className="text-xl text-gray-500 dark:text-gray-400 px-4 text-center">Mode : { booking?.mode } </span>
-            <div className='flex gap-3 my-3 text-xl'>
+            <h5 className="mb-1 mt-6 text-2xl font-medium text-gray-900 dark:text-white">{booking?.userId?.username}</h5>
+            <h6 className="p-2 my-2 px-6 text-xl font-semibold bg-gray-900 dark:bg-red-600 text-gray-200 dark:text-gray-100 rounded-xl">Booking Id: {booking?.bookingId}</h6>
+            <span className="text-xl text-gray-600 dark:text-gray-200 px-4 text-center p-2 border rounded-lg">Service : { booking?.service } </span>
+            <span className="text-xl text-gray-600 dark:text-gray-200 px-4 text-center p-2 border rounded-lg mt-2">Mode : { booking?.mode } </span>
+            <div className='flex gap-3 my-3 text-xl'> 
                 <div className='p-2 px-6 border rounded-lg bg-slate-800 dark:bg-indigo-200 text-slate-100 dark:text-gray-800'>{format(new Date(booking.date), "dd MMMM yyyy")}</div>
                 <div className='p-2 px-3 border rounded-lg bg-slate-800 dark:bg-indigo-200 text-slate-100 dark:text-gray-800'>{new Date(booking.time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</div>
             </div>

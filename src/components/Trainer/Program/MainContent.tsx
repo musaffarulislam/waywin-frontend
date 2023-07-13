@@ -1,23 +1,23 @@
-import React, { Suspense, useEffect } from "react";
-import { getBookingInfo } from "../../../app/slices/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
-// import { TrainerCard } from './TrainerCard';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import React, { Suspense, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { getBookingInfo } from '../../../app/slices/trainerSlice';
 const BookingCard = React.lazy(() => import('./BookingCard').then(module => ({ default: module.BookingCard })));
 
 
-const Hero = () => {
+export const MainContent = () => {
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const bookings = useSelector((state: any)=> state.user.bookings)
+  const bookings = useSelector((state: any)=> state.trainer.bookings)
 
   useEffect(()=>{
     dispatch(getBookingInfo())
   },[dispatch])
 
   return (
-    <div className='px-6 pt-40 sm:px-14 md:px-40 m-16 mb-60 mx-auto max-w-screen-xl'>
-      <div><Suspense fallback = { <div> Please Wait... </div> } >
+    <div className="p-4 sm:ml-96 pt-16">
+    <div className="p-8 pt-20 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+    <div><Suspense fallback = { <div> Please Wait... </div> } >
       <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-14 justify-center'>
         {bookings && 
           bookings.map((booking: any, index: number)=><BookingCard key={index} booking={booking} />
@@ -25,7 +25,6 @@ const Hero = () => {
       </div>
       </Suspense></div>
     </div>
+  </div>
   )
 }
-
-export default Hero

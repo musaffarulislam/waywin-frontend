@@ -14,7 +14,8 @@ const initialValue: ITrainerState ={
     profileImage: null,
     bannerImage: null,
     tags: null,
-    availabeDates: null
+    availabeDates: null,
+    bookings: null
 }
 
 export const getTrainerInfo =  createAsyncThunk<any, void, {dispatch?: Dispatch<AnyAction>}>(
@@ -108,6 +109,14 @@ export const addAvailableDate = createAsyncThunk<any, any, { dispatch?: Dispatch
       }
     }
   );
+
+export const getBookingInfo = createAsyncThunk<any>(
+    "trainer/getBookingInfo",
+    async () => {
+        const response = await axios.get("/trainer/get-booking-info");
+        return response.data;
+    }
+);
 
 export const trainerSlice = createSlice({
     name: "trainer",
@@ -219,6 +228,16 @@ export const trainerSlice = createSlice({
             .addCase(addAvailableDate.rejected, (state, action) => {
                 state.isLoading = false;
                 throw Error(action.error.message);
+            })
+            .addCase(getBookingInfo.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getBookingInfo.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.bookings = action.payload.bookings;
+            })
+            .addCase(getBookingInfo.rejected, (state) => {
+                state.isLoading = false;
             })
     }
 })

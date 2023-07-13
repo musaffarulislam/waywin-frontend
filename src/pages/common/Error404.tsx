@@ -13,17 +13,19 @@ export const Error404 = () => {
             </div>
             <div className='mt-4'>Please check url and go to currect location</div>
             <button className="mt-5">
-            <div
-                className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
-            >
-                <span
-                className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"
-                ></span>
+            <Link to="/">
+                <div
+                    className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
+                >
+                    <span
+                    className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"
+                    ></span>
 
-                <span className="relative block px-8 py-3 bg-[#1A2238] border border-current">
-                <Link to="/">Go Home</Link>
-                </span>
-            </div>
+                    <span className="relative block px-8 py-3 bg-[#1A2238] border border-current">
+                    Go Home
+                    </span>
+                </div>
+            </Link>
             </button>
         </main>
     </div>
