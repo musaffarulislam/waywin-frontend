@@ -45,8 +45,7 @@ export const getTrainerInfo = createAsyncThunk<any, any, { dispatch?: Dispatch<A
     "user/getAllMessages",
     async (chatId) =>{
         try{
-            const response = await axios.get(`/message/${chatId}`);  
-            console.log("response :", response.data);
+            const response = await axios.get(`/message/${chatId}`);   
             return response.data.messages;
         }catch(err: any){ 
             throw Error(err.response.data.error)
@@ -57,8 +56,7 @@ export const getTrainerInfo = createAsyncThunk<any, any, { dispatch?: Dispatch<A
 export const sendMessage =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
     "user/sendMessage",
     async ({newMessage,chatId}) =>{
-        try{
-            console.log("newMessage :",newMessage)
+        try{ 
             const response = await axios.post("/message", { content: newMessage ,chatId });  
             return response.data.message;
         }catch(err: any){ 
@@ -70,8 +68,12 @@ export const sendMessage =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyA
 export const getBookingInfo = createAsyncThunk<any>(
     "user/getBookingInfo",
     async () => {
-        const response = await axios.get("/user/get-booking-info");
-        return response.data;
+        try{
+            const response = await axios.get("/user/get-booking-info");
+            return response.data;
+        }catch(err: any){ 
+            throw Error(err.response.data.error)
+        }
     }
 );
 

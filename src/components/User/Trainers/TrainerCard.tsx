@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addTrainerInfo, getAllTrainersInfo, getTrainerInfo } from '../../../app/slices/userSlice';
+import { accessChat, addTrainerInfo, getAllTrainersInfo, getTrainerInfo } from '../../../app/slices/userSlice';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import useToaster from '../../../hooks/useToast';
+import Swal from 'sweetalert2';
 
 
 type TrainerCardProps = {
@@ -12,6 +13,7 @@ type TrainerCardProps = {
 
 export const TrainerCard = ({ trainer }: TrainerCardProps) => {
 
+    const accessToken = window.localStorage.getItem("accessToken");
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     const toaster = useToaster()
     const navigate = useNavigate()
@@ -29,6 +31,31 @@ export const TrainerCard = ({ trainer }: TrainerCardProps) => {
         }
     }
 
+    const handleMessage = async () =>{ 
+        try{
+          if(accessToken){
+            const  { payload: { chat } } = await dispatch(accessChat(trainer?.authId?._id)) 
+            navigate(`/chat/${trainer?.authId?._id}/${chat._id}`) 
+          }else{
+            Swal.fire({
+              title: 'Please Login!',
+              text: "You want to login!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, Login!'
+            }).then((result: any) => {
+              if (result.isConfirmed) {
+                navigate('/login')
+              }
+            })
+          }
+        }catch(error: any){
+          toaster.showToast(error.message, { type: 'error' }); 
+        }
+      }
+
     return (
         <div className="relative w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-slate-900 dark:border-gray-700 my-14">
             <div className='flex flex-col items-center pb-10'>
@@ -44,7 +71,7 @@ export const TrainerCard = ({ trainer }: TrainerCardProps) => {
                 <h5 className="mb-1 mt-6 text-2xl font-medium text-gray-900 dark:text-white">{trainer?.authId?.username}</h5>
                 <span className="text-xl text-gray-500 dark:text-gray-400 px-4 text-center">{trainer && trainer?.profile?.tags && trainer.profile.tags.slice(0, 2).join(", ")} </span>
                 <div className="flex mt-4 space-x-3 md:mt-6">
-                    <div className="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 cursor-pointer">Message</div>
+                    <div className="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 cursor-pointer" onClick={() => handleMessage()}>Message</div>
                     <div className="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer" onClick={() => handleView()}>View</div>
                 </div>
             </div>

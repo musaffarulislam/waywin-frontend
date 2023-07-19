@@ -12,20 +12,14 @@ type BookingCardProps = {
 }
 
 export const BookingCard = ({booking}: BookingCardProps) => {
-
-    console.log("Booking : ",booking)
+ 
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>(); 
-
-//   const navigate = useNavigate()
+ 
 
   useEffect(()=>{
     dispatch(getAllTrainersInfo())
   },[dispatch])
-
-//   const handleView = () => {
-//     dispatch(addTrainerInfo(trainer))
-//     navigate('/trainer-info');
-//   }
+ 
 
   return (
     <div className="relative w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-slate-900 dark:border-gray-700 my-14">

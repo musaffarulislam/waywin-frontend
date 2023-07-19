@@ -9,7 +9,7 @@ type optionProps = {
 
 const InputServices = ({ onOptionServices, services, error }: optionProps) => {
   
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState<string>("");
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState<string | null>(null);
 
   useEffect(() => {
     if(selectedCheckboxes){
@@ -46,7 +46,7 @@ const InputServices = ({ onOptionServices, services, error }: optionProps) => {
                 value={service}
                 name="service-radio"
                 className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
-                checked={selectedCheckboxes.includes(service)}
+                checked={selectedCheckboxes === service}
                 onChange={handleChange}
               />
               <label

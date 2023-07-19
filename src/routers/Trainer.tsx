@@ -15,6 +15,7 @@ import { ThunkDispatch } from '@reduxjs/toolkit';
 
 import "../App.scss";
 import Chats from '../pages/trainer/Chats';
+import Chat from '../pages/trainer/Chat';
 
 const Trainer = () => {
 
@@ -37,6 +38,7 @@ const Trainer = () => {
           <Route path="/dates" element={<AuthProtectRoute> <AvailableDate /></AuthProtectRoute> }></Route>
           <Route path="/programs" element={<AuthProtectRoute> <Programs /></AuthProtectRoute> }></Route>
           <Route path="/chats" element={<AuthProtectRoute> <Chats /></AuthProtectRoute> }></Route>
+          <Route path="/chat/:userId/:chatId" element={<AuthProtectRoute> <Chat /></AuthProtectRoute> }></Route>
           <Route path="*" element={<Error404 />} />
         </Routes>
     </div>

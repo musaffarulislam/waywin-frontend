@@ -113,10 +113,8 @@ export const addAvailableDate = createAsyncThunk<any, any, { dispatch?: Dispatch
   export const getAllChats =  createAsyncThunk<any>(
     "user/getAllChats",
     async () =>{
-        try{
-            console.log("1")
-            const response = await axios.get("/chat"); 
-            console.log("2 : ",response) 
+        try{ 
+            const response = await axios.get("/chat");  
             return response.data;
         }catch(err: any){ 
             throw Error(err.response.data.error)

@@ -27,8 +27,8 @@ const User = () => {
           <Route path="/otp" element={<AuthProtectRoute> <Otp /> </AuthProtectRoute>}></Route>
           <Route path="/trainers" element={ <Trainers /> }></Route>
           <Route path="/trainer-info/:id" element={ <TrainerInfo /> }></Route>
-          <Route path="/bookings" element={ <Bookings /> }></Route>
-          <Route path="/chat/:trainerId/:chatId" element={ <Chat /> }></Route>
+          <Route path="/bookings" element={<AuthProtectRoute> <Bookings /> </AuthProtectRoute>}></Route>
+          <Route path="/chat/:trainerId/:chatId" element={<AuthProtectRoute> <Chat /> </AuthProtectRoute>}></Route>
           <Route path="*" element={ <Error404 /> }></Route>
         </Routes>
     </div>

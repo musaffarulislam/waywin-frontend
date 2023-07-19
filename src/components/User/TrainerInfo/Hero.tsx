@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 import { accessChat, getTrainerInfo } from "../../../app/slices/userSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
+import useToaster from "../../../hooks/useToast";
 
 
 const Hero = () => {
@@ -23,12 +24,33 @@ const Hero = () => {
   },[dispatch, id])
 
   const navigate = useNavigate()
+  const toaster = useToaster();
 
   const [isModal, setIsModal] = useState<boolean>(false);
 
   const handleMessage = async () =>{ 
-    const  { payload: { chat } } = await dispatch(accessChat(trainerInfo?.authId?._id)) 
-    navigate(`/chat/${id}/${chat._id}`)
+    try{
+      if(accessToken){
+        const  { payload: { chat } } = await dispatch(accessChat(trainerInfo?.authId?._id)) 
+        navigate(`/chat/${id}/${chat._id}`) 
+      }else{
+        Swal.fire({
+          title: 'Please Login!',
+          text: "You want to login!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, Login!'
+        }).then((result: any) => {
+          if (result.isConfirmed) {
+            navigate('/login')
+          }
+        })
+      }
+    }catch(error: any){
+      toaster.showToast(error.message, { type: 'error' }); 
+    }
   }
 
   const handleModal = () =>{

@@ -25,7 +25,11 @@ export const ChatCard = ({chat}: ChatCardProps) => {
   },[dispatch])
 
   const handleChat = () => {
-    navigate(`/chat/${chat?._id}`);
+    let userId = chat?.users[0]._id
+    if(chat?.users[0] === auth?._id){
+        userId = chat?.user[1]._id
+    }
+    navigate(`/trainer/chat/${userId}/${chat?._id}`);
   }
 
   return (
@@ -41,7 +45,7 @@ export const ChatCard = ({chat}: ChatCardProps) => {
         </div>
         <div className="flex flex-col items-center pb-10 mt-20">
             <h5 className="mb-1 mt-6 text-2xl font-medium text-gray-900 dark:text-white">{ chat?.users[0]._id === auth?._id ? chat?.users[0]?.username : chat?.users[1]?.username }</h5>
-            <span className="p-2 my-2 px-6 text-lg font-semibold bg-gray-900 dark:bg-red-600 text-gray-200 dark:text-gray-100 rounded-xl">{ chat?.users[0]._id !== auth?._id ? chat?.users[0]?.email : chat?.users[1]?.email }</span>
+            {/* <span className="p-2 my-2 px-6 text-lg font-semibold bg-gray-900 dark:bg-red-600 text-gray-200 dark:text-gray-100 rounded-xl">{ chat?.users[0]._id !== auth?._id ? chat?.users[0]?.email : chat?.users[1]?.email }</span> */}
             <span className="text-sm text-gray-600 dark:text-gray-200 px-4 text-center p-2">
                 <b>{chat?.latestMessage?.sender?._id !== auth?._id ? chat?.latestMessage?.sender?.username : "You"} : </b>
                 {chat?.latestMessage?.content.length > 50

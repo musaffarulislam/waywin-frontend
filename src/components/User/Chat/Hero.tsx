@@ -2,28 +2,44 @@ import React, { Suspense, useEffect, useState } from "react";
 import {  getAllMessages, getTrainerInfo, sendMessage } from "../../../app/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { FiSend } from "react-icons/fi";
-// import { TrainerCard } from './TrainerCard';
+import { FiSend } from "react-icons/fi"; 
 import "../../../styles/modules/Scroll.scss";
 import { useNavigate, useParams } from "react-router-dom"; 
 import { getAuthInfo } from "../../../app/slices/authSlice";
 import { IAuth } from "../../../utils/entity/AuthEntity";
 
+import io from "socket.io-client";
+import Lottie from "react-lottie";
+import useToaster from "../../../hooks/useToast";
+const ENDPOINT = "http://localhost:4000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+var socket: any, selectedChatId: string | undefined;
 
 const Hero = () => {
 
   const { trainerId, chatId } = useParams()
-
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate()
-
+  const toaster = useToaster()
   const [isMessages, setIsMessages] = useState<any[]>([])
-  const [newMessage, setNewMessage] = useState<string>("")
+  const [newMessage, setNewMessage] = useState<string>("") 
 
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [typing, setTyping] = useState(false);
+  const [istyping, setIsTyping] = useState(false);
+  
   const auth: IAuth = useSelector((state: any)=> state.auth.auth)
   const trainerInfo = useSelector((state: any)=> state.user.trainerInfo)
 
   const [accessToken, setAccessToken] = useState<string | null>(null);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: {"v":"5.5.2","fr":60,"ip":0,"op":104,"w":84,"h":40,"nm":"Typing-Indicator","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Oval 3","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.643],"y":[1]},"o":{"x":[1],"y":[0]},"t":18,"s":[35],"e":[100]},{"i":{"x":[0.099],"y":[1]},"o":{"x":[0.129],"y":[0]},"t":33,"s":[100],"e":[35]},{"i":{"x":[0.833],"y":[1]},"o":{"x":[0.167],"y":[0]},"t":65,"s":[35],"e":[35]},{"t":71}],"ix":11,"x":"var $bm_rt;\n$bm_rt = loopOut('cycle', 0);"},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[61,20,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":18,"s":[100,100,100],"e":[140,140,100]},{"i":{"x":[0.032,0.032,0.667],"y":[1,1,1]},"o":{"x":[0.217,0.217,0.333],"y":[0,0,0]},"t":33,"s":[140,140,100],"e":[100,100,100]},{"i":{"x":[0.833,0.833,0.833],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[0,0,0]},"t":65,"s":[100,100,100],"e":[100,100,100]},{"t":71}],"ix":6,"x":"var $bm_rt;\n$bm_rt = loopOut('cycle', 0);"}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[12,12],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"fl","c":{"a":0,"k":[0.847000002861,0.847000002861,0.847000002861,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Oval 3","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":3600,"st":0,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Oval 2","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[1],"y":[0]},"t":9,"s":[35],"e":[98]},{"i":{"x":[0.023],"y":[1]},"o":{"x":[0.179],"y":[0]},"t":24,"s":[98],"e":[35]},{"i":{"x":[0.833],"y":[1]},"o":{"x":[0.167],"y":[0]},"t":56,"s":[35],"e":[35]},{"t":62}],"ix":11,"x":"var $bm_rt;\n$bm_rt = loopOut('cycle', 0);"},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[41,20,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.654,0.654,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":9,"s":[100,100,100],"e":[140,140,100]},{"i":{"x":[0.11,0.11,0.667],"y":[1,1,1]},"o":{"x":[0.205,0.205,0.333],"y":[0,0,0]},"t":24,"s":[140,140,100],"e":[100,100,100]},{"i":{"x":[0.833,0.833,0.833],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[0,0,0]},"t":56,"s":[100,100,100],"e":[100,100,100]},{"t":62}],"ix":6,"x":"var $bm_rt;\n$bm_rt = loopOut('cycle', 0);"}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[12,12],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"fl","c":{"a":0,"k":[0.847000002861,0.847000002861,0.847000002861,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Oval 2","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":3600,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"Oval 1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[1],"y":[0]},"t":0,"s":[35],"e":[100]},{"i":{"x":[0.067],"y":[1]},"o":{"x":[0.125],"y":[0]},"t":15,"s":[100],"e":[35]},{"i":{"x":[0.833],"y":[1]},"o":{"x":[0.167],"y":[0]},"t":47,"s":[35],"e":[35]},{"t":53}],"ix":11,"x":"var $bm_rt;\n$bm_rt = loopOut('cycle', 0);"},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[21,20,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.673,0.673,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[0,0,0]},"t":0,"s":[100,100,100],"e":[140,140,100]},{"i":{"x":[0.049,0.049,0.667],"y":[1,1,1]},"o":{"x":[0.198,0.198,0.333],"y":[0,0,0]},"t":15,"s":[140,140,100],"e":[100,100,100]},{"i":{"x":[0.833,0.833,0.833],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[0,0,0]},"t":47,"s":[100,100,100],"e":[100,100,100]},{"t":53}],"ix":6,"x":"var $bm_rt;\n$bm_rt = loopOut('cycle', 0);"}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[12,12],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"fl","c":{"a":0,"k":[0.847000002861,0.847000002861,0.847000002861,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Oval 1","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":3600,"st":0,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"BG","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[42,20,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0],[0,0]],"v":[[-42,-20],[42,-20],[42,20],[-42,20]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"rd","nm":"Round Corners 1","r":{"a":0,"k":20,"ix":1},"ix":2,"mn":"ADBE Vector Filter - RC","hd":false},{"ty":"fl","c":{"a":0,"k":[0.96078401804,0.96078401804,0.96078401804,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"BG","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":3600,"st":0,"bm":0}],"markers":[]},
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   useEffect(() => {
     const token = window.localStorage.getItem("accessToken");
@@ -31,45 +47,104 @@ const Hero = () => {
   }, []);
 
   useEffect(() => {
-    if(accessToken){
-      dispatch(getAuthInfo())
-      dispatch(getTrainerInfo(trainerId))
+    try{
+      if(accessToken){
+        dispatch(getAuthInfo())
+        dispatch(getTrainerInfo(trainerId))
+      }
+    } catch (error: any) { 
+      toaster.showToast(error.message, { type: 'error' })
     }
-  },[accessToken, dispatch, trainerId])
-
-  const typingHandler = (value: string) =>{
-    setNewMessage(value)
-  } 
-
-  const handleSendMessage = async () => {
-    if (newMessage) {
-      const result = await dispatch(sendMessage({ newMessage, chatId }));
-      console.log("Herooo : ",result)
-      const payload = result.payload; // Access the payload property if it exists
-      setIsMessages([...isMessages, payload]); // Update state with payload value
-    }
-  };
+  },[accessToken, dispatch, trainerId, toaster]) 
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const {payload} = await dispatch(getAllMessages(chatId));
-        setIsMessages(payload) 
-      } catch (error) {
-        console.error("Error:", error);
+    socket = io(ENDPOINT);
+    if (auth) {
+      socket.emit("setup", auth);
+    }
+    socket.on("connected", () => setSocketConnected(true));
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop typing", () => setIsTyping(false));
+
+    // eslint-disable-next-line
+  }, [auth]);
+
+  useEffect(() => {
+    try{
+      const fetchData = async () => {
+        try {
+          const {payload} = await dispatch(getAllMessages(chatId));
+          setIsMessages(payload) 
+          socket.emit("join chat", chatId);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      fetchData(); 
+      selectedChatId = chatId;
+    } catch (error: any) { 
+      toaster.showToast(error.message, { type: 'error' })
+    }
+  }, [dispatch, chatId, toaster])
+
+  useEffect(() => {
+    socket.on("message received", (newMessageRecieved: any) => { 
+      if ( !selectedChatId || selectedChatId !== newMessageRecieved.chat._id ) {
+        toaster.showToast("Something went wrong", { type: 'error' })
+      }else{
+        setIsMessages([...isMessages, newMessageRecieved]);
       }
-    };
-
-    fetchData(); 
-  }, [dispatch, chatId])
-
+    });
+  });
+  
   useEffect(()=>{
-    dispatch(getTrainerInfo(trainerId))
-  },[dispatch, trainerId])
-
+    try{
+      dispatch(getTrainerInfo(trainerId))
+    } catch (error: any) { 
+      toaster.showToast(error.message, { type: 'error' })
+    }
+  },[dispatch, trainerId, toaster])
+  
   const handleTrainer = () => {
     navigate(`/trainer-info/${trainerId}`);
   }
+
+  const typingHandler = (value: string) =>{
+    setNewMessage(value)
+
+    if (!socketConnected) return;
+
+    if (!typing) {
+      setTyping(true);
+      socket.emit("typing", chatId);
+    }
+    let lastTypingTime = new Date().getTime();
+    var timerLength = 2000;
+    setTimeout(() => {
+      var timeNow = new Date().getTime();
+      var timeDiff = timeNow - lastTypingTime;
+      if (timeDiff >= timerLength && typing) {
+        socket.emit("stop typing", chatId);
+        setTyping(false);
+      }
+    }, timerLength);
+  } 
+
+    
+  const handleSendMessage = async () => {
+    try{
+      if (newMessage) {
+        socket.emit("stop typing", chatId);
+        const result = await dispatch(sendMessage({ newMessage, chatId }));
+        const payload = result.payload;  
+        socket.emit("new message", payload);
+        setIsMessages([...isMessages, payload]); 
+        setNewMessage("")
+      }
+    } catch (error: any) { 
+      toaster.showToast(error.message, { type: 'error' })
+    }
+  };
 
   return (
     <div className='px-6 sm:px-14 md:px-40 lg:px-64 mx-auto pt-16 pb-8 max-w-screen-xl h-screen'>
@@ -88,16 +163,16 @@ const Hero = () => {
                       </div>
                   }
                 </div>
-                <div> { auth && auth?.username} </div>
+                <div> { trainerInfo && trainerInfo?.authId?.username} </div>
               </div>
-              <div> {auth && auth?.email} </div>
+              <div className="hidden sm:block"> {trainerInfo && trainerInfo?.authId?.email} </div>
             </div>
           <div className="h-full flex flex-col-reverse overflow-scroll overflow-x-hidden custom-scroll">
               <ul>
                 {
                   isMessages && isMessages.length > 0 ? isMessages.map((message: any, i: number) => (
                     <li className={`flex ${ auth && auth._id === message.sender._id ? "justify-end" : "justify-start" } gap-3 pb-3 items-end`} key={i} >
-                      <span className={`text-xl rounded-lg py-2 px-4 ${auth && auth._id === message.sender._id ? "bg-green-300 dark:bg-teal-500" : "bg-orange-200 dark:bg-red-500"}`}>
+                      <span className={`text-xl max-w-4xl rounded-lg py-2 px-4 ${auth && auth._id === message.sender._id ? "bg-green-300 dark:bg-teal-500" : "bg-orange-200 dark:bg-red-500"}`}>
                         {message.content}
                       </span>
                     </li>
@@ -107,13 +182,19 @@ const Hero = () => {
                       No messages
                     </span>
                   </li>
-                }
-                <li className="flex justify-start gap-3 pb-3 items-end "> 
-                    <span className="text-xl rounded-lg py-1 px-2 bg-orange-200 dark:bg-red-500">
-                      hiiii
-                    </span>
+                } 
+              {istyping ? (
+                <li>
+                  <Lottie
+                    options={defaultOptions}
+                    // height={50}
+                    width={40}
+                    style={{ marginBottom: 15, marginLeft: 0 }}
+                  />
                 </li>
-             
+              ) : (
+                <></>
+              )}
               </ul>
           </div>
           <div className='mb-5 md:mb-2 lg:mb-0'>

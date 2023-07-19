@@ -17,7 +17,7 @@ import InputTagsUser from "../Inputs/StaticInputs/InputTagsUser";
 const FormUserTrainerInfo = () => {
   
   const trainerInfo = useSelector((state: any)=> state.user.trainerInfo)
-  
+  const services = trainerInfo?.profile?.services || []; 
 
 
   return (
@@ -29,7 +29,7 @@ const FormUserTrainerInfo = () => {
         <div className="w-full md:w-10/12 lg:w-8/12 ">
           <InputTextareaUser label="Description" name="description" description={trainerInfo?.profile?.description}/>
           <div className="grid grid-cols-1 sm:grid-cols-2 mt-12">
-            <InputServices services={trainerInfo?.profile?.services} />
+            <InputServices services={services} />
             <InputModeUser mode={trainerInfo?.profile?.mode} />
           </div>
           <div className="mt-8">
