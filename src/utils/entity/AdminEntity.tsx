@@ -17,4 +17,5 @@ export interface IAdminState {
     users: string[] | null | undefined;
     trainers: string[] | null | undefined;
     tags: string[] | null | undefined;
+    bookings: string[] | null | undefined;
 }

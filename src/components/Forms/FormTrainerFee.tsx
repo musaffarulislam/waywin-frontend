@@ -45,8 +45,7 @@ const FormTrainerFee = () => {
   }, [consultingFee, trainingFee, fee]);
 
   const onSubmit = async (data: IFee) => {
-    try{
-      console.log("Data :",data)
+    try{ 
       dispatch(addTrainerFee(data))
       toaster.showToast("Fee added success", { type: 'success' });
       setIsEditing(false);

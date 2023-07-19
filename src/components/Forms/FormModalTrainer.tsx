@@ -58,8 +58,7 @@ export const FormModalTrainer = ({onModal, trainer}: optionProps) => {
     }
 
     const handleUnVerify = async () => {
-        onModal(false)
-        console.log("2isVerify 1: ",isVerify)
+        onModal(false) 
         await Swal.fire({
             title: 'Are you sure?',
             text: "You Unverified in this trainer!",

@@ -15,7 +15,8 @@ const initialValue: ITrainerState ={
     bannerImage: null,
     tags: null,
     availabeDates: null,
-    bookings: null
+    bookings: null,
+    chats: null
 }
 
 export const getTrainerInfo =  createAsyncThunk<any, void, {dispatch?: Dispatch<AnyAction>}>(
@@ -103,12 +104,25 @@ export const addAvailableDate = createAsyncThunk<any, any, { dispatch?: Dispatch
           time: selectedHours,
         });
         return response.data;
-      } catch (err: any) {
-        console.error(err.response.data);
+      } catch (err: any) { 
         throw Error(err.response.data.error);
       }
     }
   );
+
+  export const getAllChats =  createAsyncThunk<any>(
+    "user/getAllChats",
+    async () =>{
+        try{
+            console.log("1")
+            const response = await axios.get("/chat"); 
+            console.log("2 : ",response) 
+            return response.data;
+        }catch(err: any){ 
+            throw Error(err.response.data.error)
+        }
+    }
+)
 
 export const getBookingInfo = createAsyncThunk<any>(
     "trainer/getBookingInfo",
@@ -228,6 +242,16 @@ export const trainerSlice = createSlice({
             .addCase(addAvailableDate.rejected, (state, action) => {
                 state.isLoading = false;
                 throw Error(action.error.message);
+            })
+            .addCase(getAllChats.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getAllChats.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.chats = action.payload.chats;
+            })
+            .addCase(getAllChats.rejected, (state) => {
+                state.isLoading = false;
             })
             .addCase(getBookingInfo.pending, (state) => {
                 state.isLoading = true;

@@ -13,6 +13,7 @@ import "../App.scss";
 import TrainerInfo from '../pages/user/TrainerInfo';
 import { Error404 } from '../pages/common/Error404';
 import Bookings from '../pages/user/Bookings';
+import Chat from '../pages/user/Chat';
 
 const User = () => {
 
@@ -25,8 +26,9 @@ const User = () => {
           <Route path="/signup" element={<AuthProtectRoute> <Signup /> </AuthProtectRoute>}></Route>
           <Route path="/otp" element={<AuthProtectRoute> <Otp /> </AuthProtectRoute>}></Route>
           <Route path="/trainers" element={ <Trainers /> }></Route>
-          <Route path="/trainer-info" element={ <TrainerInfo /> }></Route>
-          <Route path="/Bookings" element={ <Bookings /> }></Route>
+          <Route path="/trainer-info/:id" element={ <TrainerInfo /> }></Route>
+          <Route path="/bookings" element={ <Bookings /> }></Route>
+          <Route path="/chat/:trainerId/:chatId" element={ <Chat /> }></Route>
           <Route path="*" element={ <Error404 /> }></Route>
         </Routes>
     </div>

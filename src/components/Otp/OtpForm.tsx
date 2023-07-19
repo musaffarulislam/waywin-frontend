@@ -35,8 +35,7 @@ const OtpForm = () => {
         dispatch(createUser());
         navigate('/login')
       } catch (error: any) {
-        toaster.showToast(error.message, { type: 'error' })
-        console.log("Otp form error")
+        toaster.showToast(error.message, { type: 'error' }) 
         return navigate('/otp'); 
       }
     } catch (e: any) {

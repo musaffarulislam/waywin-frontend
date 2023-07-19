@@ -34,15 +34,13 @@ const FormSignup = () => {
   },[dispatch])
 
   // function setUpRecaptcha(number: string) {
-  //   try{
-  //     console.log("recapcha")
+  //   try{ 
   //     const recaptchaVerifier = new RecaptchaVerifier(
   //       "recaptcha-container",
   //       {},
   //       auth
   //       );
-  //       recaptchaVerifier.render();
-  //       console.log("recapcha render")
+  //       recaptchaVerifier.render(); 
   //     return signInWithPhoneNumber(auth, number, recaptchaVerifier)
   //   }catch(error: any){
   //     throw new Error(error.message)
@@ -64,8 +62,7 @@ const FormSignup = () => {
       if (formData.phoneNumber) {
         try {
           dispatch(loading(true));
-          const response = await setUpRecaptcha("+91" + formData.phoneNumber);
-          console.log(response);
+          const response = await setUpRecaptcha("+91" + formData.phoneNumber); 
           dispatch(otpConfirmObj(response))
           toaster.showToast('Otp send successsful', { type: 'success' })
           dispatch(loading(false));

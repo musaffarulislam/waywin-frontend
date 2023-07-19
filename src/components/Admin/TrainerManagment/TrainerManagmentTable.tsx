@@ -23,8 +23,7 @@ export const TrainerManagmentTable = () => {
       setIsOpen(!isOpen);
     };
 
-    const handleFilter = (event: any) =>{
-      console.log(event.target.value)
+    const handleFilter = (event: any) =>{ 
       setIsFilter(event.target.value)
     }
  

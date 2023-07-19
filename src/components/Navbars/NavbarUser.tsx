@@ -5,7 +5,7 @@ import whitelight from "../../assets/whitelogo.png";
 import bluelight from "../../assets/bluelogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../app/slices/themeSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getAuthInfo, logout } from "../../app/slices/authSlice";
 import { RiDashboardFill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
@@ -13,13 +13,14 @@ import { BsCalendar3 } from "react-icons/bs";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { InputDropdown } from "../Inputs/InputDropdown";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { IAuth } from "../../utils/entity/AuthEntity copy";
-import { MdDarkMode, MdSunny } from "react-icons/md";
+import { IAuth } from "../../utils/entity/AdminEntity";
+import { MdDarkMode, MdSunny } from "react-icons/md";  
 
 const NavbarUser = () => {
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
-
+  const navigate = useNavigate()
+  
   const theme: string = useSelector((state: any) => state.theme.theme);
   const auth: IAuth = useSelector((state: any)=> state.auth.auth)
 
@@ -52,9 +53,10 @@ const NavbarUser = () => {
   };
 
 
-  const handleSignout = () => {
-    dispatch(logout())
+  const handleSignout = async () => {
+    await dispatch(logout()) 
     setAccessToken(null);
+    navigate("/")
   }
 
   return (
@@ -109,10 +111,10 @@ const NavbarUser = () => {
                     <div className="absolute right-0 mt-2 text-base bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
                       <div className="px-4 py-3">
                         <p className="text-2xl text-gray-900 dark:text-white">
-                          {auth.username}
+                          {accessToken && auth?.username}
                         </p>
                         <p className="text-xl font-normal text-gray-900 truncate dark:text-gray-300">
-                          {auth.email}
+                          {accessToken && auth?.email}
                         </p>
                       </div>
                       <ul className="py-1">

@@ -19,8 +19,8 @@ async function refresh() {
     const {accessToken} = response.data
     window.localStorage.setItem('accessToken',JSON.stringify(accessToken))
     return { accessToken };
-  }catch(error){
-    console.error("Error during logout:", error);
+  }catch(error){ 
+    console.log("Error during logout:", error);
     window.localStorage.removeItem("accessToken")
     window.localStorage.removeItem("refreshToken")
     throw error;
@@ -47,6 +47,11 @@ axiosPublic.interceptors.response.use(
     if (err?.response?.status === 401 && !prvsRequest?.sent) {
       prvsRequest.sent = true;
       try{
+        const access = window.localStorage.getItem("accessToken")
+        const refersh = window.localStorage.getItem("refreshToken")
+        console.log("Access : ",access)
+        console.log("refresh : ",refersh)
+
         const { accessToken } = await refresh();
         prvsRequest.headers.Authorization = `Bearer ${accessToken}`;
         return axiosPublic(prvsRequest);

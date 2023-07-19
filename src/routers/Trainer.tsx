@@ -5,15 +5,16 @@ import Home from "../pages/trainer/Home";
 import Profile from "../pages/trainer/Profile";
 import AuthProtectRoute from './ProtectRoutes/AuthProtectRoute';
 import BackgroundTrainer from '../components/Theme/BackgroundTrainer';
+import { Error404 } from '../pages/common/Error404';
+import Programs from '../pages/trainer/Programs';
+import AvailableDate from '../pages/trainer/AvailableDate';
+import { getTrainerInfo, getTrainerProfile } from '../app/slices/trainerSlice';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import { getTrainerInfo, getTrainerProfile } from '../app/slices/trainerSlice';
-import AvailableDate from '../pages/trainer/AvailableDate';
 
 import "../App.scss";
-import { Error404 } from '../pages/common/Error404';
-import Programs from '../pages/trainer/Programs';
+import Chats from '../pages/trainer/Chats';
 
 const Trainer = () => {
 
@@ -35,6 +36,7 @@ const Trainer = () => {
           <Route path="/profile" element={<AuthProtectRoute> <Profile /></AuthProtectRoute> }></Route>
           <Route path="/dates" element={<AuthProtectRoute> <AvailableDate /></AuthProtectRoute> }></Route>
           <Route path="/programs" element={<AuthProtectRoute> <Programs /></AuthProtectRoute> }></Route>
+          <Route path="/chats" element={<AuthProtectRoute> <Chats /></AuthProtectRoute> }></Route>
           <Route path="*" element={<Error404 />} />
         </Routes>
     </div>

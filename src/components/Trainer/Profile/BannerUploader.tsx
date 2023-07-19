@@ -13,8 +13,7 @@ export const BannerUploader = () => {
   // const profileImage: string | null = null
   const isLoadingBanner: boolean = useSelector((state: any)=> state.trainer.isLoadingBanner)
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("Banner image")
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => { 
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();

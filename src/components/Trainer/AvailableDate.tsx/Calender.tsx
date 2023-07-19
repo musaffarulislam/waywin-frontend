@@ -121,8 +121,7 @@ export default function Calander() {
   }, [dispatch, selectedDay]);
 
   const handlehours = useCallback((hours: Date[]) => {
-    setSelectedHours(hours);
-    console.log(hours)
+    setSelectedHours(hours); 
   },[]);
  
   const handleSubmit = async() => {
@@ -136,10 +135,8 @@ export default function Calander() {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, verify it!'
       }).then(async (result) => {
-        if (result.isConfirmed) {
-          console.log("23456 Selected day :",selectedDay)
-            await dispatch(addAvailableDate({selectedDay, selectedHours}));
-            // await dispatch(getAllTags());
+        if (result.isConfirmed) { 
+            await dispatch(addAvailableDate({selectedDay, selectedHours})); 
             Swal.fire({
                 title: 'Added!',
                 text: 'Date and time added',

@@ -9,7 +9,7 @@ import { CgProfile } from 'react-icons/cg';
 import { getAuthInfo, logout } from "../../app/slices/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { InputDropdown } from "../Inputs/InputDropdown";
-import { IAuth } from "../../utils/entity/AuthEntity copy";
+import { IAuth } from "../../utils/entity/AdminEntity";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 
 import whitelight from "../../assets/whitelogo.png";
@@ -161,7 +161,7 @@ export const NavbarTrainer = () => {
               </Link>
             </li>
             <li>
-              <Link to="/trainer/chat">
+              <Link to="/trainer/chats">
                 <div className="flex items-center p-2 my-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" >
                   <HiChatAlt className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"/>
                   <span className="flex-1 ml-3 whitespace-nowrap">Chat</span>

@@ -8,8 +8,7 @@ const useAxiosPrivate = () => {
 
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
-      (config: any) => {
-        console.log("useAxios hook");
+      (config: any) => { 
         if (!config.headers.Authorization) {
           // eslint-disable-next-line no-param-reassign
           config.headers.Authorization = `Bearer ${accessToken}`;

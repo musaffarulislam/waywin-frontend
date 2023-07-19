@@ -54,8 +54,7 @@ const FormTrainerProfile = () => {
   
   const handleDescription = useCallback((text: string) => {
     textareaSchema.validate(text).then(()=>{
-      setErrorsDescription(""); // No validation error
-      console.log("Handle : ",text)
+      setErrorsDescription(""); // No validation error 
       setProfileDescription(text);
     })
     .catch((error) => {
@@ -91,8 +90,7 @@ const FormTrainerProfile = () => {
       formData.description = profileDescription;
       formData.tags = selectedTags;
       formData.experience = experience;
-      formData.mode = selectedMode;
-      console.log("profileDescription :",profileDescription)
+      formData.mode = selectedMode; 
       if(selectedServices.length <= 0){
         return setErrorsServices("Please select any services")
       }else{

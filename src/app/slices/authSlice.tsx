@@ -67,8 +67,7 @@ export const checkUsername = createAsyncThunk<any, string, { dispatch?: Dispatch
     try{
       const response = await axios.get(`/auth/checkUsername/${username}`);
       return response.data;
-    }catch(err: any){
-      console.error(err.response.data)
+    }catch(err: any){ 
       throw Error(err.response.data.error)
     }
   }
@@ -80,8 +79,7 @@ export const checkEmail = createAsyncThunk<any, string, { dispatch?: Dispatch<An
     try{
       const response = await axios.get(`/auth/checkEmail/${email}`);
       return response.data;
-    }catch(err: any){
-      console.error(err.response.data)
+    }catch(err: any){ 
       throw Error(err.response.data.error)
     }
   }
@@ -93,8 +91,7 @@ export const checkPhoneNumber = createAsyncThunk<any, string, { dispatch?: Dispa
     try{
       const response = await axios.get(`/auth/checkPhoneNumber/${phoneNumber}`);
       return response.data;
-    }catch(err: any){
-      console.error(err.response.data)
+    }catch(err: any){ 
       throw Error(err.response.data.error)
     }
   }
@@ -107,8 +104,7 @@ export const createUser = createAsyncThunk<any, void, { state: RootState }>(
       const { auth } = getState().auth; // Accessing the 'auth' value from the state
       const response = await axios.post("/auth/signup", auth, { headers: { 'Content-Type': 'application/json' } });
       return response.data;
-    }catch(err: any){
-      console.error(err.response.data)
+    }catch(err: any){ 
       throw Error(err.response.data.error)
     }
   }
@@ -121,8 +117,7 @@ export const getAuthByEmail = createAsyncThunk<{ accessToken: string; refreshTok
       const response = await axios.post("/auth/login", data, {headers: { 'Content-Type': 'application/json' } });
       const { accessToken, refreshToken, role } = response.data
       return { accessToken, refreshToken, role };
-    }catch(err: any){
-      console.error(err.response.data)
+    }catch(err: any){ 
       throw Error(err.response.data.error)
     }
   }

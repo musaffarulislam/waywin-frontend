@@ -11,8 +11,8 @@ import { loading } from "../../app/slices/authSlice";
 
 const Login: FC = () => {
 
-  const dispatch = useDispatch()
-  console.log("App")
+  const dispatch = useDispatch() 
+  
   const theme: string = useSelector((state: any) => state.theme.theme);
   useEffect(()=>{
     dispatch(loading(false))

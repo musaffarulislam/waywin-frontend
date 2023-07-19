@@ -9,8 +9,7 @@ const InputMode = ({ mode }: optionProps) => {
 
   const [isContent, setIsContent] = useState(false);
 
-  const handleContent = () => {
-    console.log(isContent)
+  const handleContent = () => { 
     setIsContent(!isContent);
   };
  

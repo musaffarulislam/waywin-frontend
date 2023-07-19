@@ -60,8 +60,7 @@ export default function Calander({availableDates, onCalander}: calenderProps) {
   }, [onCalander, selectedDay, selectedHours]);
 
   const handlehours = useCallback((hours: Date) => {
-    setSelectedHours(hours);
-    console.log("hours :",hours)
+    setSelectedHours(hours); 
   },[]);
 
 

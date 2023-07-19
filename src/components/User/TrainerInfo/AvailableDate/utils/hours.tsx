@@ -14,8 +14,7 @@ const AvailableHours = memo(({ onSelectedTime , availableDates, selectedDay }: h
   
   useEffect(() => {
     if(selectedTime){
-      onSelectedTime(selectedTime);
-      console.log("selectedTime", selectedTime);
+      onSelectedTime(selectedTime); 
     }
   }, [selectedTime, onSelectedTime]);
   

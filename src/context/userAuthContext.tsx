@@ -8,15 +8,13 @@ import { auth } from "../firebase";
 
 
 function setUpRecaptcha(number: string) {
-  try{
-    console.log("recapcha")
+  try{ 
     const recaptchaVerifier = new RecaptchaVerifier(
       "recaptcha-container",
       {},
       auth
       );
-      recaptchaVerifier.render();
-      console.log("recapcha render")
+      recaptchaVerifier.render(); 
     return signInWithPhoneNumber(auth, number, recaptchaVerifier)
   }catch(error: any){
     throw new Error(error.message)

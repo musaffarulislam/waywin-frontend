@@ -12,8 +12,7 @@ export const ImageUploader = () => {
   const profileImage: string | null = useSelector((state: any)=> state.trainer.profileImage)
   const isLoadingImage: boolean = useSelector((state: any)=> state.trainer.isLoadingImage)
 
-  const handleProfileImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("Profile image")
+  const handleProfileImageChange = (event: ChangeEvent<HTMLInputElement>) => { 
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -26,8 +25,7 @@ export const ImageUploader = () => {
     }
   };
 
-  const uploadFile = (image: string | null) =>{
-    console.log("Profile image")
+  const uploadFile = (image: string | null) =>{ 
     dispatch(uploadProfileImage(image))
   }
 

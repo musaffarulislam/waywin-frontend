@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {useNavigate } from 'react-router-dom';
-import { addTrainerInfo } from '../../../app/slices/userSlice';
+import { getAllTrainersInfo } from '../../../app/slices/userSlice';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import { getAllTrainersInfo } from '../../../app/slices/adminSlice';
-
 import {
     format
 } from "date-fns";
@@ -15,10 +13,10 @@ type BookingCardProps = {
 
 export const BookingCard = ({booking}: BookingCardProps) => {
 
-    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     console.log("Booking : ",booking)
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>(); 
 
-  const navigate = useNavigate()
+//   const navigate = useNavigate()
 
   useEffect(()=>{
     dispatch(getAllTrainersInfo())
@@ -32,7 +30,7 @@ export const BookingCard = ({booking}: BookingCardProps) => {
   return (
     <div className="relative w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-slate-900 dark:border-gray-700 my-14">
         <div className='flex flex-col items-center pb-10'>
-            {booking?.trainerId?.profileImage?.url ?
+            {booking?.userId?.profileImage?.url ?
                 <img className="absolute -top-24 w-52 h-52 mb-3 rounded-full shadow-lg object-cover" src={booking?.trainerId?.profileImage?.url} alt="Trainer"/>
             :(                
                 <div className="absolute -top-24 w-52 h-52 mb-3 rounded-full shadow-lg object-cover">

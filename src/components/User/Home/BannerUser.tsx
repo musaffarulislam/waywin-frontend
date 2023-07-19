@@ -16,11 +16,7 @@ const BannerUser = () => {
             <div className='text-lg md:text-2xl text-left xl:text-justify font-medium max-w-4xl mb-10  flex justify-center'>Proper guidance is crucial for success. It provides mentorship, expertise, and valuable insights. Learning from others' mistakes saves time and effort. Guidance expands networks and opportunities, accessing new collaborations.</div>
           </div>
         </div>
-        <div className='col-span-2'>
-          {/* <div
-            className="min-h-[200px] md:min-h-[300px] xl:min-h-[500px] rounded-3xl bg-cover bg-center dark:shadow-2xl"
-            style={{ backgroundImage: `url(${bannerimage})` }}
-          ></div> */}
+        <div className='col-span-2'> 
           <div className="" >
             <img src={bannerimage} alt='banner' />
           </div>

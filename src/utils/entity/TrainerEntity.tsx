@@ -11,6 +11,7 @@ export interface ITrainerState {
     tags: any;
     availabeDates: any;
     bookings: any;
+    chats: any;
 }
 
 

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, Dispatch, AnyAction } from "@reduxjs/toolkit";
 import {axiosPrivate} from "../../config/axios";
-import { IAdminState } from "../../utils/entity/AuthEntity copy";
+import { IAdminState } from "../../utils/entity/AdminEntity";
 import { AxiosError } from "axios";
 
 
@@ -9,6 +9,7 @@ const initialValue: IAdminState = {
     users: null,
     trainers: null,
     tags: null,
+    bookings: null,
 };
 
 
@@ -165,6 +166,14 @@ export const deleteTag = createAsyncThunk<any, number, { dispatch?: Dispatch<Any
     }
 );
 
+export const getAllBookings = createAsyncThunk<any>(
+    "admin/getAllBookings",
+    async () => {
+        const response = await axiosPrivate.get("/getAll-bookings");
+        return response.data;
+    }
+);
+
 
 export const adminSlice = createSlice({
     name: "admin",
@@ -310,6 +319,16 @@ export const adminSlice = createSlice({
             .addCase(deleteTag.rejected, (state, action) => {
                 state.isLoading = false;
                 throw Error(action.error.message)
+            })
+            .addCase(getAllBookings.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getAllBookings.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.bookings = action.payload.bookings;
+            })
+            .addCase(getAllBookings.rejected, (state) => {
+                state.isLoading = false;
             })
         }
     })

@@ -14,8 +14,7 @@ const InputServices = ({ onOptionServices, error }: optionProps) => {
   const profileInfo = useSelector((state:any) => state.trainer.profileInfo)
 
   useEffect(() => {
-    onOptionServices(selectedCheckboxes)
-    console.log("selectedCheckboxes", selectedCheckboxes);
+    onOptionServices(selectedCheckboxes) 
   }, [selectedCheckboxes, onOptionServices]);
 
   useEffect(()=>{

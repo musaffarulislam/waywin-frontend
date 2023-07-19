@@ -49,8 +49,7 @@ const FormLoginAdmin = () => {
       await dispatch(getAuthByEmail(data))
     }catch(error: any){
       dispatch(loading(false))
-      toaster.showToast(error.message, { type: 'error' });
-      console.log(error.message)
+      toaster.showToast(error.message, { type: 'error' }); 
     }
   };
   

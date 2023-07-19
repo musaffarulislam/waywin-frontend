@@ -20,10 +20,52 @@ export const getAllTrainersInfo = createAsyncThunk<any>(
 export const getTrainerInfo = createAsyncThunk<any, any, { dispatch?: Dispatch<AnyAction> }>(
     "user/getTrainerInfo",
     async (trainerId) => {
-      const response = await axios.get(`/user/get-trainer-info/${trainerId}`);
-      return response.data;
+        try{
+            const response = await axios.get(`/user/get-trainer-info/${trainerId}`);
+            return response.data;
+        }catch(err: any){ 
+            throw Error(err.response.data.error)
+        }
     }
   );
+
+  export const accessChat =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
+    "user/accessChat",
+    async (trainerId) =>{
+        try{
+            const response = await axios.post("/chat", { userId: trainerId });  
+            return response.data;
+        }catch(err: any){ 
+            throw Error(err.response.data.error)
+        }
+    }
+)
+
+  export const getAllMessages =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
+    "user/getAllMessages",
+    async (chatId) =>{
+        try{
+            const response = await axios.get(`/message/${chatId}`);  
+            console.log("response :", response.data);
+            return response.data.messages;
+        }catch(err: any){ 
+            throw Error(err.response.data.error)
+        }
+    }
+)
+
+export const sendMessage =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
+    "user/sendMessage",
+    async ({newMessage,chatId}) =>{
+        try{
+            console.log("newMessage :",newMessage)
+            const response = await axios.post("/message", { content: newMessage ,chatId });  
+            return response.data.message;
+        }catch(err: any){ 
+            throw Error(err.response.data.error)
+        }
+    }
+)
 
 export const getBookingInfo = createAsyncThunk<any>(
     "user/getBookingInfo",
@@ -34,7 +76,7 @@ export const getBookingInfo = createAsyncThunk<any>(
 );
 
 export const booking =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
-    "trainer/booking",
+    "user/booking",
     async (amount) =>{
         try{
             const response = await axios.post("/user/booking", { amount });
@@ -42,18 +84,16 @@ export const booking =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyActio
                 throw Error("Please check internet connection")
             }
             return response.data.data;
-        }catch(err: any){
-            console.error(err.response.data)
+        }catch(err: any){ 
             throw Error(err.response.data.error)
         }
     }
 )
 
 export const bookingTrainer =  createAsyncThunk<any, any, {dispatch?: Dispatch<AnyAction>}>(
-    "trainer/bookingTrainer",
+    "user/bookingTrainer",
     async ({formData, trainerId, bookingId, orderId}) =>{
-        try{
-            console.log("bookingData : ",formData)
+        try{ 
             const bookingData = {
                 ...formData,
                 service: formData.service[0],
@@ -62,8 +102,7 @@ export const bookingTrainer =  createAsyncThunk<any, any, {dispatch?: Dispatch<A
               };
             const response = await axios.post("/user/book-trainer", { bookingData, trainerId, bookingId, orderId});
             return response.data;
-        }catch(err: any){
-            console.error(err.response.data)
+        }catch(err: any){ 
             throw Error(err.response.data.error)
         }
     }
@@ -78,7 +117,10 @@ export const userSlice = createSlice({
         },
         loading: (state, action) =>{
             state.isLoading = action.payload;
-        }
+        },
+        // signout: (state) => {
+        //     return { ...initialValue };
+        // }
     },
     extraReducers: (builder) => {
         builder
@@ -91,6 +133,47 @@ export const userSlice = createSlice({
             })
             .addCase(getAllTrainersInfo.rejected, (state) => {
                 state.isLoading = false;
+            })
+            .addCase(getTrainerInfo.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getTrainerInfo.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.trainerInfo = action.payload.trainer;
+            })
+            .addCase(accessChat.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(accessChat.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(accessChat.rejected, (state, action) => {
+                state.isLoading = false;
+                throw Error(action.error.message);
+            })
+            .addCase(getAllMessages.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getAllMessages.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(getAllMessages.rejected, (state, action) => {
+                state.isLoading = false;
+                throw Error(action.error.message);
+            })
+            .addCase(sendMessage.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(sendMessage.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(sendMessage.rejected, (state, action) => {
+                state.isLoading = false;
+                throw Error(action.error.message);
+            })
+            .addCase(getTrainerInfo.rejected, (state, action) => {
+                state.isLoading = false;
+                throw Error(action.error.message);
             })
             .addCase(getBookingInfo.pending, (state) => {
                 state.isLoading = true;

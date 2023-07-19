@@ -13,7 +13,7 @@ import { bookingTrainer, booking, loading } from "../../app/slices/userSlice";
 import Swal from "sweetalert2";
 
 import redlogo from "../../assets/redlogo.png";
-import { IAuth } from "../../utils/entity/AuthEntity copy";
+import { IAuth } from "../../utils/entity/AdminEntity";
 import { useNavigate } from "react-router-dom";
 
 declare global {
@@ -161,7 +161,7 @@ const FormBooking = ({trainerInfo, onOptionModal}: formBookingProps) => {
         return;
       }
 
-      const trainerId = trainerInfo.authId._id
+      const trainerId = trainerInfo._id
       const {payload} = await dispatch(booking(feeValue))
 
       const options: any = {

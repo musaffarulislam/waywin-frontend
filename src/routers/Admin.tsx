@@ -7,10 +7,12 @@ import Login from '../pages/admin/Login';
 import AdminProtectRoute from './ProtectRoutes/AdminProtectRoute';
 import { UserManagment } from '../pages/admin/UserManagment';
 import { TrainerManagment } from '../pages/admin/TrainerManagment';
+import { TagsManagment } from '../pages/admin/TagsManagment';
+import { BookingManagment } from '../pages/admin/BookingManagment';
 
 
 import "../App.scss";
-import { TagsManagment } from '../pages/admin/TagsManagment';
+import { Error404 } from '../pages/common/Error404';
 
 const Admin = () => {
   return (
@@ -22,6 +24,8 @@ const Admin = () => {
           <Route path="/user-managment" element={<AdminProtectRoute> <UserManagment /> </AdminProtectRoute>}></Route>
           <Route path="/trainer-managment" element={<AdminProtectRoute> <TrainerManagment /> </AdminProtectRoute>}></Route>
           <Route path="/tags-managment" element={<AdminProtectRoute> <TagsManagment /> </AdminProtectRoute>}></Route>
+          <Route path="/bookings-managment" element={<AdminProtectRoute> <BookingManagment /> </AdminProtectRoute>}></Route>
+          <Route path="*" element={<Error404 />} />
       </Routes>
     </div>
   )
