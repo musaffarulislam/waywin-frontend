@@ -47,13 +47,13 @@ export const MainContent = () => {
     };
 
       useEffect(()=>{
-        try{       
+        // try{       
           dispatch(getAllChats())
           dispatch(getTrainerInfo())
-        } catch (error: any) { 
-          toaster.showToast(error.message, { type: 'error' })
-        }
-      },[dispatch, toaster])
+        // } catch (error: any) { 
+        //   toaster.showToast(error.message, { type: 'error' })
+        // }
+      },[dispatch])
   
     useEffect(() => {
       const token = window.localStorage.getItem("accessToken");
@@ -61,14 +61,14 @@ export const MainContent = () => {
     }, []);
   
     useEffect(() => {
-      try{
+      // try{
         if(accessToken){
           dispatch(getAuthInfo())
         }
-      } catch (error: any) { 
-        toaster.showToast(error.message, { type: 'error' })
-      }
-    },[accessToken, dispatch, toaster])
+      // } catch (error: any) { 
+      //   toaster.showToast(error.message, { type: 'error' })
+      // }
+    },[accessToken, dispatch])
   
     useEffect(() => {
       socket = io(ENDPOINT);
@@ -83,7 +83,7 @@ export const MainContent = () => {
     }, [auth]);
     
       useEffect(() => {
-        try{ 
+        // try{ 
           const fetchData = async () => {
             try {
               const {payload} = await dispatch(getAllMessages(chatId)); 
@@ -106,10 +106,10 @@ export const MainContent = () => {
             }
           }
           selectedChatId = chatId;
-        } catch (error: any) { 
-          toaster.showToast(error.message, { type: 'error' })
-        }
-      }, [dispatch, chatId,userId, chats, toaster])
+        // } catch (error: any) { 
+        //   toaster.showToast(error.message, { type: 'error' })
+        // }
+      }, [dispatch, chatId, userId, chats])
 
       useEffect(() => {
         socket.on("message received", (newMessageRecieved: any) => {

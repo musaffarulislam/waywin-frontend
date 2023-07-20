@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BannerImage } from "./BannerImage";
 import { ProfileImage } from "./ProfileImage";
-import FormUserTrainerInfo from "../../Forms/FormUserTrainerInfo";
+import FormTrainerInfo from "../../Forms/FormTrainerInfo";
 import FormBooking from "../../Forms/FormBooking";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
@@ -102,7 +102,7 @@ const Hero = () => {
       </div>
       <div className="grid grid-cols-1 gap-4 mt-6 md:mt-12 lg:mt-16 mb-4">
           <div className="flex items-center justify-center rounded">
-            <FormUserTrainerInfo />
+            <FormTrainerInfo />
           </div>
       </div>
       <div className="flex justify-center gap-4">

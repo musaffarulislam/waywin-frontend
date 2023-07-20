@@ -27,14 +27,22 @@ const AvailableHours = memo(({ onSelectedTime ,freeTimes, selectedDay }: hourPro
   useEffect(() => { 
     const formattedSelectedDay = new Date(selectedDay.getTime() - selectedDay.getTimezoneOffset() * 60000); 
   
-    const matchingDate = availableDates.find((dateObj: any) => {
-      const date = new Date(dateObj.date); 
-      date.setUTCHours(0, 0, 0, 0);
-      return isSameDay(date, formattedSelectedDay);
-    }); 
-  
-    const matchingTimes = matchingDate ? matchingDate.time.map((time: string) => new Date(time)) : []; 
-    setSelectedTimes(matchingTimes);
+    if (Array.isArray(availableDates) && availableDates.length > 0) {
+      const matchingDate = availableDates.find((dateObj: any) => {
+        const date = new Date(dateObj.date);
+        date.setUTCHours(0, 0, 0, 0);
+        return isSameDay(date, formattedSelectedDay);
+      });
+   
+      if (matchingDate && Array.isArray(matchingDate.time)) {
+        const matchingTimes = matchingDate.time.map((time: string) => new Date(time));
+        setSelectedTimes(matchingTimes);
+      } else { 
+        setSelectedTimes([]);
+      }
+    } else { 
+      setSelectedTimes([]);
+    }
   }, [availableDates, selectedDay]);
   
   useEffect(() => {

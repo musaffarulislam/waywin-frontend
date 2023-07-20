@@ -10,6 +10,10 @@ const initialValue: IAdminState = {
     trainers: null,
     tags: null,
     bookings: null,
+    chartData: {
+        labels: [],    
+        datasets: [],   
+    },
 };
 
 
@@ -174,6 +178,14 @@ export const getAllBookings = createAsyncThunk<any>(
     }
 );
 
+export const getChartData = createAsyncThunk<any>(
+    "admin/getChartData",
+    async () => { 
+        const response = await axiosPrivate.get("/getChart-data");
+        return response.data;
+    }
+);
+
 
 export const adminSlice = createSlice({
     name: "admin",
@@ -329,6 +341,16 @@ export const adminSlice = createSlice({
             })
             .addCase(getAllBookings.rejected, (state) => {
                 state.isLoading = false;
+            })
+            .addCase(getChartData.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getChartData.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.chartData = action.payload.chartData;
+            })
+            .addCase(getChartData.rejected, (state) => {
+                state.isLoading = false; 
             })
         }
     })

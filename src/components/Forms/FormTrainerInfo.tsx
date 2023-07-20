@@ -1,12 +1,7 @@
 import React from "react";
-
-import InputText from "../Inputs/InputText";
-import useToaster from '../../hooks/useToast';
+ 
 import { useSelector } from "react-redux";
-import InputServices from "../Inputs/StaticInputs/InputServices";
-import InputTextarea from "../Inputs/StaticInputs/InputTextarea";
-import InputTags from "../Inputs/StaticInputs/InputTags";
-import InputMode from "../Inputs/StaticInputs/InputMode";
+import InputServices from "../Inputs/StaticInputs/InputServices"; 
 import InputTextareaUser from "../Inputs/StaticInputs/InputTextareaUser";
 import InputModeUser from "../Inputs/StaticInputs/InputModeUser";
 import InputTagsUser from "../Inputs/StaticInputs/InputTagsUser";
@@ -14,13 +9,17 @@ import InputTagsUser from "../Inputs/StaticInputs/InputTagsUser";
 
 
 
-const FormUserTrainerInfo = () => {
+const FormTrainerInfo = () => {
   
   const trainerInfo = useSelector((state: any)=> state.user.trainerInfo)
-  const services = trainerInfo?.profile?.services || []; 
+  const services: string[] = trainerInfo?.profile?.services || [];  
 
+  if (services.length === 0) {
+    // If there are no services, you can render a message or a placeholder.
+    return <p>No services available.</p>; // Or any other JSX element you prefer.
+  }
 
-  return (
+  return ( 
     <form className="rounded flex flex-col justify-center w-3/4 md:w-full">
       {/* <div className="flex items-center justify-center pb-8 text-3xl font-bold">
         Trainer Profile
@@ -37,8 +36,8 @@ const FormUserTrainerInfo = () => {
           </div>
         </div>
       </div>
-    </form>
+    </form> 
   );
 };
 
-export default FormUserTrainerInfo;
+export default FormTrainerInfo;

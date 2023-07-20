@@ -12,6 +12,22 @@ export interface ITrainerState {
     availabeDates: any;
     bookings: any;
     chats: any;
+    chartMode: {
+      labels: string[];      
+      datasets: {
+        label: string;          
+        data: number[];         
+        backgroundColor: string;   
+      }[];
+    } | null | undefined;
+    chartService: {
+      labels: string[];      
+      datasets: {
+        label: string;          
+        data: number[];         
+        backgroundColor: string;   
+      }[];
+    } | null | undefined;
 }
 
 

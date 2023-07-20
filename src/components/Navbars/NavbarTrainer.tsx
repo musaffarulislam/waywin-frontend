@@ -148,18 +148,7 @@ export const NavbarTrainer = () => {
                   <span className="flex-1 ml-3 whitespace-nowrap">Dates</span>           
                 </div>
               </Link>
-            </li>
-            <li>
-              <Link to="/trainer/notifications">
-                <div className="flex items-center p-2 my-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" >
-                  < AiFillNotification className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                  <span className="flex-1 ml-3 whitespace-nowrap">Notifications</span>
-                  <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-2xl font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                    3
-                  </span>
-                </div>
-              </Link>
-            </li>
+            </li> 
             <li>
               <Link to="/trainer/chats">
                 <div className="flex items-center p-2 my-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" >

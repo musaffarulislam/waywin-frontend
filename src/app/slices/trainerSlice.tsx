@@ -16,7 +16,15 @@ const initialValue: ITrainerState ={
     tags: null,
     availabeDates: null,
     bookings: null,
-    chats: null
+    chats: null,
+    chartMode: {
+        labels: [],    
+        datasets: [],   
+    },
+    chartService: {
+        labels: [],    
+        datasets: [],   
+    },
 }
 
 export const getTrainerInfo =  createAsyncThunk<any, void, {dispatch?: Dispatch<AnyAction>}>(
@@ -126,6 +134,22 @@ export const getBookingInfo = createAsyncThunk<any>(
     "trainer/getBookingInfo",
     async () => {
         const response = await axios.get("/trainer/get-booking-info");
+        return response.data;
+    }
+);
+
+export const getChartMode = createAsyncThunk<any>(
+    "trainer/getChartMode",
+    async () => { 
+        const response = await axios.get("/trainer/getChart-mode");
+        return response.data;
+    }
+);
+
+export const getChartService = createAsyncThunk<any>(
+    "trainer/getChartService",
+    async () => { 
+        const response = await axios.get("/trainer/getChart-service");
         return response.data;
     }
 );
@@ -259,6 +283,26 @@ export const trainerSlice = createSlice({
                 state.bookings = action.payload.bookings;
             })
             .addCase(getBookingInfo.rejected, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(getChartMode.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getChartMode.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.chartMode = action.payload.chartMode;
+            })
+            .addCase(getChartMode.rejected, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(getChartService.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getChartService.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.chartService = action.payload.chartService;
+            })
+            .addCase(getChartService.rejected, (state) => {
                 state.isLoading = false;
             })
     }

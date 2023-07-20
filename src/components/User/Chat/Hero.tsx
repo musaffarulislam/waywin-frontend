@@ -46,16 +46,12 @@ const Hero = () => {
     setAccessToken(token);
   }, []);
 
-  useEffect(() => {
-    try{
+  useEffect(() => { 
       if(accessToken){
         dispatch(getAuthInfo())
         dispatch(getTrainerInfo(trainerId))
-      }
-    } catch (error: any) { 
-      toaster.showToast(error.message, { type: 'error' })
-    }
-  },[accessToken, dispatch, trainerId, toaster]) 
+      } 
+  },[accessToken, dispatch, trainerId]) 
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -69,23 +65,15 @@ const Hero = () => {
     // eslint-disable-next-line
   }, [auth]);
 
-  useEffect(() => {
-    try{
-      const fetchData = async () => {
-        try {
+  useEffect(() => { 
+      const fetchData = async () => { 
           const {payload} = await dispatch(getAllMessages(chatId));
           setIsMessages(payload) 
-          socket.emit("join chat", chatId);
-        } catch (error) {
-          console.error("Error:", error);
-        }
+          socket.emit("join chat", chatId); 
       };
       fetchData(); 
-      selectedChatId = chatId;
-    } catch (error: any) { 
-      toaster.showToast(error.message, { type: 'error' })
-    }
-  }, [dispatch, chatId, toaster])
+      selectedChatId = chatId; 
+  }, [dispatch, chatId])
 
   useEffect(() => {
     socket.on("message received", (newMessageRecieved: any) => { 
@@ -97,13 +85,9 @@ const Hero = () => {
     });
   });
   
-  useEffect(()=>{
-    try{
-      dispatch(getTrainerInfo(trainerId))
-    } catch (error: any) { 
-      toaster.showToast(error.message, { type: 'error' })
-    }
-  },[dispatch, trainerId, toaster])
+  useEffect(()=>{ 
+      dispatch(getTrainerInfo(trainerId)) 
+  },[dispatch, trainerId])
   
   const handleTrainer = () => {
     navigate(`/trainer-info/${trainerId}`);
@@ -153,7 +137,7 @@ const Hero = () => {
             <div className="text-primary_dark flex justify-between items-center px-10 py-3 bg-slate-50 shadow-2xl rounded-xl cursor-pointer" onClick={handleTrainer}>
               <div className="flex items-center gap-2 text-xl">
                 <div className="inset-0 flex flex-col items-center justify-start w-12 h-12  rounded-2xl ">
-                  { trainerInfo && trainerInfo?.profileImssage?.url ?
+                  { trainerInfo && trainerInfo?.profileImage?.url ?
                       <>
                         <img src={trainerInfo?.profileImage.url} alt="Preview" className="w-full h-full object-cover  rounded-full" />      
                       </>

@@ -35,7 +35,7 @@ export const TrainerCard = ({ trainer }: TrainerCardProps) => {
         try{
           if(accessToken){
             const  { payload: { chat } } = await dispatch(accessChat(trainer?.authId?._id)) 
-            navigate(`/chat/${trainer?.authId?._id}/${chat._id}`) 
+            navigate(`/chat/${trainer?._id}/${chat._id}`) 
           }else{
             Swal.fire({
               title: 'Please Login!',
