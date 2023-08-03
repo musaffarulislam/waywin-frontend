@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AiFillInfoCircle } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { AiFillInfoCircle } from "react-icons/ai"; 
 
 type optionProps = {
   onOptionMode: (option: string) => void

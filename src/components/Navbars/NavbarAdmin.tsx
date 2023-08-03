@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../app/slices/themeSlice";
 import { AiFillNotification } from 'react-icons/ai';
 import { RiDashboardFill } from 'react-icons/ri';
-import { HiChatAlt, HiOutlineMenuAlt2, HiCollection, HiPhotograph, HiUserGroup } from 'react-icons/hi';
+import { HiOutlineMenuAlt2, HiUserGroup } from 'react-icons/hi';
 import { BsCalendar3 } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
 import { logoutAdmin } from "../../app/slices/authSlice";

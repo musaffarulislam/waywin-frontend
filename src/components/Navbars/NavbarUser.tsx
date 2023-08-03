@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { TbBellRingingFilled } from "react-icons/tb";
+import React, { useEffect, useState } from "react"; 
 import { FiLogIn } from "react-icons/fi";
 import whitelight from "../../assets/whitelogo.png";
 import bluelight from "../../assets/bluelogo.png";
@@ -46,6 +45,13 @@ const NavbarUser = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+  // const toggleDropdownOpen = () => {
+  //   setIsOpen(true);
+  // };
+ 
+  // const toggleDropdownClose = () => {
+  //   setIsOpen(false);
+  // };
 
   const toggleSidebar = () => {
     setIsSidebar(!isSidebar);
@@ -121,7 +127,7 @@ const NavbarUser = () => {
                     type="button"
                     className="flex text-2xl bg-slate-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                     aria-expanded={isOpen}
-                    onClick={toggleDropdown}
+                    onClick={toggleDropdown} 
                   >
                     <span className="sr-only">Open user menu</span>
                     <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="admin toggle" />
@@ -159,7 +165,7 @@ const NavbarUser = () => {
               }
 
             </div>
-              <div className="block md:hidden relative" data-te-dropdown-ref>
+            <div className="block md:hidden relative" data-te-dropdown-ref>
                 <button
                   data-drawer-target="logo-sidebar"
                   data-drawer-toggle="logo-sidebar"
@@ -178,9 +184,11 @@ const NavbarUser = () => {
       </nav>
 
       <aside
-      id="logo-sidebar"
-      className={`fixed top-24 right-0 z-40 w-96 h-screen md:hidden transition-transform  ${isSidebar ? "translate-x-0" : "translate-x-full" } bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 bg-opacity-60 dark:bg-opacity-40`}
-      aria-label="Sidebar"
+        id="logo-sidebar"
+        className={`${
+          isSidebar ? "translate-x-0" : "translate-x-full"
+        } block md:hidden fixed top-24 right-0 z-40 w-96 h-screen  transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 bg-opacity-60 dark:bg-opacity-40`}
+        aria-label="Sidebar"
       >
       <div className="h-full px-8 pb-4 text-2xl overflow-y-auto bg-white dark:bg-gray-800 bg-opacity-60 dark:bg-opacity-40">
         <ul className="space-y-2 font-medium">

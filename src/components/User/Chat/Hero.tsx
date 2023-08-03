@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {  getAllMessages, getTrainerInfo, sendMessage } from "../../../app/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
@@ -11,7 +11,7 @@ import { IAuth } from "../../../utils/entity/AuthEntity";
 import io from "socket.io-client";
 import Lottie from "react-lottie";
 import useToaster from "../../../hooks/useToast";
-const ENDPOINT = "http://localhost:4000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT: string = process.env.REACT_APP_URL || "https://waywin.server.musaffarulislam.com"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket: any, selectedChatId: string | undefined;
 
 const Hero = () => {

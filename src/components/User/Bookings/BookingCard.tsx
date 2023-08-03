@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import {useNavigate } from 'react-router-dom';
-import { getAllTrainersInfo } from '../../../app/slices/userSlice';
+import { accessChat, getAllTrainersInfo, getTrainerInfo } from '../../../app/slices/userSlice';
 import { ThunkDispatch } from '@reduxjs/toolkit'; 
 
 import {
     format
 } from "date-fns";
+import { useNavigate } from 'react-router-dom';
+import useToaster from '../../../hooks/useToast';
 
 type BookingCardProps = {
     booking: any
@@ -16,16 +17,31 @@ export const BookingCard = ({booking}: BookingCardProps) => {
 
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
-//   const navigate = useNavigate()
+    const navigate = useNavigate()
+    const toaster = useToaster()
 
-  useEffect(()=>{
-    dispatch(getAllTrainersInfo())
-  },[dispatch])
+    useEffect(()=>{
+        dispatch(getAllTrainersInfo())
+    },[dispatch])
 
-//   const handleView = () => {
-//     dispatch(addTrainerInfo(trainer))
-//     navigate('/trainer-info');
-//   }
+    const handleView = () => {
+        try {
+            dispatch(getTrainerInfo(booking?.trainerId?._id))
+            navigate(`/trainer-info/${booking?.trainerId?._id}`);
+        } catch (error: any) {
+            toaster.showToast(error.message, { type: "error" })
+        }
+    }
+
+    const handleMessage = async () =>{ 
+        try{
+            const  { payload: { chat } } = await dispatch(accessChat(booking?.trainerId?.authId?._id)) 
+            navigate(`/chat/${booking?.trainerId?._id}/${chat._id}`) 
+        }catch(error: any){
+        toaster.showToast(error.message, { type: 'error' }); 
+        }
+    }
+
 
   return (
     <div className="relative w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-slate-900 dark:border-gray-700 my-14">
@@ -49,8 +65,12 @@ export const BookingCard = ({booking}: BookingCardProps) => {
             </div>
             {/* <span className="text-xl text-gray-500 dark:text-gray-400 px-4 text-center">Status </span> */}
             <div className="flex mt-4 space-x-3 md:mt-6">
-                <div className="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 cursor-pointer">Message</div>
-                {/* <div className="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer" >View</div> */}
+                <div className="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 cursor-pointer" 
+                    onClick={handleMessage}
+                >Message</div>
+                <div className="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer" 
+                     onClick={handleView}
+                >View</div>
             </div>
         </div>
     </div>

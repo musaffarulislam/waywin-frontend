@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:4000/api";
-const BASE_URL_ADMIN = "http://localhost:4000/api/admin";
+// const BASE_URL = "http://localhost:4000/api";
+// const BASE_URL_ADMIN = "http://localhost:4000/api/admin";
 
 const axiosPublic = axios.create({
-  baseURL: BASE_URL,
+  baseURL: process.env.BASE_URL,
 });
 
 export const axiosPrivate = axios.create({
-  baseURL: BASE_URL_ADMIN,
+  baseURL: process.env.BASE_URL_ADMIN,
 });
 
 

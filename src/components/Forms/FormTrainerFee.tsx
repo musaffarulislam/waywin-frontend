@@ -6,9 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import InputText from "../Inputs/InputText";
 import feeSchema from "../../utils/validation/feeValidation";
 import useToaster from '../../hooks/useToast';
-import { IAuth, IFee } from "../../utils/entity/AuthEntity";
+import { IFee } from "../../utils/entity/AuthEntity";
 import { Puff } from 'react-loading-icons'
-import { ITrainerFee, ITrainerInfo } from "../../utils/entity/TrainerEntity";
+import { ITrainerFee } from "../../utils/entity/TrainerEntity";
 import { addTrainerFee } from "../../app/slices/trainerSlice";
 
 

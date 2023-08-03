@@ -1,8 +1,7 @@
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Navigate } from "react-router-dom";
-import { addAuth, changeRole, logout } from "../../app/slices/authSlice";
-import { useEffect } from "react";
+import { addAuth, changeRole, logout } from "../../app/slices/authSlice"; 
 
 interface AuthProtectRouteProps {
   children: React.ReactNode;

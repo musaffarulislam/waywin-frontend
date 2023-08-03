@@ -29,7 +29,7 @@ import { CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react"
 import AvailableHours from "./utils/hours"
 import Swal from "sweetalert2"
 import { addAvailableDate, getTrainerAvailableDates } from "../../../app/slices/trainerSlice"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { ThunkDispatch } from "@reduxjs/toolkit"
 import useToaster from "../../../hooks/useToast"
 
@@ -45,7 +45,6 @@ export default function Calander() {
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
-  const availableDates: any = useSelector((state: any)=> state.trainer.availabeDates)
 
   let today = startOfToday()
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"))

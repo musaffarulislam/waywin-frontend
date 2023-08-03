@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux"; 
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputText from "../Inputs/InputText";
-import signupSchema from "../../utils/validation/signupValidation";
-import useToaster from '../../hooks/useToast';
+import signupSchema from "../../utils/validation/signupValidation"; 
 import { IAuth } from "../../utils/entity/AuthEntity";
 import { Puff } from 'react-loading-icons'
 
@@ -17,10 +15,7 @@ const FormUserDetails = () => {
   
   const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm<IAuth>({ resolver: yupResolver(schema) });
 
-  const [isEditing, setIsEditing] = useState(false);
-
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const toaster = useToaster();
+  const [isEditing, setIsEditing] = useState(false); 
 
   const auth: IAuth = useSelector((state: any)=> state.auth.auth)
 

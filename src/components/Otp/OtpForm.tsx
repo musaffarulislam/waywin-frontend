@@ -1,4 +1,4 @@
-import React, {  useRef, useState } from "react";
+import React, { useState } from "react";
 import OtpInput from "./OtpInput";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -23,8 +23,7 @@ const OtpForm = () => {
   const confirmObj: ConfirmObj = useSelector((state: any) => state.auth.confirmObj);
 
   let navigate = useNavigate();
-
-  const ref = useRef<HTMLFormElement>(null);
+ 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

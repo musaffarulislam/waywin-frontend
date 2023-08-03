@@ -1,8 +1,8 @@
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllChats, getTrainerInfo } from '../../../app/slices/trainerSlice'; 
-import { useNavigate, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import { IAuth } from '../../../utils/entity/AuthEntity';
 import { getAllMessages, sendMessage } from '../../../app/slices/userSlice';
 import { FiSend } from 'react-icons/fi';
@@ -10,8 +10,8 @@ import { getAuthInfo } from '../../../app/slices/authSlice';
 
 import io from "socket.io-client";
 import Lottie from "react-lottie";
-import useToaster from '../../../hooks/useToast';
-const ENDPOINT = "http://localhost:4000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+
+const ENDPOINT: string = process.env.REACT_APP_URL || "https://waywin.server.musaffarulislam.com"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket: any, selectedChatId: string | undefined;
 
 export const MainContent = () => {
@@ -20,9 +20,6 @@ export const MainContent = () => {
   const chats = useSelector((state: any)=> state.trainer.chats)
   
   const { userId, chatId } = useParams()
-
-    const navigate = useNavigate()
-    const toaster = useToaster()
 
     const [isMessages, setIsMessages] = useState<any[]>([])
     const [newMessage, setNewMessage] = useState<string>("")
@@ -46,13 +43,9 @@ export const MainContent = () => {
       },
     };
 
-      useEffect(()=>{
-        // try{       
+      useEffect(()=>{ 
           dispatch(getAllChats())
-          dispatch(getTrainerInfo())
-        // } catch (error: any) { 
-        //   toaster.showToast(error.message, { type: 'error' })
-        // }
+          dispatch(getTrainerInfo()) 
       },[dispatch])
   
     useEffect(() => {
@@ -60,14 +53,10 @@ export const MainContent = () => {
       setAccessToken(token);
     }, []);
   
-    useEffect(() => {
-      // try{
+    useEffect(() => { 
         if(accessToken){
           dispatch(getAuthInfo())
-        }
-      // } catch (error: any) { 
-      //   toaster.showToast(error.message, { type: 'error' })
-      // }
+        } 
     },[accessToken, dispatch])
   
     useEffect(() => {
@@ -82,8 +71,7 @@ export const MainContent = () => {
       // eslint-disable-next-line
     }, [auth]);
     
-      useEffect(() => {
-        // try{ 
+      useEffect(() => { 
           const fetchData = async () => {
             try {
               const {payload} = await dispatch(getAllMessages(chatId)); 
@@ -105,15 +93,11 @@ export const MainContent = () => {
               setUserInfo(selectedUser);
             }
           }
-          selectedChatId = chatId;
-        // } catch (error: any) { 
-        //   toaster.showToast(error.message, { type: 'error' })
-        // }
+          selectedChatId = chatId; 
       }, [dispatch, chatId, userId, chats])
 
       useEffect(() => {
-        socket.on("message received", (newMessageRecieved: any) => {
-          console.log("newMessageRecieved : ",newMessageRecieved)
+        socket.on("message received", (newMessageRecieved: any) => { 
           if ( !selectedChatId || selectedChatId !== newMessageRecieved.chat._id ) {
             console.log("Something went wrong")
          }else{

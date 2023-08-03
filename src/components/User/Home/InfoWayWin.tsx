@@ -1,58 +1,115 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const InfoWayWin = () => {
-  return (
-    <div className='px-6 sm:px-14 md:px-40 m-16'>
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
-          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
-              <div className="bg-blue-100 text-blue-800 text-lg font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-blue-400 mb-2">
-                  <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                      <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-                  </svg>
-                  Tutorial
-              </div>
-              <h1 className="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2">How to quickly deploy a static website</h1>
-              <p className="text-xl font-normal text-gray-500 dark:text-gray-400 mb-6">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers.</p>
-              <div className="inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-                  Read more
-                  <svg aria-hidden="true" className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
-              </div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
-                  <div className="bg-green-100 text-green-800 text-xl font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 mb-2">
-                      <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                          <path clipRule="evenodd" fillRule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z"></path>
-                      </svg>
-                      Design
-                  </div>
-                  <h2 className="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">Start with Flowbite Design System</h2>
-                  <p className="text-xl font-normal text-gray-500 dark:text-gray-400 mb-4">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers.</p>
-                  <div className="text-blue-600 dark:text-blue-500 hover:underline font-medium text-xl inline-flex items-center">Read more
-                      <svg aria-hidden="true" className="w-4 h-4 ml-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                      </svg>
-                  </div>
-              </div>
-              <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
-                  <div className="bg-purple-100 text-purple-800 text-xl font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-purple-400 mb-2">
-                      <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                          <path clipRule="evenodd" fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"></path>
-                      </svg>
-                      Code
-                  </div>
-                  <h2 className="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">Best react libraries around the web</h2>
-                  <p className="text-xl font-normal text-gray-500 dark:text-gray-400 mb-4">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers.</p>
-                  <div className="text-blue-600 dark:text-blue-500 hover:underline font-medium text-xl inline-flex items-center">Read more
-                      <svg aria-hidden="true" className="w-4 h-4 ml-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                      </svg>
-                  </div>
-              </div>
-          </div>
+    return (
+      <div className="my-8 px-4 text-2xl py-16  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+        <div className="grid gap-10 lg:grid-cols-2">
+            <div className=' flex justify-center lg:justify-start'>
+                <div className="flex flex-col justify-center md:pr-8 xl:pr-0 lg:max-w-4xl">
+                    <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-teal-accent-400">
+                    <svg className=" w-7 h-7" viewBox="0 0 24 24">
+                        <polyline
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeMiterlimit="10"
+                        points=" 8,5 8,1 16,1 16,5"
+                        strokeLinejoin="round"
+                        />
+                        <polyline
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeMiterlimit="10"
+                        points="9,15 1,15 1,5 23,5 23,15 15,15"
+                        strokeLinejoin="round"
+                        />
+                        <polyline
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeMiterlimit="10"
+                        points="22,18 22,23 2,23 2,18"
+                        strokeLinejoin="round"
+                        />
+                        <rect
+                        x="9"
+                        y="13"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeMiterlimit="10"
+                        width="6"
+                        height="4"
+                        strokeLinejoin="round"
+                        />
+                    </svg>
+                    </div>
+                    <div className="max-w-2xl mb-6">
+                    <div >
+                        <h2 className="max-w-8xl  mb-6 font-sans text-5xl font-bold tracking-tight  sm:text-7xl sm:leading-none">
+                            Let's Book
+                            <br className="hidden md:block" />
+                            Your Own{' '}
+                            <span className="inline-block text-deep-purple-accent-400">
+                            Trainers
+                            </span>
+                        </h2>
+                        <p className="text-xl  md:text-lg">
+                            Whether you need professional counseling, guidance in your career path, or inspiration to achieve your goals, our expert trainers are here to support you on your journey to success.
+                            Take control of your time and schedule a session with the trainer of your choice. Empower yourself with knowledge and motivation for personal and professional growth.
+                        </p>
+                    </div>
+                    </div>
+                    <div>
+                    <div 
+                        aria-label=""
+                        className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+                    >
+                        <Link to="/trainers">
+                            more
+                            <svg
+                            className="inline-block w-3 ml-2"
+                            fill="currentColor"
+                            viewBox="0 0 12 12"
+                            >
+                            <path d="M9.707,5.293l-5-5A1,1,0,0,0,3.293,1.707L7.586,6,3.293,10.293a1,1,0,1,0,1.414,1.414l5-5A1,1,0,0,0,9.707,5.293Z" />
+                            </svg>
+                        </Link>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div className="flex items-center justify-center -mx-4 lg:pl-8">
+                <div className="flex flex-col items-end px-3">
+                    <img
+                        className="object-cover mb-6 rounded shadow-lg h-72 sm:h-80 lg:h-96 w-h-72 sm:w-80 lg:w-96"
+                        src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                        alt=""
+                    />
+                    <img
+                        className="object-cover w-64 h-64 rounded shadow-lg sm:h-72 lg:h-80 sm:w-72 lg:w-80"
+                        src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                        alt=""
+                    />
+                    </div>
+                    <div className="px-3">
+                    <img
+                        className="object-cover w-40 h-40 rounded shadow-lg sm:h-80 lg:h-80 sm:w-80 lg:w-80"
+                        src="https://images.pexels.com/photos/3182739/pexels-photo-3182739.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
+                        alt=""
+                    />
+                </div>
+            </div>
+        </div>
       </div>
-    </div>
-  )
-}
+    );
+  };
 
-export default InfoWayWin
+
+  export default InfoWayWin;

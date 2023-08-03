@@ -10,10 +10,7 @@ import signupSchema from "../../utils/validation/signupValidation";
 import { addAuth, checkEmail, checkUsername, otpConfirmObj, loading, checkPhoneNumber } from "../../app/slices/authSlice";
 import useToaster from '../../hooks/useToast';
 import { IAuth } from "../../utils/entity/AuthEntity";
-import { Puff } from 'react-loading-icons'
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { auth } from "../../firebase";
-
+import { Puff } from 'react-loading-icons' 
 import setUpRecaptcha from "../../context/userAuthContext";
 
 const schema = signupSchema;
@@ -57,7 +54,7 @@ const FormSignup = () => {
       await Promise.all([
         dispatch(checkUsername(formData.username)),
         dispatch(checkEmail(formData.email)),
-        // dispatch(checkPhoneNumber(formData.phoneNumber))
+        dispatch(checkPhoneNumber(formData.phoneNumber))
       ]);
       if (formData.phoneNumber) {
         try {

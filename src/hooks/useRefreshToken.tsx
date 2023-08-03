@@ -1,9 +1,7 @@
-import { useDispatch } from "react-redux";
 // import { setAuth } from "../app/slices/authSlice";
 // import { refreshTokenApi } from "../helpers/apis/auth";
 
-function useRefreshToken() {
-  const dispatch = useDispatch();
+function useRefreshToken() { 
 
   const refresh = async () => {
     // const response = await refreshTokenApi();

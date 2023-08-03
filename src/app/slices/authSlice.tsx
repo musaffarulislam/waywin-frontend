@@ -1,63 +1,13 @@
 import { createSlice, createAsyncThunk, Dispatch, AnyAction } from "@reduxjs/toolkit";
 import {RootState} from '../store';
-import axios from "../../config/axios";
-// import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import axios from "../../config/axios"; 
 import { ILogin, IAuthState } from "../../utils/entity/AuthEntity";
 
-
-
-// const getInitialConfirmObj = (): string | null => {
-//   const confirmObj = window.localStorage.getItem("confirmObj");
-//   if (confirmObj) {
-//     return JSON.parse(confirmObj);
-//   }
-//   return null;
-// };
-
-
-const getInitialAccessToken = (): string | null | undefined=> {
-  const accessToken = window.localStorage.getItem("accessToken");
-  if (accessToken) {
-    return JSON.parse(accessToken);
-  }
-  return null;
-};
-
-
-const getInitialRefreshToken = (): string | null | undefined=> {
-  const refreshToken = window.localStorage.getItem("refreshToken");
-  if (refreshToken) {
-    return JSON.parse(refreshToken);
-  }
-  return null;
-};
-
-
-const getInitialAccessTokenAdmin = (): string | null | undefined=> {
-  const accessTokenAdmin = window.localStorage.getItem("accessTokenAdmin");
-  if (accessTokenAdmin && accessTokenAdmin !== undefined) {
-    return JSON.parse(accessTokenAdmin);
-  }
-  return null;
-};
-
-
-const getInitialRefreshTokenAdmin = (): string | null | undefined=> {
-  const refreshTokenAdmin = window.localStorage.getItem("refreshTokenAdmin");
-  if (refreshTokenAdmin) {
-    return JSON.parse(refreshTokenAdmin);
-  }
-  return null;
-};
 
 const initialValue: IAuthState = {
   isLoading: false,
   auth: null,
-  role: null,
-  // accessToken: getInitialAccessToken(),
-  // refreshToken: getInitialRefreshToken(),
-  // accessTokenAdmin: getInitialAccessTokenAdmin(),
-  // refreshTokenAdmin: getInitialRefreshTokenAdmin(),
+  role: null, 
   confirmObj: null,
 };
 

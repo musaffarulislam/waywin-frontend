@@ -5,18 +5,7 @@ const Theme = () => {
 
       
   const theme: string = useSelector((state: any) => state.theme.theme);
-  const element = document.documentElement
-  const options = [
-    {
-      text: "light",
-    },
-    {
-      text: "dark",
-    },
-    {
-      text: "system",
-    }
-  ]
+  const element = document.documentElement 
 
   useEffect(() => {
     switch (theme) {
@@ -29,7 +18,7 @@ const Theme = () => {
       default:
           break;
     }
-  },[theme])
+  },[theme,element.classList])
 
   return (
     <></>

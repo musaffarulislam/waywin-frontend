@@ -1,10 +1,8 @@
-import React, { ReactEventHandler, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import { yupResolver } from "@hookform/resolvers/yup";
-import InputText from "../Inputs/InputText";
-import profileSchemaValidation from "../../utils/validation/signupValidation";
+import { ThunkDispatch } from "@reduxjs/toolkit"; 
+import InputText from "../Inputs/InputText"; 
 import useToaster from '../../hooks/useToast';
 import { Puff } from 'react-loading-icons';
 import InputServices from "../Inputs/InputServices";
@@ -13,15 +11,13 @@ import textareaValidation from "../../utils/validation/textareaValidation";
 import InputTags from "../Inputs/InputTags";
 import { IProfile } from "../../utils/entity/TrainerEntity";
 import InputMode from "../Inputs/InputMode";
-import { createProfile, getTrainerProfile } from "../../app/slices/trainerSlice";
+import { createProfile } from "../../app/slices/trainerSlice";
 
-
-const profileSchema = profileSchemaValidation;
 const textareaSchema = textareaValidation;
 
 const FormTrainerProfile = () => {
   
-  const { register, setValue, formState: { errors }, watch } = useForm<IProfile>();
+  const { register, setValue, watch } = useForm<IProfile>();
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   

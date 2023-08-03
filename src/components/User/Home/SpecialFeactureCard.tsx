@@ -3,7 +3,7 @@ import React from 'react'
 const SpecialFeatureCard = ({children}: { children: React.ReactNode }) => {
 
   return (
-    <div className="bg-indigo-950 dark:bg-white  rounded-2xl text-2xl flex items-center justify-center px-16 py-32 mb-10 relative overflow-hidden">
+    <div className="h-32 min-h-16 bg-indigo-950 dark:bg-white  rounded-2xl text-2xl flex items-center justify-center px-16 py-32 mb-10 relative overflow-hidden">
             <div className="z-10 text-slate-50 dark:text-primary_dark ">
                 {children}
             </div>

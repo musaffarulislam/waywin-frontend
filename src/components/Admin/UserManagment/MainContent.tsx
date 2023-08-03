@@ -1,4 +1,3 @@
-import React from 'react'
 import {UserManagmentTable} from './UserManagmentTable'
 
 export const MainContent = () => {

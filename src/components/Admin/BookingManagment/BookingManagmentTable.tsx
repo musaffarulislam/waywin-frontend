@@ -1,8 +1,7 @@
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeAuthStatus, getActiveUsersInfo, getAllBookings, getAllUsersInfo, getInactiveUsersInfo } from "../../../app/slices/adminSlice";
-import useToaster from "../../../hooks/useToast";
+import { getAllBookings } from "../../../app/slices/adminSlice"; 
 
 import {
   format
@@ -10,8 +9,7 @@ import {
 
 export const BookingManagmentTable = () => {
 
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const toaster = useToaster();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>(); 
 
   const bookings: string[] | null = useSelector((state: any) => state.admin.bookings);
 
