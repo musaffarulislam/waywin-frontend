@@ -7,19 +7,16 @@ import InputText from "../Inputs/InputText";
 import { Link, useNavigate } from "react-router-dom";
 import InputRadio from "../Inputs/InputRadio";
 import signupSchema from "../../utils/validation/signupValidation";
-import { addAuth, checkEmail, checkUsername, otpConfirmObj, loading, checkPhoneNumber } from "../../app/slices/authSlice";
+import { addAuth, checkEmail, checkUsername, otpConfirmObj, loading, checkPhoneNumber, otpGenerate } from "../../app/slices/authSlice";
 import useToaster from '../../hooks/useToast';
 import { IAuth } from "../../utils/entity/AuthEntity";
-import { Puff } from 'react-loading-icons' 
-import setUpRecaptcha from "../../context/userAuthContext";
+import { Puff } from 'react-loading-icons';
 
 const schema = signupSchema;
-
 
 const FormSignup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<IAuth>({ resolver: yupResolver(schema) });
 
-  
   const navigate = useNavigate();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const toaster = useToaster();
@@ -29,22 +26,6 @@ const FormSignup = () => {
     dispatch(addAuth(null))
     dispatch(otpConfirmObj(null))
   },[dispatch])
-
-  // function setUpRecaptcha(number: string) {
-  //   try{ 
-  //     const recaptchaVerifier = new RecaptchaVerifier(
-  //       "recaptcha-container",
-  //       {},
-  //       auth
-  //       );
-  //       recaptchaVerifier.render(); 
-  //     return signInWithPhoneNumber(auth, number, recaptchaVerifier)
-  //   }catch(error: any){
-  //     throw new Error(error.message)
-  //   }
-  // }
-  
-  const [recaptchaError, setRecaptchaError] = useState(false); // Add state for recaptcha error
 
   const onSubmit = async (data: IAuth) => {
     const { ...formData } = data;
@@ -56,34 +37,18 @@ const FormSignup = () => {
         dispatch(checkEmail(formData.email)),
         dispatch(checkPhoneNumber(formData.phoneNumber))
       ]);
-      if (formData.phoneNumber) {
-        try {
-          dispatch(loading(true));
-          const response = await setUpRecaptcha("+91" + formData.phoneNumber); 
-          dispatch(otpConfirmObj(response))
+      if (formData.email) { 
+          dispatch(loading(true));  
+          dispatch(otpGenerate(formData.email))
           toaster.showToast('Otp send successsful', { type: 'success' })
           dispatch(loading(false));
-          navigate("/otp");
-        } catch (err: any) {
-          if (err.code === "auth/credential-already-in-use") {
-            toaster.showToast('Phone number already in use', { type: 'error' });
-          } else if (err.code === "auth/invalid-phone-number") {
-            toaster.showToast('Invalid phone number', { type: 'error' });
-          } else if (err.code === "auth/too-many-requests") {
-            toaster.showToast('Too many requests. Please try again later.', { type: 'error' });
-          } else {
-            toaster.showToast('Failed to send OTP code', { type: 'error' });
-          }
-          setRecaptchaError(true); // Set recaptcha error to true
-        } finally {
-          dispatch(loading(false));
-        }
+          navigate("/otp"); 
       } else {
-        toaster.showToast('phone number not available', { type: 'error' })
+        toaster.showToast('Email not available', { type: 'error' })
       }
     } catch (error: any) {
       dispatch(loading(false))
-      toaster.showToast(error.message, { type: 'error' })
+      toaster.showToast(error.message, { type: 'error' });
     }
   };
 
@@ -104,15 +69,9 @@ const FormSignup = () => {
       <InputText label="Phone Number" name="phoneNumber" type="text" register={register} required error={errors.phoneNumber?.message} />
       <InputText label="Password" name="password" type="password" register={register} required error={errors.password?.message} />
 
-      {!recaptchaError && ( // Render the recaptcha container only if there is no recaptcha error
-        <div className="flex justify-center mt-5">
-          <div id="recaptcha-container"></div>
-        </div>
-      )}
-
       <div className="flex justify-center">
         <button
-          type={!isLoading ? "submit" : "button"}
+          type={isLoading ? "button" : "submit"}
           className={` ${theme === "dark" ? "bg-blue-800" : "bg-red-600 text-white"} w-5/12 p-3 mt-8 rounded-xl text-2xl flex items-center justify-center`}
         >
           {isLoading && <Puff height="25" width="25" className="me-3" />}
@@ -120,8 +79,11 @@ const FormSignup = () => {
         </button>
       </div>
 
-      <div className="flex justify-center my-8">
+      <div className="flex justify-center my-4">
         <Link to='/login'>Already have an account?</Link>
+      </div>
+      <div className="flex justify-center mb-8">
+        <Link to='/'>Home</Link>
       </div>
     </form>
   );

@@ -2,16 +2,15 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { addTagValue, changeAuthStatus, deleteTag, editTag, getAllTags } from "../../../app/slices/adminSlice";
+import { addTagValue, deleteTag, editTag, getAllTags } from "../../../app/slices/adminSlice";
 import useToaster from "../../../hooks/useToast";
-import InputText from "../../Inputs/InputText";
-import { MdVerified } from "react-icons/md";
+import InputText from "../../Inputs/InputText"; 
 import Swal from "sweetalert2";
 import { FiEdit } from "react-icons/fi";
 
 export const TagsManagmentTable = () => {
 
-  const { register, setValue, watch, formState: { errors } } = useForm();
+  const { register, setValue, watch } = useForm();
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const toaster = useToaster();

@@ -116,6 +116,7 @@ const FormTrainerProfile = () => {
       }else{
         setErrorsMode("")
       }
+      console.log("Profile :",formData)
       dispatch(createProfile(formData))
       toaster.showToast('Profile Update Successfully', { type: 'success' })
     }catch(error : any){

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import InputText from "../Inputs/InputText";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {  getAuthByEmail, loading } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { ILogin } from "../../utils/entity/AuthEntity";
@@ -73,6 +73,9 @@ const FormLoginAdmin = () => {
         <InputText label="Password" name="password" type="password" register={register} required error={errors.password?.message} />
         <div className="flex justify-center">
           <button type="submit" className="bg-red-600 text-white dark:bg-blue-800 w-5/12 p-3 mt-8 rounded-xl text-2xl flex items-center justify-center"> {isLoading && <Puff height="25" width="25" className="me-3"/>}Submit</button>
+        </div>
+        <div className="flex justify-center mb-8">
+          <Link to='/'>Home</Link>
         </div>
     </form>
   );

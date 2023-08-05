@@ -15,9 +15,10 @@ export const checkUsername = createAsyncThunk<any, string, { dispatch?: Dispatch
   "auth/checkUsername",
   async (username: any) => {
     try{
-      const response = await axios.get(`/auth/checkUsername/${username}`);
+      console.log(username)
+      const response = await axios.get(`/auth/checkUsername/${username}`); 
       return response.data;
-    }catch(err: any){ 
+    }catch(err: any){  
       throw Error(err.response.data.error)
     }
   }
@@ -27,7 +28,8 @@ export const checkEmail = createAsyncThunk<any, string, { dispatch?: Dispatch<An
   "auth/checkEmail",
   async (email: string) => {
     try{
-      const response = await axios.get(`/auth/checkEmail/${email}`);
+      console.log(email)
+      const response = await axios.get(`/auth/checkEmail/${email}`); 
       return response.data;
     }catch(err: any){ 
       throw Error(err.response.data.error)
@@ -39,9 +41,10 @@ export const checkPhoneNumber = createAsyncThunk<any, string, { dispatch?: Dispa
   "auth/checkPhoneNumber",
   async (phoneNumber: string) => {
     try{
-      const response = await axios.get(`/auth/checkPhoneNumber/${phoneNumber}`);
+      console.log(phoneNumber)
+      const response = await axios.get(`/auth/checkPhoneNumber/${phoneNumber}`); 
       return response.data;
-    }catch(err: any){ 
+    }catch(err: any){  
       throw Error(err.response.data.error)
     }
   }
@@ -53,6 +56,31 @@ export const createUser = createAsyncThunk<any, void, { state: RootState }>(
     try{
       const { auth } = getState().auth; // Accessing the 'auth' value from the state
       const response = await axios.post("/auth/signup", auth, { headers: { 'Content-Type': 'application/json' } });
+      return response.data;
+    }catch(err: any){ 
+      throw Error(err.response.data.error)
+    }
+  }
+);
+
+export const otpGenerate = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
+  "auth/otpGenerate",
+  async (email: string) => {
+    try{
+      const response = await axios.get(`/auth/otp-generate/${email}`);
+      return response.data;
+    }catch(err: any){ 
+      throw Error(err.response.data.error)
+    }
+  }
+);
+
+export const verifyOtp = createAsyncThunk<any, string, { dispatch?: Dispatch<AnyAction> }>(
+  "auth/verifyOtp",
+  async (emailAndOtp: string) => {
+    try{
+      const [email, otp] = emailAndOtp.split('/'); 
+      const response = await axios.get(`/auth/otp-verify/${email}/${otp}`);
       return response.data;
     }catch(err: any){ 
       throw Error(err.response.data.error)
@@ -155,6 +183,26 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(createUser.rejected, (state, action) => {
+        state.isLoading = false;
+        throw Error(action.error.message);
+      })
+      .addCase(otpGenerate.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(otpGenerate.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(otpGenerate.rejected, (state, action) => {
+        state.isLoading = false;
+        throw Error(action.error.message);
+      })
+      .addCase(verifyOtp.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(verifyOtp.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(verifyOtp.rejected, (state, action) => {
         state.isLoading = false;
         throw Error(action.error.message);
       })

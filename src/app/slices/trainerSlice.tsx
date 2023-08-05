@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk, Dispatch, AnyAction, Slice } from "@reduxjs/toolkit";
-import {RootState} from '../store';
+import { createSlice, createAsyncThunk, Dispatch, AnyAction} from "@reduxjs/toolkit"; 
 import axios from "../../config/axios";
 import { ITrainerState } from "../../utils/entity/TrainerEntity";
 
@@ -39,6 +38,7 @@ export const createProfile = createAsyncThunk<any, any, {dispatch?: Dispatch<Any
     "trainer/createProfile",
     async (profileData: any) =>{
         try{
+            console.log("profileData :",profileData)
             const response = await axios.post("/trainer/create-profile", profileData )
             return response.data;
         }catch(err: any){
@@ -104,9 +104,9 @@ export const addAvailableDate = createAsyncThunk<any, any, { dispatch?: Dispatch
     async ({ selectedDay, selectedHours }) => {
       try {
         const formattedSelectedDay = new Date(selectedDay.getTime() - selectedDay.getTimezoneOffset() * 60000).toISOString();
-        const formattedSelectedHours = selectedHours.map((hour: Date) => {
-          return new Date(hour.getTime() - hour.getTimezoneOffset() * 60000).toISOString();
-        });
+        // const formattedSelectedHours = selectedHours.map((hour: Date) => {
+        //   return new Date(hour.getTime() - hour.getTimezoneOffset() * 60000).toISOString();
+        // });
         const response = await axios.post("/trainer/add-available-date", {
           date: formattedSelectedDay,
           time: selectedHours,

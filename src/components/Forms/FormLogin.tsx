@@ -81,9 +81,12 @@ const FormLogin = () => {
         <div className="flex justify-center">
         <button type="submit" className="bg-red-600 text-white dark:bg-blue-800 w-5/12 p-3 mt-8 rounded-xl text-2xl flex items-center justify-center"> {isLoading && <Puff height="25" width="25" className="me-3"/>}Submit</button>
         </div>
-        <div className="flex justify-center my-8">
+        <div className="flex justify-center my-4">
           <Link to='/signup'>Create new account?</Link>
         </div>
+        <div className="flex justify-center mb-8">
+        <Link to='/'>Home</Link>
+      </div>
     </form>
   );
 };

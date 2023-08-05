@@ -14,7 +14,7 @@ type Props = {
 
 const OtpInput = (props: Props) => {
   const {
-    size = 6,
+    size = 4,
     validationPattern = /[0-9]{1}/,
     value,
     onChange,

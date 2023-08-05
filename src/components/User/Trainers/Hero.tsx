@@ -12,7 +12,7 @@ const ITEMS_PER_PAGE = 8;
 const Hero = () => {
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const trainers = useSelector((state: any) => state.user.trainers);
+  const trainers: any= useSelector((state: any) => state.user.trainers);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -29,9 +29,9 @@ const Hero = () => {
     setCurrentPage(pageNumber);
   };
 
-  const filteredTrainers = trainers.filter((trainer: any) => {
+  const filteredTrainers = trainers?.filter((trainer: any) => {
     return trainer?.authId?.username.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+  }) ?? [];  
   
   const paginatedTrainers = filteredTrainers.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,

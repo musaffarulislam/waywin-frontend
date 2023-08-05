@@ -68,7 +68,7 @@ const FormBooking = ({trainerInfo, onOptionModal}: formBookingProps) => {
 
   useEffect(()=>{
     dispatch(loading(false))
-  },[])
+  },[dispatch])
 
   useEffect(() => {
     if (selectedService) {

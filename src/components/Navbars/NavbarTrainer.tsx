@@ -87,10 +87,10 @@ export const NavbarTrainer = () => {
                 <div className="absolute right-0 mt-2 text-base bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
                   <div className="px-4 py-3">
                     <p className="text-2xl text-gray-900 dark:text-white">
-                    {auth.username}
+                    {auth?.username}
                     </p>
                     <p className="text-xl font-medium text-gray-900 truncate dark:text-gray-300">
-                      {auth.email}
+                      {auth?.email}
                     </p>
                   </div>
                   <ul className="py-1">

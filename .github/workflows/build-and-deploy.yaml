@@ -1,0 +1,43 @@
+---
+name: Build and Deploy Waywin trainers
+on:
+  push:
+    branches: [ main ]
+  jobs:
+    build-and-deploy:
+      name: Build and Deploy
+      runs-on: ubuntu-latest
+      env:
+        BUCKET: www.waywin.musaffarulislam.com 
+        DIST: build
+        REGION: ap-northeast-1
+        DIST_ID: E140MVNU1K985G
+
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+          aws-region: ${{ env.REGION }}
+
+      - name: Install Dependencies
+        run: |
+          node --version
+          yarn ci --production
+
+      - name: Build Static Website
+        run: yarn build
+
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws s3 sync --delete ${{ env.DIST }} s3://${{ env.BUCKET }}
+      
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ env.DIST_ID }} \
+            --paths "/*"

@@ -3,13 +3,10 @@ import OtpInput from "./OtpInput";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 // import { useHistory } from 'react-router-dom';
-import { createUser } from "../../app/slices/authSlice";
+import { createUser, verifyOtp } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import useToaster from '../../hooks/useToast';
 
-interface ConfirmObj {
-  confirm: (otp: string) => Promise<any>;
-}
 
 const OtpForm = () => {
   const [otp, setOtp] = useState("");
@@ -19,8 +16,7 @@ const OtpForm = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const toaster = useToaster();
 
-  const phoneNumber: string | null = useSelector((state: any) => state.auth.auth.phoneNumber);
-  const confirmObj: ConfirmObj = useSelector((state: any) => state.auth.confirmObj);
+  const email: string | null = useSelector((state: any) => state.auth.auth.email); 
 
   let navigate = useNavigate();
  
@@ -29,21 +25,19 @@ const OtpForm = () => {
     e.preventDefault();
     setError(false);
     try {
-      await confirmObj.confirm(otp);
+      await dispatch(verifyOtp(`${email}/${otp}`));
       try {
         dispatch(createUser());
         navigate('/login')
       } catch (error: any) {
-        toaster.showToast(error.message, { type: 'error' }) 
-        return navigate('/otp'); 
+        toaster.showToast(error.message, { type: 'error' })  
       }
-    } catch (e: any) {
-      toaster.showToast(e, {type: "error"})
-      if (e instanceof Error) {
+    } catch (error: any) {
+      toaster.showToast(error.message, { type: 'error' });
+      if (error) {
         setError(true);
       }
     } 
-    navigate('/login')
   };
 
 
@@ -65,12 +59,12 @@ const OtpForm = () => {
     );
   }
 
-  if(phoneNumber){
+  if(email){
     return (
         <form className="card bg-base-200" onSubmit={handleSubmit}>
           <div className="card-body items-stretch text-center">
             <div className="my-8">
-              <h2 className="text-xl mb-8"> An OTP has been sent to your entered mobile number +91-{phoneNumber}</h2>
+              <h2 className="text-xl mb-8"> An OTP has been sent to your entered email {email}</h2>
               <p className="text-sm">Enter your Code here</p>
             </div>
             <OtpInput
