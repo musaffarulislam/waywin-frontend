@@ -38,7 +38,9 @@ jobs:
 
       - name: Create CloudFront Invalidation
         run: |
-          aws cloudfront create-invalidation \
+          invalidationId=$(aws cloudfront create-invalidation \
             --distribution-id ${{ env.DIST_ID }} \
-            --paths "/*"
+            --paths "/*" \
+            --query "Invalidation.Id")
+          echo "Invalidation ID: $invalidationId"
 

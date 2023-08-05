@@ -65,6 +65,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "sync": "aws s3 sync --profile 'dev.musaffarulislam' --region 'ap-northeast-1' ./dist 's3://www.waywin.musaffarulislam.com/'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
