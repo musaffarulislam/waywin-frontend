@@ -33,7 +33,7 @@ jobs:
         run: yarn run build
 
       - name: Copy files to the production website with the AWS CLI
-        run: |
+        run: | 
           aws s3 sync --delete ${{ env.DIST }} s3://${{ env.BUCKET }}
 
       - name: Create CloudFront Invalidation
