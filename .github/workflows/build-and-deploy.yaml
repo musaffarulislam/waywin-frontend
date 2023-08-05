@@ -30,7 +30,7 @@ jobs:
           yarn install --frozen-lockfile --production
 
       - name: Build Static Website
-        run: npm build
+        run: yarn run build
 
       - name: Copy files to the production website with the AWS CLI
         run: |
