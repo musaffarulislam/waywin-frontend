@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { cn, dayNames } from "./utils/utils"
 import {

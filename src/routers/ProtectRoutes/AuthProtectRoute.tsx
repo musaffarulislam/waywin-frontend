@@ -11,8 +11,7 @@ export default function AuthProtectRoute({ children }: AuthProtectRouteProps): a
   const location = useLocation();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
 
-  const accessToken: string | null = window.localStorage.getItem("accessToken")
-  const confirmObj: string | null = useSelector((state: any) => state.auth.confirmObj);
+  const accessToken: string | null = window.localStorage.getItem("accessToken") 
   const role: string | null = useSelector((state: any) => state.auth.role);
   
   if (!accessToken) {
