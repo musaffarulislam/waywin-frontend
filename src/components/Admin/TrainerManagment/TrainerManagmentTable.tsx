@@ -333,7 +333,7 @@ export const TrainerManagmentTable = () => {
                 })
               ) : (
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <td colSpan={4}>No User Available</td>
+                  <td colSpan={6}>No User Available</td>
                 </tr>
               )}
         </tbody>
