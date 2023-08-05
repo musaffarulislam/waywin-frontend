@@ -29,9 +29,9 @@ const Hero = () => {
     setCurrentPage(pageNumber);
   };
 
-  const filteredBookings = bookings.filter((booking: any) => {
+  const filteredBookings = bookings?.filter((booking: any) => {
     return booking?.trainerId?.authId?.username.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+  }) ?? [];
   
   const paginatedTrainers = filteredBookings.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
