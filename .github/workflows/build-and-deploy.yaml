@@ -34,7 +34,7 @@ jobs:
 
       - name: Copy files to the production website with the AWS CLI
         run: |
-          aws s3 sync --profile dev.musaffarulislam --region us-east-1 ${{ env.DIST }} s3://${{ env.BUCKET }}
+          aws s3 sync ${{ env.DIST }} s3://${{ env.BUCKET }}
 
       - name: Copy files to the production website with the AWS CLI
         run: |
