@@ -25,9 +25,5 @@ export default yup.object({
         /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*#?&])[a-zA-Z\d@$!%*#?&]+$/,
         "Password must be at least 6 characters long and include a letter, a number, and a special character."
       )
-      .min(6, "Password must be at least 6 characters long"),
-    // confirmPassword: yup
-    //   .string()
-    //   .oneOf([yup.ref("password")], "Passwords must match.")
-    //   .required("Confirm password is required."),
+      .min(6, "Password must be at least 6 characters long"), 
   }).required();

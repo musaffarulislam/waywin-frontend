@@ -39,7 +39,7 @@ const AvailableHours = memo(({ onSelectedTime , availableDates, selectedDay }: h
           const matchingTimes = dateObj.time.map((time: string) => new Date(time));
 
           if (!isSameDay(date, selectedDay)) {
-            return null // Skip rendering for non-matching dates
+            return null  
           }
 
           return (

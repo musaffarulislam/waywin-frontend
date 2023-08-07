@@ -11,7 +11,7 @@ import { getAuthInfo } from '../../../app/slices/authSlice';
 import io from "socket.io-client";
 import Lottie from "react-lottie";
 import useToaster from '../../../hooks/useToast';
-const ENDPOINT: string = "https://waywin.server.musaffarulislam.com" || "https://www.waywin.server.musaffarulislam.com"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT: string = "https://waywin.server.musaffarulislam.com" || "https://www.waywin.server.musaffarulislam.com"; 
 var socket: any, selectedChatId: string | undefined;
 
 export const MainContent = () => {
@@ -88,8 +88,7 @@ export const MainContent = () => {
               (user: any) => user._id === userId
             );
     
-            if (selectedUser) {
-              // Store the user information in userInfo
+            if (selectedUser) { 
               setUserInfo(selectedUser);
             }
           }
@@ -181,8 +180,7 @@ export const MainContent = () => {
                 {istyping ? (
                 <li>
                   <Lottie
-                    options={defaultOptions}
-                    // height={50}
+                    options={defaultOptions} 
                     width={40}
                     style={{ marginBottom: 15, marginLeft: 0 }}
                   />

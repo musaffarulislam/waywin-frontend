@@ -3,8 +3,7 @@ import { getAllTrainersInfo } from "../../../app/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import Pagination from "./Pagination";
-import Puff from "react-loading-icons/dist/esm/components/puff";
-// import { TrainerCard } from './TrainerCard';
+import Puff from "react-loading-icons/dist/esm/components/puff"; 
 const TrainerCard = React.lazy(() => import('./TrainerCard').then(module => ({ default: module.TrainerCard })));
 
 const ITEMS_PER_PAGE = 8; 
@@ -22,7 +21,7 @@ const Hero = () => {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); // Reset to the first page when a new search term is entered
+    setCurrentPage(1); 
   };
   
   const handlePageChange = (pageNumber: number) => {
@@ -69,7 +68,7 @@ const Hero = () => {
                 onPageChange={handlePageChange}
               />
             </div>
-            {filteredTrainers.length === 0 && ( // Check if there are no trainers after filtering
+            {filteredTrainers.length === 0 && ( 
               <div className="text-center mt-4">No trainers available.</div>
             )}
           </Suspense>

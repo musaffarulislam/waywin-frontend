@@ -48,10 +48,7 @@ const AvailableHours = memo(({ onSelectedTime ,freeTimes, selectedDay }: hourPro
   useEffect(() => {
     onSelectedTime(selectedTimes); 
   }, [selectedTimes, onSelectedTime]);
-  
-  // useEffect(() => {
-  //   setSelectedTimes([]);
-  // }, [freeTimes]);
+   
 
   const handleTimeClick = (time: Date) => {
     setSelectedTimes((prevSelectedTimes) => {

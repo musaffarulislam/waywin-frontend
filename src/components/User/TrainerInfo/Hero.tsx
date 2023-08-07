@@ -142,8 +142,7 @@ const Hero = () => {
                   <span className="sr-only">Close modal</span>
                 </button>
               </div>
-              <FormBooking trainerInfo={trainerInfo} onOptionModal={onModal} />
-              {/* <InputText label="Tag" name="tag" type="text" register={register} required error={errors.tag?.message} /> */}
+              <FormBooking trainerInfo={trainerInfo} onOptionModal={onModal} /> 
             </div>
           </div>
         </div>

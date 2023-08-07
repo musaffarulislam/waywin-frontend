@@ -172,8 +172,7 @@ const Hero = () => {
               {istyping ? (
                 <li>
                   <Lottie
-                    options={defaultOptions}
-                    // height={50}
+                    options={defaultOptions} 
                     width={40}
                     style={{ marginBottom: 15, marginLeft: 0 }}
                   />

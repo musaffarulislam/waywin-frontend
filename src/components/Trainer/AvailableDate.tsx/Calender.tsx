@@ -96,8 +96,7 @@ export default function Calander() {
     let thisMonthTimesEachDay: Date[][] = []
     days.map((day: Date): void => {
       const StartOfToday = startOfDay(day)
-      const endOfToday = endOfDay(day)
-      // change your working hours here
+      const endOfToday = endOfDay(day) 
       const startHour = set(StartOfToday, { hours: 8 })
       const endHour = set(endOfToday, { hours: 19})
       let hoursInDay = eachMinuteOfInterval(
@@ -147,12 +146,10 @@ export default function Calander() {
                 didOpen: () => {
                   Swal.showLoading();
                 },
-                willClose: () => {
-                  // setIsModal(false)
+                willClose: () => { 
                 },
             });
-        }else{
-          // setIsModal(false)
+        }else{ 
         }
       })
     } catch (error: any) {
@@ -163,8 +160,7 @@ export default function Calander() {
   return (
     <div className="flex flex-col items-center justify-center gap-2 bg-stone-50">
 
-      <div className="flex flex-col gap-2 w-3/4 mt-12">
-        {/* calendar header */}
+      <div className="flex flex-col gap-2 w-3/4 mt-12"> 
         <div className="grid grid-cols-3">
           <button
             type="button"
@@ -187,9 +183,7 @@ export default function Calander() {
           >
             <ChevronRight size={20} aria-hidden="true" className="text-slate-800"/>
           </button>
-        </div>
-
-        {/* calendar body */}
+        </div> 
         <div>
           <div className="grid grid-cols-7 mt-4">
             {dayNames.map((day, i) =>
@@ -236,8 +230,7 @@ export default function Calander() {
                       isBefore(day, today) &&
                         "text-gray-400 bg-gray-100 cursor-not-allowed",
                       isEqual(today, day) && "text-blue-900 bg-blue-100",
-                      !isSelectable && "text-gray-400 bg-gray-100 cursor-not-allowed", 
-                      // isBefore(day, today) && "cursor-not-allowed",
+                      !isSelectable && "text-gray-400 bg-gray-100 cursor-not-allowed",  
                       isEqual(day, selectedDay) &&
                         isToday(day) &&
                         "bg-blue-200",

@@ -10,8 +10,7 @@
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: -10;
-  // background: #050a19;
+  z-index: -10; 
   overflow: hidden;
 
   &-container {
@@ -34,8 +33,7 @@
   animation-iteration-count: infinite;
 }
 
-.app span:nth-child(1) {
-  // color: #02142c;
+.app span:nth-child(1) { 
   top: 99%;
   left: 37%;
   animation-duration: 32s;
@@ -44,8 +42,7 @@
   box-shadow: -100vmin 0 12.74177723344392vmin currentColor;
 }
 
-.app span:nth-child(2) {
-  // color: #02142c;
+.app span:nth-child(2) { 
   top: 94%;
   left: 84%;
   animation-duration: 326s;
@@ -54,8 +51,7 @@
   box-shadow: 100vmin 0 12.924439377764246vmin currentColor;
 }
 
-.app span:nth-child(3) {
-  // color: #02142c;
+.app span:nth-child(3) { 
   top: 76%;
   left: 81%;
   animation-duration: 314s;
@@ -64,8 +60,7 @@
   box-shadow: 100vmin 0 12.778409598745554vmin currentColor;
 }
 
-.app span:nth-child(4) {
-  // color: #02142c;
+.app span:nth-child(4) { 
   top: 4%;
   left: 86%;
   animation-duration: 42s;
@@ -74,8 +69,7 @@
   box-shadow: -100vmin 0 12.92580005762563vmin currentColor;
 }
 
-.app span:nth-child(5) {
-  // color: #02142c;
+.app span:nth-child(5) { 
   top: 65%;
   left: 3%;
   animation-duration: 68s;
@@ -84,8 +78,7 @@
   box-shadow: 100vmin 0 12.930450298324187vmin currentColor;
 }
 
-.app span:nth-child(6) {
-  // color: #02142c;
+.app span:nth-child(6) { 
   top: 17%;
   left: 59%;
   animation-duration: 162s;
@@ -94,8 +87,7 @@
   box-shadow: 100vmin 0 13.409636603262694vmin currentColor;
 }
 
-.app span:nth-child(7) {
-  // color: #02142c;
+.app span:nth-child(7) { 
   top: 89%;
   left: 88%;
   animation-duration: 321s;
@@ -104,8 +96,7 @@
   box-shadow: 100vmin 0 12.51291258485875vmin currentColor;
 }
 
-.app span:nth-child(8) {
-  // color: #02142c;
+.app span:nth-child(8) { 
   top: 97%;
   left: 27%;
   animation-duration: 215s;

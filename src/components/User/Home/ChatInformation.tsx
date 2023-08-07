@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ChatInformation = () => {
-    return (
-        // <div className="px-4 text-2xl py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+    return ( 
             <div className="flex flex-col items-start max-w-screen-sm md:flex-row sm:mx-auto">
                 <a href="/" className="mb-4 mr-8">
                     <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-red-500">
@@ -45,8 +44,7 @@ const ChatInformation = () => {
                             </svg>
                     </Link>
                 </div>
-            </div>
-        // </div>
+            </div> 
     );
 };
 

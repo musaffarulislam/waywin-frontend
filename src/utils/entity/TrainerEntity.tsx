@@ -34,8 +34,7 @@ export interface ITrainerState {
 export interface ITrainerInfo {
     username: string;
     email: string;
-    phoneNumber: string;
-    // Add any other properties you expect in the `trainerInfo` object
+    phoneNumber: string; 
   }
 
 export interface ITrainerFee {

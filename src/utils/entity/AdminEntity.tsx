@@ -19,12 +19,11 @@ export interface IAdminState {
     tags: string[] | null | undefined;
     bookings: string[] | null | undefined;
     chartData: {
-      labels: string[];          // Array of labels for the x-axis
+      labels: string[];         
       datasets: {
-        label: string;           // Label for the dataset
-        data: number[];          // Numeric data points for the chart
-        backgroundColor: string; // Color of the bar (can be a string or an array of strings for multiple bars)
-        // Add more dataset-specific options here if needed
+        label: string;         
+        data: number[];         
+        backgroundColor: string; 
       }[];
     } | null | undefined;
 }

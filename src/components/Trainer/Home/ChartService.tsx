@@ -50,7 +50,7 @@ export function ChartService() {
     ...chartService,
     datasets: chartService.datasets.map((dataset: any) => ({
       ...dataset,
-      data: [...dataset.data], // Create a new reference for data array
+      data: [...dataset.data],  
     })),
   };
 

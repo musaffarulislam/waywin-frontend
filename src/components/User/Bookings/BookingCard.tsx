@@ -62,8 +62,7 @@ export const BookingCard = ({booking}: BookingCardProps) => {
             <div className='flex gap-3 my-3 text-xl'>
                 <div className='p-2 px-6 border rounded-lg bg-slate-800 dark:bg-indigo-200 text-slate-100 dark:text-gray-800'>{format(new Date(booking.date), "dd MMMM yyyy")}</div>
                 <div className='p-2 px-3 border rounded-lg bg-slate-800 dark:bg-indigo-200 text-slate-100 dark:text-gray-800'>{new Date(booking.time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</div>
-            </div>
-            {/* <span className="text-xl text-gray-500 dark:text-gray-400 px-4 text-center">Status </span> */}
+            </div> 
             <div className="flex mt-4 space-x-3 md:mt-6">
                 <div className="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 cursor-pointer" 
                     onClick={handleMessage}

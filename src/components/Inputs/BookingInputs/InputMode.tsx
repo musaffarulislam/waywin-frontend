@@ -64,33 +64,6 @@ const InputMode = ({ onOptionMode, modes, error }: optionProps) => {
             >
               <AiFillInfoCircle />
             </div>
-          {/* <div className="flex ms-6 sm:ms-0 md:ms-6">
-            <div className="rounded-xl p-2 px-4 bg-slate-200 dark:bg-red-600 me-3">
-              <div className="flex items-center">
-                <input
-                  id="service-checkbox-2"
-                  type="checkbox"
-                  value="offline"
-                  name="mode-radio"
-                  className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  checked={selectedCheckboxes.includes("offline")}
-                  onChange={handleChange}
-                />
-                <label
-                  htmlFor="mode-radio-1"
-                  className="w-full ml-2 font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Offline
-                </label>
-              </div>
-            </div>
-            <div className="flex items-center rounded-xl p-2 px-4 bg-slate-200 dark:bg-red-600"
-                 onMouseEnter={handleMouseEnter}
-                 onMouseLeave={handleMouseLeave}
-            >
-              <AiFillInfoCircle />
-            </div>
-          </div> */}
         </div>
       </div>
       {error && <p className="text-lg text-red-500 mt-2 flex items-center justify-center">{error}</p>}

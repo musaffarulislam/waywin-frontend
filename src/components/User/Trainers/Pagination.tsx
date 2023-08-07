@@ -26,8 +26,7 @@ interface PaginationProps {
       }
   
       return (
-        <ul className="pagination flex space-x-2 items-center">
-          {/* Previous page button */}
+        <ul className="pagination flex space-x-2 items-center"> 
           {currentPage > 1 && (
             <li
               className="page-item cursor-pointer"
@@ -50,8 +49,7 @@ interface PaginationProps {
               </span>
             </li>
           ))}
-  
-          {/* Next page button */}
+   
           {currentPage < totalPages && (
             <li
               className="page-item cursor-pointer"

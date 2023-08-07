@@ -32,7 +32,7 @@ const InputServices = ({ onOptionServices, services, error }: optionProps) => {
   return (
     <div>
       <div className="flex justify-center mb-4">
-        <div className="w-full md:w-10/12 lg:w-8/12 text-2xl flex flex-row sm:flex-col md:flex-row items-center justify-center "
+        <div className="w-full md:w-10/12 lg:w-8/12 text-2xl flex flex-row sm:flex-col md:flex-row gap-4 items-center justify-center "
           x-data="app"
         >
           {services &&

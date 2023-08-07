@@ -8,8 +8,7 @@ export default function AdminProtectRoute({ children }: AdminProtectRouteProps):
 
   const location = useLocation();
 
-  const accessToken: string | null = window.localStorage.getItem("accessTokenAdmin");
-  // const confirmObj: string | null = useSelector((state: any) => state.auth.confirmObj);
+  const accessToken: string | null = window.localStorage.getItem("accessTokenAdmin"); 
   
   if (!accessToken) {
     if (location.pathname !== "/admin/login") {

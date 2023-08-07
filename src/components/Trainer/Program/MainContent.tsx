@@ -3,8 +3,7 @@ import React, { Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getBookingInfo } from '../../../app/slices/trainerSlice'; 
 import Puff from 'react-loading-icons/dist/esm/components/puff';
-const BookingCard = React.lazy(() => import('./BookingCard').then(module => ({ default: module.BookingCard })));
-// const BookingCard = React.lazy(() => import('./BookingCard'));
+const BookingCard = React.lazy(() => import('./BookingCard').then(module => ({ default: module.BookingCard }))); 
 
 export const MainContent = () => {
 

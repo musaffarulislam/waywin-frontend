@@ -3,8 +3,7 @@ import React, { Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllChats } from '../../../app/slices/trainerSlice'; 
 import Puff from 'react-loading-icons/dist/esm/components/puff';
-const ChatCard = React.lazy(() => import('./ChatCard').then(module => ({ default: module.ChatCard })));
-// const ChatCard = React.lazy(() => import('./ChatCard'));
+const ChatCard = React.lazy(() => import('./ChatCard').then(module => ({ default: module.ChatCard }))); 
 
 export const MainContent = () => {
 

@@ -14,8 +14,7 @@ export default function AuthProtectRoute({ children }: AuthProtectRouteProps): a
   const accessToken: string | null = window.localStorage.getItem("accessToken") 
   const role: string | null = useSelector((state: any) => state.auth.role);
   
-  if (!accessToken) {
-    // dispatch(logout())
+  if (!accessToken) { 
     if(location.pathname === '/'){
       return <>{children}</>;
     }
@@ -36,7 +35,6 @@ export default function AuthProtectRoute({ children }: AuthProtectRouteProps): a
       if(!location.pathname.startsWith("/trainer")){
         return <Navigate to="/trainer" />
       }
-      // return <Navigate to="/trainer" />
     }
     return <>{children}</>;
   }else {

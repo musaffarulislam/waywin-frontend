@@ -186,9 +186,7 @@ const FormBooking = ({trainerInfo, onOptionModal}: formBookingProps) => {
       
       const paymentObject: any = new window.Razorpay(options);
       (paymentObject as any).open();
-
-      // navigate('/bookings')
-      // toaster.showToast('Bookimg Success', { type: 'success' })
+ 
     }catch(error: any){
       toaster.showToast(error.message, { type: 'error' })
     }

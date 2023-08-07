@@ -48,7 +48,7 @@ export function Chart() {
     ...chartData,
     datasets: chartData.datasets.map((dataset: any) => ({
       ...dataset,
-      data: [...dataset.data], // Create a new reference for data array
+      data: [...dataset.data],  
     })),
   };
 

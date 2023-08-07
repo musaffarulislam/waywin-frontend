@@ -50,7 +50,7 @@ const FormTrainerProfile = () => {
   
   const handleDescription = useCallback((text: string) => {
     textareaSchema.validate(text).then(()=>{
-      setErrorsDescription(""); // No validation error 
+      setErrorsDescription("");  
       setProfileDescription(text);
     })
     .catch((error) => {

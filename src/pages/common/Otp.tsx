@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";  
-// import whitelogo from "../../assets/whitelogo.png";
 import bluelogo from "../../assets/bluelogo.png";
 import redlogo from "../../assets/redlogo.png";
 import NavbarTheme from "../../components/Navbars/NavbarTheme";

@@ -119,10 +119,7 @@ export const userSlice = createSlice({
         },
         loading: (state, action) =>{
             state.isLoading = action.payload;
-        },
-        // signout: (state) => {
-        //     return { ...initialValue };
-        // }
+        }, 
     },
     extraReducers: (builder) => {
         builder

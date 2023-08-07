@@ -3,8 +3,7 @@ import { getBookingInfo } from "../../../app/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import Puff from "react-loading-icons/dist/esm/components/puff";
-import Pagination from "./Pagination";
-// import { TrainerCard } from './TrainerCard';
+import Pagination from "./Pagination"; 
 const BookingCard = React.lazy(() => import('./BookingCard').then(module => ({ default: module.BookingCard })));
 
 const ITEMS_PER_PAGE = 8; 
@@ -22,7 +21,7 @@ const Hero = () => {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); // Reset to the first page when a new search term is entered
+    setCurrentPage(1);  
   };
   
   const handlePageChange = (pageNumber: number) => {

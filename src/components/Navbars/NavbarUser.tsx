@@ -44,14 +44,7 @@ const NavbarUser = () => {
   
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
-  };
-  // const toggleDropdownOpen = () => {
-  //   setIsOpen(true);
-  // };
- 
-  // const toggleDropdownClose = () => {
-  //   setIsOpen(false);
-  // };
+  }; 
 
   const toggleSidebar = () => {
     setIsSidebar(!isSidebar);
@@ -100,7 +93,7 @@ const NavbarUser = () => {
               </div>
               <div>
                 <Link to="/trainers">
-                  <div className="flex items-center">Trainer </div>
+                  <div className="flex items-center">Trainers </div>
                 </Link>
               </div>
               {accessToken &&
@@ -119,8 +112,7 @@ const NavbarUser = () => {
                }
              </button>}
               
-              {accessToken ? 
-                // <div className="flex items-center cursor-pointer" onClick={handleSignout}>Signout <FiLogIn className="ms-1"/></div>
+              {accessToken ?  
 
                 <div className="relative">
                   <button
@@ -292,8 +284,7 @@ const NavbarUser = () => {
                   <span className="sr-only">Close modal</span>
                 </button>
               </div>
-              <FormUserDetails/>
-              {/* <InputText label="Tag" name="tag" type="text" register={register} required error={errors.tag?.message} /> */}
+              <FormUserDetails/> 
             </div>
           </div>
         </div>

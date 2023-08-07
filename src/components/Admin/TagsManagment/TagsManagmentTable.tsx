@@ -329,8 +329,7 @@ export const TagsManagmentTable = () => {
                             Edit
                         </button>
                     </div>
-                  </form>
-                  {/* <InputText label="Tag" name="tag" type="text" register={register} required error={errors.tag?.message} /> */}
+                  </form> 
               </div>
           </div>
       </div>
@@ -365,8 +364,7 @@ export const TagsManagmentTable = () => {
                             Add
                         </button>
                     </div>
-                  </form>
-                  {/* <InputText label="Tag" name="tag" type="text" register={register} required error={errors.tag?.message} /> */}
+                  </form> 
               </div>
           </div>
       </div>

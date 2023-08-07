@@ -12,16 +12,12 @@ const FormTrainerInfo = () => {
   const trainerInfo = useSelector((state: any)=> state.user.trainerInfo)
   const services: string[] = trainerInfo?.profile?.services || [];  
 
-  if (services.length === 0) {
-    // If there are no services, you can render a message or a placeholder.
-    return <p>No services available.</p>; // Or any other JSX element you prefer.
+  if (services.length === 0) { 
+    return <p>No services available.</p>;  
   }
 
   return ( 
-    <form className="rounded flex flex-col justify-center w-3/4 md:w-full">
-      {/* <div className="flex items-center justify-center pb-8 text-3xl font-bold">
-        Trainer Profile
-      </div> */}
+    <form className="rounded flex flex-col justify-center w-3/4 md:w-full"> 
       <div className="w-full text-2xl flex items-center justify-center">
         <div className="w-full md:w-10/12 lg:w-8/12 ">
           <InputTextareaUser label="Description" name="description" description={trainerInfo?.profile?.description}/>

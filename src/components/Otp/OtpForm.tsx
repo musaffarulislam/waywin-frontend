@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import OtpInput from "./OtpInput";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
-// import { useHistory } from 'react-router-dom';
+import { Navigate, useNavigate } from "react-router-dom"; 
 import { createUser, verifyOtp } from "../../app/slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import useToaster from '../../hooks/useToast';

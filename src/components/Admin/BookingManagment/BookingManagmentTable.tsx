@@ -29,14 +29,8 @@ export const BookingManagmentTable = () => {
 
 
 
-  useEffect(()=>{
-    // if(isFilter === "Inactive"){
-    //   dispatch(getInactiveUsersInfo());
-    // }else if(isFilter === "Active"){
-    //   dispatch(getActiveUsersInfo())
-    // }else{
+  useEffect(()=>{ 
       dispatch(getAllBookings());
-    // }
   },[dispatch, isFilter])
 
 
