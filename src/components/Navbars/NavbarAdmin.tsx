@@ -88,8 +88,8 @@ const dispatch = useDispatch();
                     </p>
                   </div>
                   <ul className="py-1">
-                    <li> <InputDropdown>Dashboard</InputDropdown> </li>
-                    <li> <InputDropdown>Settings</InputDropdown> </li>
+                    <li><Link to="/admin"> <InputDropdown>Dashboard</InputDropdown></Link></li>
+                    <li><Link to="/admin/user-managment"> <InputDropdown>USers</InputDropdown></Link></li>
                     <li> <InputDropdown>Earnings</InputDropdown> </li>
                     <li>
                       <div className="block px-4 py-2 text-2xl text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" >
@@ -117,7 +117,7 @@ const dispatch = useDispatch();
         <div className="h-full px-8 pb-4 text-2xl overflow-y-auto bg-white dark:bg-slate-800">
           <ul className="space-y-2 font-medium">
             <li>
-              <Link to="/trainer">
+              <Link to="/admin">
                 <div className="flex items-center p-2 my-6 text-gray-900 rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700" >
                   <RiDashboardFill className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"/>
                   <span className="ml-3">Dashboard</span>

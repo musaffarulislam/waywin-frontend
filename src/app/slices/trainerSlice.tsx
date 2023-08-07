@@ -103,10 +103,7 @@ export const addAvailableDate = createAsyncThunk<any, any, { dispatch?: Dispatch
     "trainer/addAvailableDate",
     async ({ selectedDay, selectedHours }) => {
       try {
-        const formattedSelectedDay = new Date(selectedDay.getTime() - selectedDay.getTimezoneOffset() * 60000).toISOString();
-        // const formattedSelectedHours = selectedHours.map((hour: Date) => {
-        //   return new Date(hour.getTime() - hour.getTimezoneOffset() * 60000).toISOString();
-        // });
+        const formattedSelectedDay = new Date(selectedDay.getTime() - selectedDay.getTimezoneOffset() * 60000).toISOString(); 
         const response = await axios.post("/trainer/add-available-date", {
           date: formattedSelectedDay,
           time: selectedHours,
@@ -172,6 +169,7 @@ export const trainerSlice = createSlice({
                 state.trainerInfo = action.payload.trainerInfo;
                 state.isProfile = action.payload.isProfile;
                 state.profileImage = action.payload.profileImage;
+                state.bannerImage = action.payload.bannerImage;
                 state.fee = action.payload.fee;
             })
             .addCase(getTrainerInfo.rejected, (state) => {

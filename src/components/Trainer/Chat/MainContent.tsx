@@ -10,7 +10,7 @@ import { getAuthInfo } from '../../../app/slices/authSlice';
 
 import io from "socket.io-client";
 import Lottie from "react-lottie";
-
+import useToaster from '../../../hooks/useToast';
 const ENDPOINT: string = "https://waywin.server.musaffarulislam.com" || "https://www.waywin.server.musaffarulislam.com"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket: any, selectedChatId: string | undefined;
 
@@ -23,16 +23,16 @@ export const MainContent = () => {
 
     const [isMessages, setIsMessages] = useState<any[]>([])
     const [newMessage, setNewMessage] = useState<string>("")
-    const [userInfo, setUserInfo] = useState<any>()
+    const [userInfo, setUserInfo] = useState<any>() 
 
     const [socketConnected, setSocketConnected] = useState(false);
     const [typing, setTyping] = useState(false);
-    const [istyping, setIsTyping] = useState(false);
-    
+    const [istyping, setIsTyping] = useState(false); 
+
+    const toaster = useToaster()
     const auth: IAuth = useSelector((state: any)=> state.auth.auth)
     const trainerInfo = useSelector((state: any)=> state.trainer.trainerInfo)
-  
-    const [accessToken, setAccessToken] = useState<string | null>(null);
+    const [accessToken, setAccessToken] = useState<string | null>(null); 
     
     const defaultOptions = {
       loop: true,
@@ -80,7 +80,7 @@ export const MainContent = () => {
             } catch (error) {
               console.error("Error:", error);
             }
-          };
+          }; 
           fetchData(); 
           const selectedChat = chats.find((chat: any) => chat._id === chatId);
           if (selectedChat) { 
@@ -100,11 +100,11 @@ export const MainContent = () => {
         socket.on("message received", (newMessageRecieved: any) => { 
           if ( !selectedChatId || selectedChatId !== newMessageRecieved.chat._id ) {
             console.log("Something went wrong")
-         }else{
-           setIsMessages([...isMessages, newMessageRecieved]);
+         }else{ 
+          setIsMessages((prevMessages) => [...prevMessages, newMessageRecieved])
          }
         });
-      });
+      },[]);
 
     const typingHandler = (value: string) =>{
       setNewMessage(value)
@@ -126,13 +126,17 @@ export const MainContent = () => {
     } 
   
     const handleSendMessage = async () => {
-      if (newMessage) {
-        socket.emit("stop typing", chatId);
-        const result = await dispatch(sendMessage({ newMessage, chatId }));
-        const payload = result.payload;  
-        socket.emit("new message", payload);
-        setIsMessages([...isMessages, payload]); 
-        setNewMessage("")
+      try{
+        if (newMessage) {
+          socket.emit("stop typing", chatId);
+          const result = await dispatch(sendMessage({ newMessage, chatId }));
+          const payload = result.payload;  
+          socket.emit("new message", payload);
+          setIsMessages([...isMessages, payload]); 
+          setNewMessage("")
+        }
+      }catch (error: any) { 
+        toaster.showToast(error.message, { type: 'error' })
       }
     };
 

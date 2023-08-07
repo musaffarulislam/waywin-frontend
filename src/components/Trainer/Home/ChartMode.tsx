@@ -4,12 +4,12 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';  
+import { Bar } from 'react-chartjs-2';  
 import { useSelector } from 'react-redux';
 
 
@@ -17,7 +17,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
@@ -54,5 +54,5 @@ export function ChartMode() {
     })),
   };
 
-  return <Line className='bg-white' options={options} data={chartModeCopy} />;
+  return <Bar className='bg-white' options={options} data={chartModeCopy} />;
 }

@@ -72,18 +72,20 @@ const Hero = () => {
           socket.emit("join chat", chatId); 
       };
       fetchData(); 
+      console.log("User 3")
       selectedChatId = chatId; 
   }, [dispatch, chatId])
 
   useEffect(() => {
     socket.on("message received", (newMessageRecieved: any) => { 
       if ( !selectedChatId || selectedChatId !== newMessageRecieved.chat._id ) {
-        toaster.showToast("Something went wrong", { type: 'error' })
+        console.log("Something went wrong")
       }else{
-        setIsMessages([...isMessages, newMessageRecieved]);
+        console.log("User 1")
+        setIsMessages((prevMessages) => [...prevMessages, newMessageRecieved])
       }
     });
-  });
+  },[])
   
   useEffect(()=>{ 
       dispatch(getTrainerInfo(trainerId)) 
@@ -120,7 +122,7 @@ const Hero = () => {
       if (newMessage) {
         socket.emit("stop typing", chatId);
         const result = await dispatch(sendMessage({ newMessage, chatId }));
-        const payload = result.payload;  
+        const payload = result.payload;   
         socket.emit("new message", payload);
         setIsMessages([...isMessages, payload]); 
         setNewMessage("")

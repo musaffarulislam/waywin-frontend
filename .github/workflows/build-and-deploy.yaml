@@ -8,10 +8,10 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     env:
-      BUCKET: www.waywin.musaffarulislam.com
-      DIST: build
-      REGION: ap-northeast-1
-      DIST_ID: E140MVNU1K985G
+      BUCKET: waywin.musaffarulislam.com
+      DIST: ./build
+      REGION: us-east-1
+      DIST_ID: E34RBIYNH1C74R
 
     steps:
       - name: Checkout
@@ -20,8 +20,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: AKIAXQJN4DRDZLBNMMUK
-          aws-secret-access-key: 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
+          aws-access-key-id: AKIAXQJN4DRDSICUZT7D
+          aws-secret-access-key: 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
           aws-region: ${{ env.REGION }}
 
       - name: Install Dependencies

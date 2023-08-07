@@ -9,8 +9,7 @@ export const BannerUploader = () => {
   const [image, setImage] = useState<string | null>(null);
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const bannerImage: string | null = useSelector((state: any)=> state.trainer.bannerImage)
-  // const profileImage: string | null = null
+  const bannerImage: string | null = useSelector((state: any)=> state.trainer.bannerImage) 
   const isLoadingBanner: boolean = useSelector((state: any)=> state.trainer.isLoadingBanner)
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => { 

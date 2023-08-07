@@ -94,8 +94,8 @@ export const NavbarTrainer = () => {
                     </p>
                   </div>
                   <ul className="py-1">
-                    <li> <InputDropdown>Dashboard</InputDropdown> </li>
-                    <li> <InputDropdown>Earnings</InputDropdown> </li>
+                    <li><Link to="/trainer"> <InputDropdown>Dashboard</InputDropdown></Link> </li>
+                    <li><Link to="/trainer/chats"> <InputDropdown>Chats</InputDropdown></Link> </li>
                     <li>
                       <div className="block px-4 py-2 text-2xl text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" >
                         <label className="relative inline-flex items-center mr-5 cursor-pointer">
