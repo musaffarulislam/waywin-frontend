@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUCKET: waywin.musaffarulislam.com
-      DIST: ./build
+      DIST: build
       REGION: us-east-1
       DIST_ID: E34RBIYNH1C74R
 
@@ -33,14 +33,11 @@ jobs:
         run: yarn run build
 
       - name: Copy files to the production website with the AWS CLI
-        run: | 
-          aws s3 sync --delete ${{ env.DIST }} s3://${{ env.BUCKET }}
-
-      - name: Create CloudFront Invalidation
         run: |
-          invalidationId=$(aws cloudfront create-invalidation \
-            --distribution-id ${{ env.DIST_ID }} \
-            --paths "/*" \
-            --query "Invalidation.Id")
-          echo "Invalidation ID: $invalidationId"
+          aws s3 sync --profile dev.musaffarulislam --region us-east-1 ${{ env.DIST }} s3://${{ env.BUCKET }}
 
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ env.DIST_ID }} \
+            --paths "/*"
