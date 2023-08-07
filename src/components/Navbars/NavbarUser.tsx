@@ -100,7 +100,7 @@ const NavbarUser = () => {
               </div>
               <div>
                 <Link to="/trainers">
-                  <div className="flex items-center">asdfg </div>
+                  <div className="flex items-center">Trainers </div>
                 </Link>
               </div>
               {accessToken &&
