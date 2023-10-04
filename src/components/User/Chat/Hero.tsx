@@ -11,7 +11,8 @@ import { IAuth } from "../../../utils/entity/AuthEntity";
 import io from "socket.io-client";
 import Lottie from "react-lottie";
 import useToaster from "../../../hooks/useToast";
-const ENDPOINT: string = "https://waywin.server.musaffarulislam.com" || "https://www.waywin.server.musaffarulislam.com"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT: string = "https://waywin.server.musaffar.com" || "https://www.waywin.server.musaffar.com";
+// const ENDPOINT: string = "http://localhost:4000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket: any, selectedChatId: string | undefined;
 
 const Hero = () => {

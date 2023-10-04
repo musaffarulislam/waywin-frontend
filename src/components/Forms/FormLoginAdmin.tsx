@@ -47,6 +47,7 @@ const FormLoginAdmin = () => {
   const onSubmit = async (data: ILogin) => {
     try{
       await dispatch(getAuthByEmail(data))
+      toaster.showToast("Admin Login Success", { type: 'success' });
     }catch(error: any){
       dispatch(loading(false))
       toaster.showToast(error.message, { type: 'error' }); 
@@ -55,7 +56,6 @@ const FormLoginAdmin = () => {
   
   useEffect(()=>{
     if(accessTokenAdmin && accessTokenAdmin !== null && accessTokenAdmin !== undefined){
-      toaster.showToast("Admin Login Success", { type: 'success' });
       navigate('/admin')
     }else if(accessTokenAdmin !== null || accessTokenAdmin !== undefined){
       window.localStorage.removeItem("accessTokenAdmin")

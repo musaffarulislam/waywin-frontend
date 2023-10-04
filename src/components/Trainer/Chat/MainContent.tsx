@@ -11,7 +11,8 @@ import { getAuthInfo } from '../../../app/slices/authSlice';
 import io from "socket.io-client";
 import Lottie from "react-lottie";
 import useToaster from '../../../hooks/useToast';
-const ENDPOINT: string = "https://waywin.server.musaffarulislam.com" || "https://www.waywin.server.musaffarulislam.com"; 
+// const ENDPOINT: string = "https://waywin.server.musaffarulislam.com" || "https://www.waywin.server.musaffarulislam.com"; 
+const ENDPOINT: string = "http://localhost:4000";
 var socket: any, selectedChatId: string | undefined;
 
 export const MainContent = () => {

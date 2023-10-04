@@ -13,7 +13,7 @@ const InputModeUser = ({ mode }: optionProps) => {
     setIsContent(!isContent);
   };
  
-  const handleMode = () => {};
+  // const handleMode = () => {};
 
   return (
     <div>
@@ -21,9 +21,10 @@ const InputModeUser = ({ mode }: optionProps) => {
         <div className="w-full md:w-10/12 lg:w-8/12 text-2xl flex flex-row sm:flex-col md:flex-row items-center justify-center "
           x-data="app"
         >
+          {mode && mode.includes("online") && (
           <div className="rounded-xl p-2 px-4 bg-slate-200 dark:bg-red-600 mb-0 sm:mb-6 md:mb-0">
             <div className="flex items-center ">
-              <input
+              {/* <input
                 id="service-checkbox-1"
                 type="checkbox"
                 value="online"
@@ -31,7 +32,7 @@ const InputModeUser = ({ mode }: optionProps) => {
                 className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 checked={mode.includes("online")}
                 onChange={handleMode}
-              />
+              /> */}
               <label
                 htmlFor="bordered-checkbox-1"
                 className="w-full ml-2 font-medium text-gray-900 dark:text-gray-300"
@@ -40,10 +41,12 @@ const InputModeUser = ({ mode }: optionProps) => {
               </label>
             </div>
           </div>
+          )}
           <div className="flex ms-6 sm:ms-0 md:ms-6">
+            {mode && mode.includes("offline") && (
             <div className="rounded-xl p-2 px-4 bg-slate-200 dark:bg-red-600 me-3">
               <div className="flex items-center">
-                <input
+                {/* <input
                   id="service-checkbox-2"
                   type="checkbox"
                   value="offline"
@@ -51,7 +54,7 @@ const InputModeUser = ({ mode }: optionProps) => {
                   className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   checked={mode.includes("offline")}
                   onChange={handleMode}
-                />
+                /> */}
                 <label
                   htmlFor="bordered-checkbox-1"
                   className="w-full ml-2 font-medium text-gray-900 dark:text-gray-300"
@@ -60,6 +63,7 @@ const InputModeUser = ({ mode }: optionProps) => {
                 </label>
               </div>
             </div>
+            )}
             <div className="flex items-center rounded-xl p-2 px-4 bg-slate-200 dark:bg-red-600 cursor-pointer"
                  onClick={handleContent}
             >
