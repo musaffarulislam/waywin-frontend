@@ -8,7 +8,7 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     env:
-      BUCKET: waywin.musaffar.com
+      BUCKET: www.waywin.musaffar.com
       DIST: build
       REGION: us-east-1
       DIST_ID: E1Y2J8PLJK58DP
