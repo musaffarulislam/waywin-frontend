@@ -1,0 +1,277 @@
+[33mcommit a5f621d6097e78f00ab7c00f8aa1a31bb0ed7f62[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Thu Oct 5 03:11:35 2023 +0530
+
+    Change url's
+    
+    * front end to chang ebackend url. I can buy new domain name taht domain connect to front end
+
+[33mcommit 2ed7b0e5d846d745327407c08a7e3c8b191fa371[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Mon Aug 7 12:21:47 2023 +0530
+
+    Remove all comments
+
+[33mcommit 63c4474551fbdb485780fdb11d7113b4a27a98eb[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Mon Aug 7 11:51:34 2023 +0530
+
+    CI/CD checking 2
+
+[33mcommit dac103ea4328ad2ca0467c1792912da1ceea0f1b[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Mon Aug 7 10:55:05 2023 +0530
+
+    CI/CD checking
+
+[33mcommit 8d751cd7a32132a1e53f8878cb24a5ee81453527[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Mon Aug 7 10:49:28 2023 +0530
+
+    change build file 2
+
+[33mcommit 6c490ea5b9c586baf73816ef0b6315471d050362[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Mon Aug 7 10:43:42 2023 +0530
+
+    change build file
+
+[33mcommit 9094a4058991d894c050fca54f1365747cdaff4b[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Mon Aug 7 10:29:57 2023 +0530
+
+    change package.json file and build file
+
+[33mcommit 86075109f277cdb427cce1b00cbf578bf44d1239[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 15:57:44 2023 +0530
+
+    git CI/CD pipeline 16
+
+[33mcommit 50447dd94afc4c540ab041e4ed0e064df0d6a03b[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 15:39:51 2023 +0530
+
+    git CI/CD pipeline 15
+
+[33mcommit bfcba563b4360cd7e560b5669703a830fa00965c[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 15:30:20 2023 +0530
+
+    git CI/CD pipeline 14
+
+[33mcommit a8cffb0231254d2dcea0dab03db86c64fe7c40e2[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 14:31:11 2023 +0530
+
+    git CI/CD pipeline 13
+
+[33mcommit 747a081ff4b2e917313f8ab4269964b8407fb11d[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 14:25:08 2023 +0530
+
+    git CI/CD pipeline 12
+
+[33mcommit e1e7581fc2f956aa91e48ddcd06e7061ac854578[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 14:14:51 2023 +0530
+
+    git CI/CD pipeline 11
+
+[33mcommit 97f3f23437230d5a07a530e8a3fb4dd2123b5c4e[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 14:08:15 2023 +0530
+
+    git CI/CD pipeline 10
+
+[33mcommit 1ea3a899e83799c96d6dbd5b9353151e4530a894[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 14:05:09 2023 +0530
+
+    git CI/CD pipeline 9
+
+[33mcommit d9d4ddbc9930d796f28f0ff89b7d8f307cf6a361[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 14:02:27 2023 +0530
+
+    git CI/CD pipeline 8
+
+[33mcommit 121cf7d848f900c8b14bcb86b3160b1854e71eb8[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 14:00:13 2023 +0530
+
+    git CI/CD pipeline 7
+
+[33mcommit 9f32940096fb7e5c10304fbe92fd22b1180644f6[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 13:59:17 2023 +0530
+
+    git CI/CD pipeline 6
+
+[33mcommit de4d648c4918a5551e06987a065193a3d977a79d[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 13:57:24 2023 +0530
+
+    git CI/CD pipeline 5
+
+[33mcommit 98b8cbe3c154a858f8d27ab36d8e8f33388e95f6[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 13:54:53 2023 +0530
+
+    git CI/CD pipeline 4
+
+[33mcommit ff75ba9330c58a82729863685daa8b86903b9801[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 13:47:23 2023 +0530
+
+    git CI/CD pipeline 3
+
+[33mcommit a3b5b80436b66a05efa1fb43efaef9889bf359d3[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 13:34:57 2023 +0530
+
+    git CI/CD pipeline 2
+
+[33mcommit 78ded26a82eef2d222b8e9370c6f3328f1fa58a1[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Aug 5 13:31:33 2023 +0530
+
+    git CI/CD pipeline
+
+[33mcommit 8b3e60520ce5a60f315a72a4c11afc6f3c29acbe[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Thu Aug 3 14:53:01 2023 +0530
+
+    remove all warnings
+
+[33mcommit 1e62b0ddef696a1428b5d339433a1d469dc1348f[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Thu Jul 20 15:43:04 2023 +0530
+
+    project almost done
+
+[33mcommit 4ddfe93580698d70ca8593b2f82c3b4f0e2f1a15[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Wed Jul 19 16:22:43 2023 +0530
+
+    userside chat using socket.io
+
+[33mcommit 02db008e53fbb8de883748744be6bdba7d708db0[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Wed Jul 19 07:59:18 2023 +0530
+
+    userside chat ui is complete
+
+[33mcommit f321856e3b8f6c0f1ff331b1148f4af946a27c87[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Thu Jul 13 14:50:49 2023 +0530
+
+    Booking information in user side trainer side
+
+[33mcommit 3eabc77da367f490698e81add20b1f802e50b184[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Thu Jul 13 05:51:25 2023 +0530
+
+    Booking form and razor pay
+
+[33mcommit 1cf37d4a5f8fd9ea9d0f930c1d028e77cc8ed7f8[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Tue Jul 11 15:23:02 2023 +0530
+
+    booking date adding
+
+[33mcommit 241cbb94fba26a42d7ce8e128541e2ba1dd1547a[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Mon Jul 10 19:15:38 2023 +0530
+
+    trainer booking and tranier fee
+
+[33mcommit baa7c311a507ce45675eb6280636b6c7e8ec2af8[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Mon Jul 10 02:04:15 2023 +0530
+
+    trainer date adding
+
+[33mcommit bc23826ab61cb313e7741e518af74f5416deca48[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Fri Jul 7 05:01:01 2023 +0530
+
+    trainer information in user side
+
+[33mcommit 8e28802933d8b71ea85b8a88d29c470c63b0fc24[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Fri Jul 7 02:06:18 2023 +0530
+
+    admn trainer management and user trainer card
+
+[33mcommit 89c76934fa44ddbbb5e20352ea42bfa8e3ee7f78[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Tue Jul 4 18:13:55 2023 +0530
+
+    Adminside status change and filtering
+
+[33mcommit 32f50dec63c289766e829d18ff0536bd428b10ec[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Mon Jul 3 23:12:15 2023 +0530
+
+    Profile create and update
+
+[33mcommit 85c738a00307c5b57f5a8f19963070f2a7d1f1a5[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Mon Jul 3 17:24:13 2023 +0530
+
+    Banner upload image
+
+[33mcommit 09d2b1e4d02d6a212dc83f0f8e9f7f3233103330[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Tue Jun 27 17:34:46 2023 +0530
+
+    access token and refresh token success
+
+[33mcommit 09b50557ea0905ba35b37f04d613fc20dc7e5b15[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sun Jun 25 04:00:38 2023 +0530
+
+    Profile adding complete
+
+[33mcommit b0f85a90e629149f0d7b256a65d8ca1ac392c670[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Jun 24 16:32:44 2023 +0530
+
+    Trainer profile add still working
+
+[33mcommit 98ab60d06d82b067f4c78a8470f510215500562f[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Jun 24 03:46:43 2023 +0530
+
+    trainer profile still working
+
+[33mcommit d0e736977cf7fa8e62afb01a4c23db18d31e3362[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Thu Jun 22 16:26:07 2023 +0530
+
+    Profile page image upload in cloudnary
+
+[33mcommit e4edae2e5fdd7d81bea0ac8d9243ef83fe731d18[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Thu Jun 22 04:09:16 2023 +0530
+
+    triner profile page
+
+[33mcommit f7a94d985ec6debddd3d084b7fd8f2c3c3c0a965[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Wed Jun 21 09:53:56 2023 +0530
+
+    axios interceptors
+
+[33mcommit ac88f0f8f4d86e7505c834b8bf351d61921aba51[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Tue Jun 20 03:17:42 2023 +0530
+
+    axios interceptors
+
+[33mcommit ab990709b3ce01ae1cce0afe5baa61b37422f738[m
+Author: musaffarulislam <musaffarulislam@gmail.com>
+Date:   Sat Jun 17 15:49:13 2023 +0530
+
+    Waywin frondend first commit
