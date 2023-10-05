@@ -12,8 +12,7 @@ const InputModeUser = ({ mode }: optionProps) => {
   const handleContent = () => { 
     setIsContent(!isContent);
   };
- 
-  // const handleMode = () => {};
+
 
   return (
     <div>
