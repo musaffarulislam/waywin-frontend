@@ -23,9 +23,11 @@ export const MainContent = () => {
       </div>
     } >
       <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-14 justify-center'>
-        {chats && 
-          chats.map((chat: any, index: number)=><ChatCard key={index} chat={chat} />
-        )}
+        {chats ? 
+          chats.map((chat: any, index: number)=><ChatCard key={index} chat={chat} />)
+          :
+          <div className="text-center mt-4">No Chats Available</div>
+        }
       </div>
       </Suspense></div>
     </div>

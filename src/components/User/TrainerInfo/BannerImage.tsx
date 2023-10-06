@@ -11,7 +11,7 @@ export const BannerImage = () => {
         <div className="absolute inset-0 flex flex-col items-center justify-start w-full h-full  rounded-2xl bg-gray-50 dark:hover:bg-bray-800 dark:bg-slate-800 hover:bg-gray-100  dark:hover:bg-gray-600">
           { trainerInfo && trainerInfo?.bannerImage ?
               <>
-                <img src={trainerInfo?.bannerImage.url} alt="Preview" className="w-full h-full object-cover  rounded-2xl" />      
+                <img src={trainerInfo?.bannerImage?.url} alt="Preview" className="w-full h-full object-cover  rounded-2xl" />      
               </>
             :
                 <div className="w-32 sm:w-40 md:w-48 lg:w-56 object-cover">
