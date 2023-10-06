@@ -59,7 +59,7 @@ export const TrainerCard = ({ trainer }: TrainerCardProps) => {
     return (
         <div className="relative w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-slate-900 dark:border-gray-700 my-14">
             <div className='flex flex-col items-center pb-10'>
-                {trainer.isProfile ?
+                {trainer?.profileImage?.url ?
                     <img className="absolute -top-24 w-52 h-52 mb-3 rounded-full shadow-lg object-cover" src={trainer?.profileImage?.url} alt="Trainer" />
                     : (
                         <div className="absolute -top-24 w-52 h-52 mb-3 rounded-full shadow-lg object-cover">
