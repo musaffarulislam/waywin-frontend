@@ -55,7 +55,6 @@ const Hero = () => {
               <Puff />
             </div>
           }>
-            </Suspense>
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-14 justify-center mt-16">
               {paginatedTrainers.map((trainer: any, index: number) => (
                 <TrainerCard key={index} trainer={trainer} />
@@ -72,6 +71,7 @@ const Hero = () => {
             {filteredTrainers.length === 0 && ( 
               <div className="text-center mt-4">No trainers available.</div>
             )}
+          </Suspense>
         </div>
       </div>
     </div>
