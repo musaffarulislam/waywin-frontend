@@ -46,7 +46,7 @@ const Hero = () => {
             value={searchTerm}
             onChange={handleSearch}
             placeholder="Search trainers..."
-            className="w-full sm:w-3/4 md:w-2/4 lg:w-1/4 px-4 py-2 border border-blue-900 dark:border-white rounded-full focus:outline-none focus:ring-2 bg-transparent focus:ring-blue-500"
+            className="w-full sm:w-4/5 md:w-3/5 lg:w-2/5 px-4 py-2 text-2xl border border-blue-900 dark:border-white rounded-full focus:outline-none focus:ring-2 bg-transparent focus:ring-blue-500"
           />
         </div>
         <div>
@@ -55,7 +55,7 @@ const Hero = () => {
               <Puff />
             </div>
           }>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-14 justify-center mt-16">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-14 justify-center mt-20">
               {paginatedTrainers.map((trainer: any, index: number) => (
                 <TrainerCard key={index} trainer={trainer} />
               ))}
