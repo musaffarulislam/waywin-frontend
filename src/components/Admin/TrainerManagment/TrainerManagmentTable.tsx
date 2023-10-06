@@ -291,8 +291,7 @@ export const TrainerManagmentTable = () => {
                 .slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
                 .map((trainer, index)=>{
                     const trainerObject = typeof trainer === 'string' ? JSON.parse(trainer) : trainer;
-                    const isStatusActive = Boolean(trainerObject?.authId?.isActive);
-                    const isProfile = Boolean(trainerObject?.isProfile);
+                    const isStatusActive = Boolean(trainerObject?.authId?.isActive); 
                     return(
                     <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row" className="px-6 py-6 w-1/6 font-medium text-gray-900 whitespace-nowrap dark:text-white" >
@@ -301,7 +300,7 @@ export const TrainerManagmentTable = () => {
                         <td className="px-6 py-6 w-1/6">{trainerObject?.authId?.username}</td>
                         <td className="px-6 py-6 w-1/6">{trainerObject?.authId?.phoneNumber}</td>
                         <td className="px-6 py-6 w-1/6">
-                          {isProfile ? 
+                          {trainerObject?.profileImage?.url ? 
                             (
                               <div className="w-full">
                                 <div className="w-20 h-20 flex items-center justify-center">
