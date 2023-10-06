@@ -46,7 +46,7 @@ const Hero = () => {
             value={searchTerm}
             onChange={handleSearch}
             placeholder="Search trainers..."
-            className="w-full sm:w-4/5 md:w-3/5 lg:w-2/5 px-4 py-2 text-2xl border border-blue-900 dark:border-white rounded-3xl focus:outline-none focus:ring-2 bg-transparent focus:ring-blue-500"
+            className="w-full sm:w-4/5 md:w-3/5 lg:w-2/5 px-4 py-2 text-xl border border-blue-900 dark:border-white rounded-3xl focus:outline-none focus:ring-2 bg-transparent focus:ring-blue-500"
           />
         </div>
         <div>
