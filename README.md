@@ -1,46 +1,59 @@
-# Getting Started with Create React App
+# Waywin - Online Trainer Time Slot Booking Platform
+Waywin is an online platform designed for trainers, including psychologists, career guidance counselors, motivational speakers, and more. Trainers can create profiles, upload their available time slots, and users can verify and book appointments with trainers who meet their requirements. The platform is divided into three main modules: user, trainer, and admin.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## 🚀 Features
+- **Responsive Design:** The frontend is built using ***React*** and ***Tailwind CSS***, ensuring a responsive and user-friendly experience.
 
-In the project directory, you can run:
+- **Dark and Light Modes:** Users can switch between dark and light modes based on their preferences.
 
-### `yarn start`
+- **Real-time Chat:** The platform offers real-time chat functionality using ***Socket.io*** for communication between users and trainers.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Type Safety:** ***TypeScript*** is used in both the front-end  to ensure type security throughout the platform
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `yarn build`
+### To run the frontend locally, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Step 1: Clone this Git repository.
+```bash
+  git clone https://github.com/musaffarulislam/waywin-frontend.git
+```
+#### Step 2: Navigate to the Project Directory
+```bash
+  cd waywin-frontend
+```
+#### Step 3: Install Global Dependencies
+```bash
+    yarn global add nodemon
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Step 4: Install Local Dependencies
+```bash
+    yarn install
+```
+#### Step 5: Run frontend
+```bash
+   yarn dev
+```
+    ## CI/CD Pipeline
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Continuous Integration (CI)
 
-### `yarn eject`
+The frontend has an automated CI/CD pipeline set up for continuous integration and continuous deployment. Here's how it works:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **GitHub Actions:** Our CI pipeline is managed using GitHub Actions, a powerful automation platform. Every time changes are pushed to the repository, GitHub Actions automatically triggers a series of predefined workflows.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Testing:** During the CI process, automated tests are executed to ensure that the code meets quality and functionality standards. This includes unit tests, integration tests, and end-to-end tests.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Code Analysis:** We use static code analysis tools to check for code style and potential issues, ensuring high code quality.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Continuous Deployment (CD)
 
-## Learn More
+After successful CI, the CD part of the pipeline takes over:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **AWS IAM Service:** AWS IAM (Identity and Access Management) is utilized to securely manage access to AWS resources during the deployment process. It ensures that the deployment process is both secure and efficient.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Deployment to AWS S3 and CloudFront:** The frontend is hosted on AWS S3, a scalable object storage service, and content is distributed using AWS CloudFront for low-latency access. Deployment is automated, meaning that any approved changes are automatically deployed to our production environment.
