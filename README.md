@@ -1,5 +1,9 @@
+
 # Waywin - Online Trainer Time Slot Booking Platform
 Waywin is an online platform designed for trainers, including psychologists, career guidance counselors, motivational speakers, and more. Trainers can create profiles, upload their available time slots, and users can verify and book appointments with trainers who meet their requirements. The platform is divided into three main modules: user, trainer, and admin.
+
+
+Visit the project at www.waywin.musaffar.com to experience the platform.
 
 
 ## 🚀 Features
