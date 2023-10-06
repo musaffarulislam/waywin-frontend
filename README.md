@@ -42,7 +42,8 @@ Visit the project at www.waywin.musaffar.com to experience the platform.
 ```bash
    yarn dev
 ```
-    ## CI/CD Pipeline
+    
+# CI/CD Pipeline
 
 ### Continuous Integration (CI)
 
