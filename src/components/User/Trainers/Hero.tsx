@@ -40,13 +40,13 @@ const Hero = () => {
   return (
     <div className="px-6 pt-20 m-16 sm:px-14 md:px-40 mb-60 mx-auto max-w-screen-xl">
       <div>
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center mb-10">
           <input
             type="text"
             value={searchTerm}
             onChange={handleSearch}
             placeholder="Search trainers..."
-            className="w-full sm:w-4/5 md:w-3/5 lg:w-2/5 px-4 py-2 text-2xl border border-blue-900 dark:border-white rounded-full focus:outline-none focus:ring-2 bg-transparent focus:ring-blue-500"
+            className="w-full sm:w-4/5 md:w-3/5 lg:w-2/5 px-4 py-2 text-2xl border border-blue-900 dark:border-white rounded-3xl focus:outline-none focus:ring-2 bg-transparent focus:ring-blue-500"
           />
         </div>
         <div>
