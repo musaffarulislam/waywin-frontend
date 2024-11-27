@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "https://waywin.server.musaffar.com/api";
-const BASE_URL_ADMIN = "https://waywin.server.musaffar.com/api/admin";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "https://waywin-backend.onrender.com/api";
+const BASE_URL_ADMIN = process.env.REACT_APP_BASE_URL_ADMIN || "https://waywin-backend.onrender.com/api/admin";
+
 // const BASE_URL = "http://localhost:4000/api";
 // const BASE_URL_ADMIN = "http://localhost:4000/api/admin";
 
